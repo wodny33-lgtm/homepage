@@ -486,6 +486,18 @@
     }
     .project-card.revealed { opacity: 1; transform: translateY(0); }
     .project-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+    .project-card::before {
+      content: ''; position: absolute; top: 0; left: -75%; width: 50%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transform: skewX(-25deg); transition: none; pointer-events: none; z-index: 1;
+    }
+    .project-card:hover::before {
+      animation: cardShine 0.6s ease forwards;
+    }
+    @keyframes cardShine {
+      to { left: 125%; }
+    }
+    .project-card { overflow: hidden; }
     .project-card--wide { grid-column: span 2; }
     .project-card__number {
       font-family: var(--font-display); font-weight: 300;
@@ -897,19 +909,19 @@
           </div>
           <div class="about__highlights">
             <div class="highlight-card reveal">
-              <div class="highlight-card__value">100%</div>
+              <div class="highlight-card__value" data-counter="100" data-suffix="%">0%</div>
               <div class="highlight-card__label">Datenintegrität bei Migration</div>
             </div>
             <div class="highlight-card reveal">
-              <div class="highlight-card__value">8h → 30min</div>
+              <div class="highlight-card__value" data-counter-special="time">8h &rarr; 30min</div>
               <div class="highlight-card__label">Reporting-Aufwand reduziert</div>
             </div>
             <div class="highlight-card reveal">
-              <div class="highlight-card__value">10.000+</div>
+              <div class="highlight-card__value" data-counter="10000" data-suffix="+" data-format="dot">0+</div>
               <div class="highlight-card__label">Kundendatensätze migriert</div>
             </div>
             <div class="highlight-card reveal">
-              <div class="highlight-card__value">12</div>
+              <div class="highlight-card__value" data-counter="7" data-suffix="">0</div>
               <div class="highlight-card__label">Tochtergesellschaften betreut</div>
             </div>
           </div>
@@ -1531,6 +1543,63 @@
       }
       revealObserver.observe(el);
     });
+
+    /* ========== KPI COUNTER ANIMATION ========== */
+    function animateCounter(el) {
+      var target = parseInt(el.getAttribute('data-counter'));
+      var suffix = el.getAttribute('data-suffix') || '';
+      var useDot = el.getAttribute('data-format') === 'dot';
+      var duration = 1800;
+      var start = performance.now();
+      function update(now) {
+        var progress = Math.min((now - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        var current = Math.round(eased * target);
+        if (useDot) {
+          el.textContent = current.toLocaleString('de-DE') + suffix;
+        } else {
+          el.textContent = current + suffix;
+        }
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    }
+
+    function animateTimeCounter(el) {
+      var duration = 1800;
+      var start = performance.now();
+      var hourStart = 8, hourEnd = 8;
+      var minStart = 0, minEnd = 30;
+      function update(now) {
+        var progress = Math.min((now - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        var currentMin = Math.round(eased * minEnd);
+        if (progress < 1) {
+          el.innerHTML = hourStart + 'h &rarr; ' + currentMin + 'min';
+          requestAnimationFrame(update);
+        } else {
+          el.innerHTML = '8h &rarr; 30min';
+        }
+      }
+      requestAnimationFrame(update);
+    }
+
+    var counterObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('[data-counter]').forEach(function(el) {
+            animateCounter(el);
+          });
+          entry.target.querySelectorAll('[data-counter-special="time"]').forEach(function(el) {
+            animateTimeCounter(el);
+          });
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    var highlights = document.querySelector('.about__highlights');
+    if (highlights) counterObserver.observe(highlights);
 
     /* ========== SKILL LEVEL BARS ANIMATION ========== */
     const skillObserver = new IntersectionObserver(function(entries) {
