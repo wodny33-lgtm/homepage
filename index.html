@@ -1266,7 +1266,7 @@
             </div>
           </div>
           <div class="contact__form-wrap reveal">
-            <form id="contactForm" novalidate>
+            <form id="contactForm" action="https://formsubmit.co/ajax/wodny33@googlemail.com" method="POST" novalidate>
               <div class="form-row form-row--half">
                 <div class="form-group">
                   <label for="name">Name *</label>
@@ -1580,8 +1580,9 @@
     /* ========== CONTACT FORM ========== */
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
+      var form = this;
       var valid = true;
-      var required = this.querySelectorAll('[required]');
+      var required = form.querySelectorAll('[required]');
       required.forEach(function(field) {
         if (!field.value || (field.type === 'checkbox' && !field.checked)) {
           field.style.borderColor = '#c0392b';
@@ -1590,14 +1591,37 @@
           field.style.borderColor = '';
         }
       });
-      var emailField = this.querySelector('#email');
+      var emailField = form.querySelector('#email');
       if (emailField.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value)) {
         emailField.style.borderColor = '#c0392b';
         valid = false;
       }
       if (valid) {
-        this.style.display = 'none';
-        document.getElementById('formSuccess').classList.add('visible');
+        var btn = form.querySelector('button[type="submit"]');
+        btn.disabled = true;
+        btn.textContent = 'Wird gesendet...';
+        var formData = new FormData(form);
+        fetch(form.action, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: formData
+        })
+        .then(function(response) { return response.json(); })
+        .then(function(data) {
+          if (data.success) {
+            form.style.display = 'none';
+            document.getElementById('formSuccess').classList.add('visible');
+          } else {
+            btn.disabled = false;
+            btn.textContent = 'Nachricht senden';
+            alert('Fehler beim Senden. Bitte versuchen Sie es erneut oder schreiben Sie direkt an Wodny33@googlemail.com');
+          }
+        })
+        .catch(function() {
+          btn.disabled = false;
+          btn.textContent = 'Nachricht senden';
+          alert('Fehler beim Senden. Bitte versuchen Sie es erneut oder schreiben Sie direkt an Wodny33@googlemail.com');
+        });
       }
     });
 
