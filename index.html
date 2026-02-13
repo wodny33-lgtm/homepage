@@ -212,6 +212,14 @@
       border-radius: 100px;
       opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
     }
+    .typing-cursor {
+      display: inline-block; color: var(--accent); font-weight: 300;
+      animation: blink 0.7s step-end infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
     .hero__name {
       font-family: var(--font-display); font-weight: 700;
       font-size: clamp(44px, 8vw, 88px); line-height: 1.05;
@@ -873,7 +881,7 @@
   <section class="hero" id="hero">
     <canvas class="hero__canvas" id="heroCanvas"></canvas>
     <div class="hero__content">
-      <span class="hero__label">Financial Analyst & Senior Controller</span>
+      <span class="hero__label"><span id="heroTyping"></span><span class="typing-cursor">|</span></span>
       <h1 class="hero__name">Thomas Wodny</h1>
       <p class="hero__tagline">Datengetriebenes Controlling für die Energiewirtschaft &ndash; von der Analyse über die Automatisierung bis zur strategischen Entscheidungsfindung</p>
       <div class="hero__cta">
@@ -1712,6 +1720,45 @@
         resize();
         init();
       });
+    })();
+
+    /* ========== HERO TYPING ANIMATION ========== */
+    (function() {
+      var el = document.getElementById('heroTyping');
+      var cursor = document.querySelector('.typing-cursor');
+      if (!el) return;
+      var texts = ['Financial Analyst & Senior Controller', 'Data-Driven Controlling', 'SQL \u2022 Python \u2022 Power Query \u2022 KI'];
+      var textIdx = 0, charIdx = 0, deleting = false;
+      var typeSpeed = 65, deleteSpeed = 35, pauseEnd = 2200, pauseStart = 600;
+
+      function type() {
+        var current = texts[textIdx];
+        if (!deleting) {
+          el.textContent = current.substring(0, charIdx + 1);
+          charIdx++;
+          if (charIdx === current.length) {
+            if (textIdx === 0) {
+              setTimeout(function() { deleting = true; type(); }, pauseEnd);
+            } else {
+              setTimeout(function() { deleting = true; type(); }, pauseEnd);
+            }
+            return;
+          }
+          setTimeout(type, typeSpeed);
+        } else {
+          el.textContent = current.substring(0, charIdx - 1);
+          charIdx--;
+          if (charIdx === 0) {
+            deleting = false;
+            textIdx = (textIdx + 1) % texts.length;
+            setTimeout(type, pauseStart);
+            return;
+          }
+          setTimeout(type, deleteSpeed);
+        }
+      }
+
+      setTimeout(type, 800);
     })();
 
     /* ========== CONTACT FORM ========== */
