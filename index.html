@@ -953,7 +953,7 @@
             <div class="timeline__role">Beteiligungs-Controller</div>
             <div class="timeline__company">AWO-Landesverband Hamburg e.V.</div>
             <ul class="timeline__desc">
-              <li>Management-Reporting für Unternehmensgruppe mit 12 Tochtergesellschaften</li>
+              <li>Management-Reporting f&uuml;r Landesverband und 7 Tochtergesellschaften</li>
               <li>Automatisierung komplexer Buchungsprozesse mit Python und VBA &ndash; 100% Automatisierung budgetkontrollierter Journalbuchungen</li>
               <li>Konzeption und Pflege SAP-basierter KPI-Dashboards</li>
             </ul>
@@ -1568,38 +1568,53 @@
     function animateTimeCounter(el) {
       var duration = 1800;
       var start = performance.now();
-      var hourStart = 8, hourEnd = 8;
-      var minStart = 0, minEnd = 30;
       function update(now) {
         var progress = Math.min((now - start) / duration, 1);
         var eased = 1 - Math.pow(1 - progress, 3);
         var currentMin = Math.round(eased * minEnd);
-        if (progress < 1) {
-          el.innerHTML = hourStart + 'h &rarr; ' + currentMin + 'min';
-          requestAnimationFrame(update);
+        if (progress < 0.3) {
+          el.innerHTML = '8h &rarr; 0min';
         } else {
-          el.innerHTML = '8h &rarr; 30min';
+          var minProgress = (progress - 0.3) / 0.7;
+          var minEased = 1 - Math.pow(1 - minProgress, 3);
+          var currentMin = Math.round(minEased * 30);
+          el.innerHTML = '8h &rarr; ' + currentMin + 'min';
         }
+        if (progress < 1) requestAnimationFrame(update);
+        else el.innerHTML = '8h &rarr; 30min';
       }
       requestAnimationFrame(update);
     }
 
-    var counterObserver = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.querySelectorAll('[data-counter]').forEach(function(el) {
+    /* Start counters when highlight cards become visible (after reveal animation) */
+    var counterStarted = false;
+    var origRevealCallback = revealObserver;
+    var highlightsEl = document.querySelector('.about__highlights');
+
+    function tryStartCounters() {
+      if (counterStarted) return;
+      var cards = highlightsEl.querySelectorAll('.highlight-card.revealed');
+      if (cards.length > 0) {
+        counterStarted = true;
+        setTimeout(function() {
+          highlightsEl.querySelectorAll('[data-counter]').forEach(function(el) {
             animateCounter(el);
           });
-          entry.target.querySelectorAll('[data-counter-special="time"]').forEach(function(el) {
+          highlightsEl.querySelectorAll('[data-counter-special="time"]').forEach(function(el) {
             animateTimeCounter(el);
           });
-          counterObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
+        }, 300);
+      }
+    }
 
-    var highlights = document.querySelector('.about__highlights');
-    if (highlights) counterObserver.observe(highlights);
+    if (highlightsEl) {
+      var counterCheckObserver = new MutationObserver(function() {
+        tryStartCounters();
+      });
+      highlightsEl.querySelectorAll('.highlight-card').forEach(function(card) {
+        counterCheckObserver.observe(card, { attributes: true, attributeFilter: ['class'] });
+      });
+    }
 
     /* ========== SKILL LEVEL BARS ANIMATION ========== */
     const skillObserver = new IntersectionObserver(function(entries) {
