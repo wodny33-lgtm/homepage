@@ -1,0 +1,1656 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Thomas Wodny – Financial Analyst & Senior Controller. Datengetriebenes Controlling für die Energiewirtschaft mit SQL, Python, Power Query und KI-gestützter Automatisierung.">
+  <title>Thomas Wodny | Financial Analyst & Senior Controller</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,opsz,wght@0,14,300..700;1,14,300..700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ========== CUSTOM PROPERTIES ========== */
+    :root {
+      --bg-primary: #F8F6F1;
+      --bg-secondary: #EFECE5;
+      --bg-card: #FFFFFF;
+      --bg-card-hover: #FDFCFA;
+      --text-primary: #1C1917;
+      --text-secondary: #57534E;
+      --text-tertiary: #78716C;
+      --accent: #B07D1E;
+      --accent-light: #D4A854;
+      --accent-bg: rgba(176,125,30,0.06);
+      --accent-border: rgba(176,125,30,0.25);
+      --teal: #2D7A7A;
+      --teal-bg: rgba(45,122,122,0.08);
+      --border: #E7E2DA;
+      --border-light: #F0ECE5;
+      --nav-bg: rgba(248,246,241,0.88);
+      --hero-overlay: rgba(248,246,241,0.55);
+      --shadow-sm: 0 1px 3px rgba(28,25,23,0.04);
+      --shadow-md: 0 4px 16px rgba(28,25,23,0.07);
+      --shadow-lg: 0 12px 40px rgba(28,25,23,0.10);
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+      --font-display: 'Cormorant', Georgia, serif;
+      --font-body: 'Outfit', system-ui, sans-serif;
+    }
+
+    [data-theme="dark"] {
+      --bg-primary: #0F1218;
+      --bg-secondary: #161B24;
+      --bg-card: #1C222C;
+      --bg-card-hover: #232A35;
+      --text-primary: #E8E4DC;
+      --text-secondary: #9B9690;
+      --text-tertiary: #706C66;
+      --accent: #D4A04A;
+      --accent-light: #E8BE70;
+      --accent-bg: rgba(212,160,74,0.07);
+      --accent-border: rgba(212,160,74,0.25);
+      --teal: #5ABFBF;
+      --teal-bg: rgba(90,191,191,0.08);
+      --border: #2A303B;
+      --border-light: #21262E;
+      --nav-bg: rgba(15,18,24,0.88);
+      --hero-overlay: rgba(15,18,24,0.55);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.25);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.35);
+    }
+
+    /* ========== RESET ========== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text-primary);
+      background: var(--bg-primary);
+      transition: background var(--transition), color var(--transition);
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    ul, ol { list-style: none; }
+
+    /* ========== NOISE OVERLAY ========== */
+    .noise-overlay {
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 9999;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    /* ========== SCROLL PROGRESS ========== */
+    .scroll-progress {
+      position: fixed; top: 0; left: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      z-index: 10001; width: 0; transition: none;
+    }
+
+    /* ========== SKIP LINK ========== */
+    .skip-link {
+      position: fixed; top: -100px; left: 16px;
+      background: var(--accent); color: #fff;
+      padding: 8px 16px; border-radius: var(--radius-sm);
+      z-index: 10002; font-weight: 600; font-size: 14px;
+      transition: top 0.2s;
+    }
+    .skip-link:focus { top: 16px; }
+
+    /* ========== UTILITIES ========== */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 32px; border-radius: var(--radius-sm);
+      font-family: var(--font-body); font-weight: 600; font-size: 15px;
+      letter-spacing: 0.02em; transition: all var(--transition);
+      white-space: nowrap;
+    }
+    .btn--primary {
+      background: var(--accent); color: #fff;
+      box-shadow: 0 2px 8px rgba(176,125,30,0.25);
+    }
+    .btn--primary:hover {
+      background: var(--accent-light);
+      box-shadow: 0 4px 16px rgba(176,125,30,0.35);
+      transform: translateY(-1px);
+    }
+    .btn--outline {
+      border: 1.5px solid var(--accent-border);
+      color: var(--accent);
+    }
+    .btn--outline:hover {
+      background: var(--accent-bg);
+      border-color: var(--accent);
+    }
+
+    /* ========== NAVIGATION ========== */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: var(--nav-bg);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid transparent;
+      transition: all var(--transition);
+    }
+    .nav.scrolled { border-bottom-color: var(--border); }
+    .nav__container {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px;
+    }
+    .nav__logo {
+      font-family: var(--font-display); font-weight: 600;
+      font-size: 24px; color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+    .nav__menu {
+      display: flex; align-items: center; gap: 28px;
+    }
+    .nav__menu a {
+      font-size: 13px; font-weight: 500; color: var(--text-secondary);
+      letter-spacing: 0.03em; text-transform: uppercase;
+      position: relative; transition: color var(--transition);
+    }
+    .nav__menu a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 1.5px; background: var(--accent);
+      transition: width var(--transition);
+    }
+    .nav__menu a:hover, .nav__menu a.active { color: var(--text-primary); }
+    .nav__menu a:hover::after, .nav__menu a.active::after { width: 100%; }
+    .nav__actions { display: flex; align-items: center; gap: 12px; }
+    .nav__theme-toggle {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-secondary); transition: all var(--transition);
+      border: 1px solid var(--border);
+    }
+    .nav__theme-toggle:hover { color: var(--accent); border-color: var(--accent-border); }
+    .nav__theme-toggle svg { width: 18px; height: 18px; }
+    .nav__toggle {
+      display: none; flex-direction: column; gap: 5px;
+      width: 28px; padding: 4px 0;
+    }
+    .nav__toggle span {
+      display: block; width: 100%; height: 2px;
+      background: var(--text-primary); border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .nav__toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav__toggle.active span:nth-child(2) { opacity: 0; }
+    .nav__toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ========== HERO ========== */
+    .hero {
+      position: relative; min-height: 100vh; display: flex;
+      align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .hero__canvas {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+    }
+    .hero__content {
+      position: relative; z-index: 2; text-align: center;
+      max-width: 820px; padding: 0 24px;
+    }
+    .hero__label {
+      display: inline-block; font-size: 12px; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 20px;
+      padding: 6px 16px; border: 1px solid var(--accent-border);
+      border-radius: 100px;
+      opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+    }
+    .hero__name {
+      font-family: var(--font-display); font-weight: 700;
+      font-size: clamp(44px, 8vw, 88px); line-height: 1.05;
+      letter-spacing: -0.03em; color: var(--text-primary);
+      margin-bottom: 24px;
+      opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
+    }
+    .hero__tagline {
+      font-size: clamp(17px, 2.2vw, 20px); line-height: 1.6;
+      color: var(--text-secondary); max-width: 640px; margin: 0 auto 40px;
+      opacity: 0; animation: fadeUp 0.8s 0.6s forwards;
+    }
+    .hero__cta {
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.8s 0.8s forwards;
+    }
+    .hero__scroll {
+      position: absolute; bottom: 32px; left: 50%;
+      transform: translateX(-50%); z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: var(--text-tertiary); font-size: 11px; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      opacity: 0; animation: fadeUp 0.8s 1s forwards;
+    }
+    .hero__scroll svg {
+      width: 20px; height: 20px;
+      animation: scrollBounce 2s infinite;
+    }
+
+    /* ========== SECTIONS ========== */
+    .section { padding: 120px 0; }
+    .section--alt { background: var(--bg-secondary); }
+    .section__header {
+      margin-bottom: 64px;
+      opacity: 0; transform: translateY(24px);
+      transition: all 0.7s cubic-bezier(0.4,0,0.2,1);
+    }
+    .section__header.revealed { opacity: 1; transform: translateY(0); }
+    .section__number {
+      display: block; font-family: var(--font-display); font-weight: 300;
+      font-size: 14px; color: var(--accent); letter-spacing: 0.15em;
+      margin-bottom: 12px;
+    }
+    .section__title {
+      font-family: var(--font-display); font-weight: 600;
+      font-size: clamp(32px, 5vw, 48px); line-height: 1.15;
+      letter-spacing: -0.02em; color: var(--text-primary);
+    }
+    .section__title::after {
+      content: ''; display: block; width: 48px; height: 2px;
+      background: var(--accent); margin-top: 20px;
+    }
+
+    /* ========== ABOUT ========== */
+    .about__grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+      align-items: start;
+    }
+    .about__portrait {
+      display: flex; justify-content: center;
+      margin-top: 24px; margin-bottom: 32px;
+      opacity: 0; transform: translateY(20px);
+      transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
+    }
+    .about__portrait.revealed { opacity: 1; transform: translateY(0); }
+    .about__portrait img {
+      width: 180px; height: 180px; object-fit: cover;
+      object-position: center 20%;
+      border-radius: 50%; border: 3px solid var(--accent-border);
+      box-shadow: var(--shadow-md), 0 0 0 8px var(--accent-bg);
+      transition: all var(--transition);
+    }
+    .about__portrait img:hover {
+      box-shadow: var(--shadow-lg), 0 0 0 12px var(--accent-bg);
+      transform: scale(1.03);
+    }
+    .about__text p {
+      color: var(--text-secondary); font-size: 17px; margin-bottom: 20px;
+      opacity: 0; transform: translateY(20px);
+      transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
+    }
+    .about__text p.revealed { opacity: 1; transform: translateY(0); }
+    .about__personal {
+      margin-top: 28px; padding: 20px 24px;
+      background: var(--accent-bg); border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      opacity: 0; transform: translateY(20px);
+      transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
+    }
+    .about__personal.revealed { opacity: 1; transform: translateY(0); }
+    .about__personal p {
+      font-size: 15px; color: var(--text-secondary); margin: 0;
+      opacity: 1; transform: none;
+    }
+    .about__highlights {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    }
+    .highlight-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 28px 24px;
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition);
+      opacity: 0; transform: translateY(20px);
+    }
+    .highlight-card.revealed { opacity: 1; transform: translateY(0); }
+    .highlight-card:hover {
+      box-shadow: var(--shadow-md); transform: translateY(-3px);
+      border-color: var(--accent-border);
+    }
+    .highlight-card__value {
+      font-family: var(--font-display); font-weight: 700;
+      font-size: 28px; color: var(--accent); line-height: 1.2;
+      margin-bottom: 6px;
+    }
+    .highlight-card__label {
+      font-size: 13px; font-weight: 500; color: var(--text-tertiary);
+      letter-spacing: 0.03em;
+    }
+
+    /* ========== TIMELINE ========== */
+    .timeline { position: relative; padding-left: 32px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px;
+      width: 2px; background: var(--border);
+    }
+    .timeline__item {
+      position: relative; padding-bottom: 40px;
+      opacity: 0; transform: translateY(20px);
+      transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
+    }
+    .timeline__item.revealed { opacity: 1; transform: translateY(0); }
+    .timeline__item:last-child { padding-bottom: 0; }
+    .timeline__item::before {
+      content: ''; position: absolute; left: -32px; top: 8px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: var(--bg-primary); border: 2px solid var(--accent);
+      z-index: 1;
+    }
+    .timeline__item--active::before {
+      background: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-bg);
+    }
+    .timeline__date {
+      font-size: 13px; font-weight: 600; color: var(--accent);
+      letter-spacing: 0.05em; margin-bottom: 6px;
+    }
+    .timeline__role {
+      font-family: var(--font-display); font-weight: 600;
+      font-size: 22px; line-height: 1.3; margin-bottom: 4px;
+      color: var(--text-primary);
+    }
+    .timeline__company {
+      font-size: 15px; font-weight: 500; color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+    .timeline__desc { font-size: 14px; color: var(--text-tertiary); line-height: 1.7; }
+    .timeline__desc li {
+      padding-left: 16px; position: relative; margin-bottom: 6px;
+    }
+    .timeline__desc li::before {
+      content: ''; position: absolute; left: 0; top: 9px;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--accent); opacity: 0.5;
+    }
+    .timeline__education {
+      margin-top: 48px; padding-top: 48px; border-top: 1px solid var(--border);
+    }
+    .timeline__education-title {
+      font-family: var(--font-display); font-weight: 600;
+      font-size: 22px; margin-bottom: 24px; color: var(--text-primary);
+      opacity: 0; transform: translateY(20px);
+      transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
+    }
+    .timeline__education-title.revealed { opacity: 1; transform: translateY(0); }
+    .edu-item {
+      display: flex; gap: 16px; margin-bottom: 20px;
+      opacity: 0; transform: translateY(20px);
+      transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
+    }
+    .edu-item.revealed { opacity: 1; transform: translateY(0); }
+    .edu-item__year {
+      font-size: 13px; font-weight: 600; color: var(--accent);
+      min-width: 90px; padding-top: 2px;
+    }
+    .edu-item__title { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+    .edu-item__detail { font-size: 14px; color: var(--text-tertiary); }
+
+    /* ========== SKILLS ========== */
+    .skills__grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    }
+    .skill-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 36px 32px;
+      box-shadow: var(--shadow-sm); position: relative; overflow: hidden;
+      transition: all var(--transition);
+      opacity: 0; transform: translateY(24px);
+    }
+    .skill-card.revealed { opacity: 1; transform: translateY(0); }
+    .skill-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 3px; background: var(--accent); transform: scaleX(0);
+      transform-origin: left; transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .skill-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+    .skill-card:hover::before { transform: scaleX(1); }
+    .skill-card__icon {
+      width: 44px; height: 44px; border-radius: var(--radius-sm);
+      background: var(--accent-bg); display: flex;
+      align-items: center; justify-content: center;
+      margin-bottom: 20px; color: var(--accent);
+    }
+    .skill-card__icon svg { width: 22px; height: 22px; }
+    .skill-card__title {
+      font-family: var(--font-display); font-weight: 600;
+      font-size: 22px; margin-bottom: 16px; color: var(--text-primary);
+    }
+    .skill-card__list { display: flex; flex-direction: column; gap: 10px; }
+    .skill-card__list li {
+      font-size: 14px; color: var(--text-secondary);
+      padding-left: 16px; position: relative;
+    }
+    .skill-card__list li::before {
+      content: ''; position: absolute; left: 0; top: 8px;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--accent); opacity: 0.6;
+    }
+
+    /* Skill Levels */
+    .skill-levels {
+      margin-top: 48px;
+      opacity: 0; transform: translateY(24px);
+      transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
+    }
+    .skill-levels.revealed { opacity: 1; transform: translateY(0); }
+    .skill-levels__title {
+      font-family: var(--font-display); font-weight: 600;
+      font-size: 26px; margin-bottom: 32px; color: var(--text-primary);
+    }
+    .skill-level {
+      display: grid; grid-template-columns: 180px 1fr auto; gap: 16px;
+      align-items: center; margin-bottom: 20px;
+    }
+    .skill-level__name {
+      font-size: 15px; font-weight: 500; color: var(--text-primary);
+    }
+    .skill-level__bar {
+      height: 8px; background: var(--border); border-radius: 4px;
+      overflow: hidden; position: relative;
+    }
+    .skill-level__fill {
+      height: 100%; border-radius: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      width: 0; transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+    }
+    .skill-level__fill.animated { width: var(--level); }
+    .skill-level__pct {
+      font-size: 13px; font-weight: 600; color: var(--accent);
+      min-width: 36px; text-align: right;
+    }
+
+    /* ========== PROJECTS ========== */
+    .projects__grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    }
+    .project-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 36px 32px;
+      box-shadow: var(--shadow-sm); position: relative;
+      transition: all var(--transition);
+      opacity: 0; transform: translateY(24px);
+    }
+    .project-card.revealed { opacity: 1; transform: translateY(0); }
+    .project-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+    .project-card--wide { grid-column: span 2; }
+    .project-card__number {
+      font-family: var(--font-display); font-weight: 300;
+      font-size: 13px; color: var(--accent); letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+    .project-card__title {
+      font-family: var(--font-display); font-weight: 600;
+      font-size: 22px; line-height: 1.3; margin-bottom: 14px;
+      color: var(--text-primary);
+    }
+    .project-card__desc {
+      font-size: 15px; color: var(--text-secondary);
+      margin-bottom: 12px; line-height: 1.6;
+    }
+    .project-card__result {
+      font-size: 14px; font-weight: 500; color: var(--accent);
+      padding: 8px 14px; background: var(--accent-bg);
+      border-radius: var(--radius-sm); display: inline-block;
+      margin-bottom: 20px; border: 1px solid var(--accent-border);
+    }
+    .project-card__tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag {
+      font-size: 12px; font-weight: 500; padding: 4px 12px;
+      border-radius: 100px; background: var(--teal-bg);
+      color: var(--teal); border: 1px solid transparent;
+      letter-spacing: 0.02em;
+    }
+
+    /* ========== SERVICES ========== */
+    .services__grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    }
+    .service-card {
+      display: flex; gap: 20px; padding: 32px 28px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
+      transition: all var(--transition);
+      opacity: 0; transform: translateY(24px);
+    }
+    .service-card.revealed { opacity: 1; transform: translateY(0); }
+    .service-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .service-card__number {
+      font-family: var(--font-display); font-weight: 300;
+      font-size: 32px; color: var(--accent); line-height: 1;
+      flex-shrink: 0;
+    }
+    .service-card__title {
+      font-family: var(--font-display); font-weight: 600;
+      font-size: 19px; margin-bottom: 6px; color: var(--text-primary);
+    }
+    .service-card__desc {
+      font-size: 14px; color: var(--text-secondary); line-height: 1.6;
+    }
+
+    /* ========== TESTIMONIALS ========== */
+    .testimonials__grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    }
+    .testimonial-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 32px 28px;
+      box-shadow: var(--shadow-sm); position: relative;
+      transition: all var(--transition);
+      opacity: 0; transform: translateY(24px);
+    }
+    .testimonial-card.revealed { opacity: 1; transform: translateY(0); }
+    .testimonial-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .testimonial-card::before {
+      content: '\201E'; position: absolute; top: 16px; left: 24px;
+      font-family: var(--font-display); font-size: 56px;
+      color: var(--accent); opacity: 0.2; line-height: 1;
+    }
+    .testimonial-card__text {
+      font-family: var(--font-display); font-weight: 500;
+      font-size: 19px; font-style: italic; line-height: 1.5;
+      color: var(--text-primary); padding-top: 12px;
+      margin-bottom: 16px;
+    }
+    .testimonial-card__source {
+      font-size: 13px; color: var(--text-tertiary); font-weight: 500;
+    }
+
+    /* ========== CONTACT ========== */
+    .contact__grid {
+      display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px;
+      align-items: start;
+    }
+    .contact__info {
+      opacity: 0; transform: translateY(24px);
+      transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
+    }
+    .contact__info.revealed { opacity: 1; transform: translateY(0); }
+    .contact__info p {
+      font-size: 17px; color: var(--text-secondary); margin-bottom: 32px;
+      line-height: 1.7;
+    }
+    .contact__detail {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 16px; font-size: 15px; color: var(--text-secondary);
+    }
+    .contact__detail svg {
+      width: 18px; height: 18px; color: var(--accent); flex-shrink: 0;
+    }
+    .contact__detail a { color: var(--accent); transition: opacity var(--transition); }
+    .contact__detail a:hover { opacity: 0.8; }
+    .contact__langs {
+      margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--border);
+    }
+    .contact__langs-title {
+      font-size: 13px; font-weight: 600; color: var(--text-tertiary);
+      letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 10px;
+    }
+    .contact__langs p { font-size: 14px; color: var(--text-secondary); margin-bottom: 4px; }
+    .contact__form-wrap {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 40px 36px;
+      box-shadow: var(--shadow-md);
+      opacity: 0; transform: translateY(24px);
+      transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
+    }
+    .contact__form-wrap.revealed { opacity: 1; transform: translateY(0); }
+    .form-row { margin-bottom: 24px; }
+    .form-row--half { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-group { display: flex; flex-direction: column; }
+    .form-group label {
+      font-size: 13px; font-weight: 600; color: var(--text-tertiary);
+      letter-spacing: 0.05em; text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      font-family: var(--font-body); font-size: 15px;
+      padding: 12px 16px; border: 1px solid var(--border);
+      border-radius: var(--radius-sm); background: var(--bg-primary);
+      color: var(--text-primary); transition: all var(--transition);
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-bg);
+    }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-group select { cursor: pointer; }
+    .form-checkbox {
+      display: flex; gap: 10px; align-items: flex-start; margin-bottom: 28px;
+    }
+    .form-checkbox input[type="checkbox"] {
+      width: 18px; height: 18px; margin-top: 2px; flex-shrink: 0;
+      accent-color: var(--accent); cursor: pointer;
+    }
+    .form-checkbox label {
+      font-size: 13px; color: var(--text-tertiary); line-height: 1.5;
+      cursor: pointer;
+    }
+    .form-checkbox a { color: var(--accent); text-decoration: underline; }
+    .form-success {
+      display: none; text-align: center; padding: 40px 20px;
+    }
+    .form-success.visible { display: block; }
+    .form-success svg { width: 48px; height: 48px; color: var(--accent); margin-bottom: 16px; }
+    .form-success h3 {
+      font-family: var(--font-display); font-size: 24px;
+      font-weight: 600; margin-bottom: 8px;
+    }
+    .form-success p { color: var(--text-secondary); }
+
+    /* ========== FOOTER ========== */
+    .footer {
+      background: var(--bg-secondary); border-top: 1px solid var(--border);
+      padding: 48px 0;
+    }
+    .footer__inner {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 20px;
+    }
+    .footer__brand {
+      font-family: var(--font-display); font-weight: 600;
+      font-size: 22px; color: var(--text-primary);
+    }
+    .footer__links { display: flex; gap: 28px; }
+    .footer__links a {
+      font-size: 14px; color: var(--text-secondary);
+      transition: color var(--transition);
+    }
+    .footer__links a:hover { color: var(--accent); }
+    .footer__copy {
+      font-size: 13px; color: var(--text-tertiary); width: 100%;
+      text-align: center; margin-top: 20px; padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ========== COOKIE BANNER ========== */
+    .cookie-banner {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 9998;
+      background: var(--bg-card); border-top: 1px solid var(--border);
+      box-shadow: 0 -4px 24px rgba(0,0,0,0.08);
+      padding: 20px 24px;
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .cookie-banner.visible { transform: translateY(0); }
+    .cookie-banner__inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap;
+    }
+    .cookie-banner__text { font-size: 14px; color: var(--text-secondary); flex: 1; min-width: 280px; }
+    .cookie-banner__text a { color: var(--accent); text-decoration: underline; }
+    .cookie-banner__actions { display: flex; gap: 12px; flex-shrink: 0; }
+    .cookie-banner__actions .btn { padding: 10px 24px; font-size: 13px; }
+
+    /* ========== MODAL ========== */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 10000;
+      background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; visibility: hidden;
+      transition: all 0.3s;
+    }
+    .modal-overlay.visible { opacity: 1; visibility: visible; }
+    .modal {
+      background: var(--bg-card); border-radius: var(--radius-lg);
+      max-width: 680px; width: 90%; max-height: 80vh;
+      overflow-y: auto; padding: 48px 40px;
+      transform: translateY(20px); transition: transform 0.3s;
+      box-shadow: var(--shadow-lg);
+    }
+    .modal-overlay.visible .modal { transform: translateY(0); }
+    .modal__close {
+      float: right; width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-tertiary); border: 1px solid var(--border);
+      transition: all var(--transition); margin: -8px -8px 16px 16px;
+    }
+    .modal__close:hover { color: var(--text-primary); border-color: var(--text-tertiary); }
+    .modal h2 {
+      font-family: var(--font-display); font-weight: 600;
+      font-size: 28px; margin-bottom: 24px;
+    }
+    .modal h3 {
+      font-family: var(--font-display); font-weight: 600;
+      font-size: 20px; margin: 24px 0 12px;
+    }
+    .modal p, .modal li {
+      font-size: 15px; color: var(--text-secondary);
+      line-height: 1.7; margin-bottom: 12px;
+    }
+    .modal ul { padding-left: 20px; }
+    .modal ul li { list-style: disc; }
+
+    /* ========== BACK TO TOP ========== */
+    .back-to-top {
+      position: fixed; bottom: 32px; right: 32px; z-index: 999;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--accent); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 12px rgba(176,125,30,0.3);
+      opacity: 0; visibility: hidden; transform: translateY(8px);
+      transition: all var(--transition);
+    }
+    .back-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+    .back-to-top:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(176,125,30,0.4); }
+    .back-to-top svg { width: 20px; height: 20px; }
+
+    /* ========== ANIMATIONS ========== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 1024px) {
+      .about__grid { gap: 48px; }
+      .skills__grid, .services__grid, .testimonials__grid { gap: 20px; }
+      .contact__grid { gap: 48px; }
+      .skill-level { grid-template-columns: 140px 1fr auto; }
+    }
+    @media (max-width: 768px) {
+      .section { padding: 80px 0; }
+      .section__header { margin-bottom: 44px; }
+      .nav__menu {
+        position: fixed; top: 72px; left: 0; right: 0;
+        background: var(--nav-bg); backdrop-filter: blur(16px);
+        flex-direction: column; gap: 0; padding: 8px 0;
+        border-bottom: 1px solid var(--border);
+        transform: translateY(-100%); opacity: 0;
+        transition: all 0.3s; pointer-events: none;
+      }
+      .nav__menu.open { transform: translateY(0); opacity: 1; pointer-events: all; }
+      .nav__menu a { padding: 14px 24px; display: block; width: 100%; }
+      .nav__menu a::after { display: none; }
+      .nav__toggle { display: flex; }
+      .about__grid { grid-template-columns: 1fr; gap: 40px; }
+      .about__highlights { grid-template-columns: 1fr 1fr; }
+      .skills__grid { grid-template-columns: 1fr; }
+      .skill-level { grid-template-columns: 120px 1fr auto; gap: 12px; }
+      .projects__grid { grid-template-columns: 1fr; }
+      .project-card--wide { grid-column: span 1; }
+      .services__grid { grid-template-columns: 1fr; }
+      .services__grid .service-card[style] { grid-column: span 1 !important; }
+      .testimonials__grid { grid-template-columns: 1fr; }
+      .contact__grid { grid-template-columns: 1fr; gap: 40px; }
+      .contact__form-wrap { padding: 28px 24px; }
+      .form-row--half { grid-template-columns: 1fr; }
+      .footer__inner { flex-direction: column; text-align: center; }
+      .footer__links { flex-wrap: wrap; justify-content: center; }
+    }
+    @media (max-width: 480px) {
+      .hero__cta { flex-direction: column; align-items: center; }
+      .btn { width: 100%; justify-content: center; }
+      .about__highlights { grid-template-columns: 1fr; }
+      .highlight-card { padding: 20px 18px; }
+      .skill-level { grid-template-columns: 1fr; gap: 6px; }
+      .skill-level__pct { text-align: left; }
+      .modal { padding: 32px 24px; }
+    }
+
+    /* ========== REDUCED MOTION ========== */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      .hero__label, .hero__name, .hero__tagline, .hero__cta, .hero__scroll { opacity: 1; transform: none; }
+      .skill-level__fill { transition: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+  <div class="scroll-progress" id="scrollProgress"></div>
+  <div class="noise-overlay"></div>
+
+  <!-- Cookie Banner -->
+  <div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-banner__inner">
+      <p class="cookie-banner__text">Diese Website verwendet Cookies, um Ihnen ein optimales Erlebnis zu bieten. Weitere Informationen finden Sie in unserer <a href="#" onclick="openModal('datenschutz');return false;">Datenschutzerkl&auml;rung</a>.</p>
+      <div class="cookie-banner__actions">
+        <button class="btn btn--outline" onclick="handleCookies(false)">Ablehnen</button>
+        <button class="btn btn--primary" onclick="handleCookies(true)">Akzeptieren</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="nav" id="nav">
+    <div class="nav__container">
+      <a href="#hero" class="nav__logo">T. Wodny</a>
+      <nav class="nav__menu" id="navMenu" role="navigation" aria-label="Hauptnavigation">
+        <a href="#ueber-mich">Profil</a>
+        <a href="#erfahrung">Erfahrung</a>
+        <a href="#skills">Skills</a>
+        <a href="#projekte">Projekte</a>
+        <a href="#leistungen">Leistungen</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <div class="nav__actions">
+        <button class="nav__theme-toggle" id="themeToggle" aria-label="Farbschema wechseln">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="nav__toggle" id="navToggle" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <canvas class="hero__canvas" id="heroCanvas"></canvas>
+    <div class="hero__content">
+      <span class="hero__label">Financial Analyst & Senior Controller</span>
+      <h1 class="hero__name">Thomas Wodny</h1>
+      <p class="hero__tagline">Datengetriebenes Controlling für die Energiewirtschaft &ndash; von der Analyse über die Automatisierung bis zur strategischen Entscheidungsfindung</p>
+      <div class="hero__cta">
+        <a href="#projekte" class="btn btn--primary">Projekte ansehen</a>
+        <a href="#kontakt" class="btn btn--outline">Kontakt aufnehmen</a>
+      </div>
+    </div>
+    <div class="hero__scroll">
+      <span>Scrollen</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+  </section>
+
+  <main id="main">
+    <!-- Über mich -->
+    <section class="section" id="ueber-mich">
+      <div class="container">
+        <div class="section__header reveal">
+          <span class="section__number">01</span>
+          <h2 class="section__title">Über mich</h2>
+        </div>
+        <div class="about__grid">
+          <div class="about__text">
+            <p class="reveal">Hochanalytischer Financial Analyst und Senior Controller mit umfassender Erfahrung in FP&amp;A, Finanzmodellierung und Datenautomatisierung. Nachgewiesene Erfolgsbilanz beim Einsatz von SQL, Python und Power BI zur Optimierung von Reporting-Prozessen und strategischer Entscheidungsfindung.</p>
+            <p class="reveal">Als Senior Controller bei den Stadtwerken Ahrensburg verantworte ich das Finanzcontrolling für die Sparten Strom und Gas. Mein Fokus: die Verbindung von traditionellen Finanzen mit moderner Business Intelligence zur Verbesserung der Datenqualität und operativen Effizienz.</p>
+            <p class="reveal">Ich verstehe mich als Brückenbauer zwischen Finanzen und IT &ndash; ich entwickle technische Lösungen für betriebswirtschaftliche Herausforderungen und setze dabei auf KI-gestützte Workflows mit Claude AI, Python und SQL.</p>
+            <div class="about__personal reveal">
+              <p>Vor meiner Karriere im Controlling war ich Leistungssportler im Basketball (Pro A / Pro B Liga) und 4 Jahre Bundesliga-Trainer in der WNBL &ndash; Deutscher Meister 2014. Disziplin, strategisches Denken und Teamführung prägen auch heute meine Arbeitsweise.</p>
+            </div>
+          </div>
+          <div class="about__portrait reveal">
+            <img src="portrait.jpg" alt="Thomas Wodny – Financial Analyst & Senior Controller" width="180" height="180">
+          </div>
+          <div class="about__highlights">
+            <div class="highlight-card reveal">
+              <div class="highlight-card__value">100%</div>
+              <div class="highlight-card__label">Datenintegrität bei Migration</div>
+            </div>
+            <div class="highlight-card reveal">
+              <div class="highlight-card__value">8h → 30min</div>
+              <div class="highlight-card__label">Reporting-Aufwand reduziert</div>
+            </div>
+            <div class="highlight-card reveal">
+              <div class="highlight-card__value">10.000+</div>
+              <div class="highlight-card__label">Kundendatensätze migriert</div>
+            </div>
+            <div class="highlight-card reveal">
+              <div class="highlight-card__value">12</div>
+              <div class="highlight-card__label">Tochtergesellschaften betreut</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Berufserfahrung -->
+    <section class="section section--alt" id="erfahrung">
+      <div class="container">
+        <div class="section__header reveal">
+          <span class="section__number">02</span>
+          <h2 class="section__title">Berufserfahrung</h2>
+        </div>
+        <div class="timeline">
+          <div class="timeline__item timeline__item--active reveal">
+            <div class="timeline__date">Okt 2024 &ndash; heute</div>
+            <div class="timeline__role">Senior Controller &ndash; Energie & Versorgung</div>
+            <div class="timeline__company">Stadtwerke Ahrensburg GmbH</div>
+            <ul class="timeline__desc">
+              <li>Migration von über 10.000 Kundendatensätzen zwischen NAV- und PowerCloud-Systemen mit 100% Datenintegrität</li>
+              <li>Automatisierung regulatorischer Berichterstattung: Reduktion von 8 Stunden auf 30 Minuten monatlich</li>
+              <li>Entwicklung SQL-basierter Vorhersagemodelle für Gasverbrauchsmuster</li>
+              <li>Implementierung der OData-Integration für Echtzeit-Datenkonnektivität</li>
+            </ul>
+          </div>
+          <div class="timeline__item reveal">
+            <div class="timeline__date">Apr 2023 &ndash; Sep 2024</div>
+            <div class="timeline__role">Beteiligungs-Controller</div>
+            <div class="timeline__company">AWO-Landesverband Hamburg e.V.</div>
+            <ul class="timeline__desc">
+              <li>Management-Reporting für Unternehmensgruppe mit 12 Tochtergesellschaften</li>
+              <li>Automatisierung komplexer Buchungsprozesse mit Python und VBA &ndash; 100% Automatisierung budgetkontrollierter Journalbuchungen</li>
+              <li>Konzeption und Pflege SAP-basierter KPI-Dashboards</li>
+            </ul>
+          </div>
+          <div class="timeline__item reveal">
+            <div class="timeline__date">Mai 2021 &ndash; Mär 2023</div>
+            <div class="timeline__role">Leitungskreis &ndash; Koordination & Controlling</div>
+            <div class="timeline__company">Bildungswerk der nordhessischen Wirtschaft gGmbH, Kassel</div>
+            <ul class="timeline__desc">
+              <li>Leitung strategischer Planungsinitiativen für über 120 Einzelprojekte mit 150 Mitarbeitern</li>
+              <li>Durchführung umfassender Soll-Ist-Vergleiche und Abweichungsanalysen</li>
+              <li>Prozess- und Schwachstellenanalyse mit Optimierung der Steuerungsprozesse</li>
+            </ul>
+          </div>
+        </div>
+        <div class="timeline__education">
+          <h3 class="timeline__education-title reveal">Ausbildung</h3>
+          <div class="edu-item reveal">
+            <div class="edu-item__year">2014 &ndash; 2022</div>
+            <div>
+              <div class="edu-item__title">B.Sc. Wirtschaftspädagogik</div>
+              <div class="edu-item__detail">Universität Kassel &ndash; Schwerpunkt: Finance, Accounting, Controlling & Taxation (berufsbegleitend)</div>
+            </div>
+          </div>
+          <div class="edu-item reveal">
+            <div class="edu-item__year">2011 &ndash; 2013</div>
+            <div>
+              <div class="edu-item__title">Allgemeine Hochschulreife (Abitur)</div>
+              <div class="edu-item__detail">Abendgymnasium Sophie Scholl, Osnabrück</div>
+            </div>
+          </div>
+          <div class="edu-item reveal">
+            <div class="edu-item__year">Zertifikat</div>
+            <div>
+              <div class="edu-item__title">IFRS/HGB Rechnungslegung</div>
+              <div class="edu-item__detail">Internationale und nationale Rechnungslegungsstandards</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="section" id="skills">
+      <div class="container">
+        <div class="section__header reveal">
+          <span class="section__number">03</span>
+          <h2 class="section__title">Skills & Technologien</h2>
+        </div>
+        <div class="skills__grid">
+          <div class="skill-card reveal">
+            <div class="skill-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <h3 class="skill-card__title">Programmierung & Datenanalyse</h3>
+            <ul class="skill-card__list">
+              <li>SQL (T-SQL, Redshift) &ndash; VIEWs, CTEs, Window Functions, Query-Optimierung</li>
+              <li>Python &ndash; pandas, openpyxl, reportlab, Streamlit, Flask</li>
+              <li>Power Query / M Language &ndash; ETL-Workflows, Pivot-Operationen, Batch-Verarbeitung</li>
+              <li>VBA &ndash; Automatisierte Buchungsprozesse, Dictionary-Objekte, Batch-Navigation</li>
+            </ul>
+          </div>
+          <div class="skill-card reveal">
+            <div class="skill-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+            </div>
+            <h3 class="skill-card__title">Business Intelligence & Systeme</h3>
+            <ul class="skill-card__list">
+              <li>SAP FI/CO &ndash; KPI-Dashboards, Finanzperformance-Tracking</li>
+              <li>MS Dynamics NAV / Business Central</li>
+              <li>PowerCloud (Energieabrechnungssystem)</li>
+              <li>Power BI / Tableau &ndash; Datenvisualisierung & Reporting</li>
+              <li>OData V4 &ndash; OAuth 2.0, Echtzeit-Datenanbindung</li>
+            </ul>
+          </div>
+          <div class="skill-card reveal">
+            <div class="skill-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </div>
+            <h3 class="skill-card__title">Fachliche Expertise</h3>
+            <ul class="skill-card__list">
+              <li>FP&amp;A, Forecasting, Budgetierung, Varianzanalyse</li>
+              <li>IFRS/HGB Rechnungslegung, Unit Economics</li>
+              <li>Regulatorische Compliance (BNetzA, Hauptzollamt)</li>
+              <li>Debitorenmanagement & Saldenabstimmung</li>
+              <li>Energiewirtschaftliche Prozesse (Strom & Gas)</li>
+            </ul>
+          </div>
+          <div class="skill-card reveal">
+            <div class="skill-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 0-4 4c0 2 2 3 2 6H8a2 2 0 1 0 0 4h8a2 2 0 1 0 0-4h-2c0-3 2-4 2-6a4 4 0 0 0-4-4z"/><path d="M9 18v1a3 3 0 0 0 6 0v-1"/></svg>
+            </div>
+            <h3 class="skill-card__title">KI-Tools & Automatisierung</h3>
+            <ul class="skill-card__list">
+              <li>Claude AI &ndash; Projekte, Memory, Artifacts, Computer Use</li>
+              <li>Claude Code (CLI) &ndash; Agentic Coding, Git-Integration</li>
+              <li>Anthropic API &ndash; Tool Use, Streaming, Python SDK</li>
+              <li>MCP (Model Context Protocol) &ndash; Custom Tools, Filesystem-Zugriff</li>
+              <li>Document Generation &ndash; PDF (reportlab), Word, HTML/React</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Skill Levels -->
+        <div class="skill-levels reveal">
+          <h3 class="skill-levels__title">Kompetenzniveau</h3>
+          <div class="skill-level">
+            <div class="skill-level__name">Power Query M</div>
+            <div class="skill-level__bar"><div class="skill-level__fill" style="--level: 95%"></div></div>
+            <div class="skill-level__pct">95%</div>
+          </div>
+          <div class="skill-level">
+            <div class="skill-level__name">SQL (T-SQL)</div>
+            <div class="skill-level__bar"><div class="skill-level__fill" style="--level: 85%"></div></div>
+            <div class="skill-level__pct">85%</div>
+          </div>
+          <div class="skill-level">
+            <div class="skill-level__name">Python</div>
+            <div class="skill-level__bar"><div class="skill-level__fill" style="--level: 65%"></div></div>
+            <div class="skill-level__pct">65%</div>
+          </div>
+          <div class="skill-level">
+            <div class="skill-level__name">VBA</div>
+            <div class="skill-level__bar"><div class="skill-level__fill" style="--level: 65%"></div></div>
+            <div class="skill-level__pct">65%</div>
+          </div>
+          <div class="skill-level">
+            <div class="skill-level__name">Claude AI / KI-Tools</div>
+            <div class="skill-level__bar"><div class="skill-level__fill" style="--level: 90%"></div></div>
+            <div class="skill-level__pct">90%</div>
+          </div>
+          <div class="skill-level">
+            <div class="skill-level__name">SAP FI/CO</div>
+            <div class="skill-level__bar"><div class="skill-level__fill" style="--level: 70%"></div></div>
+            <div class="skill-level__pct">70%</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projekte -->
+    <section class="section section--alt" id="projekte">
+      <div class="container">
+        <div class="section__header reveal">
+          <span class="section__number">04</span>
+          <h2 class="section__title">Projektreferenzen</h2>
+        </div>
+        <div class="projects__grid">
+          <div class="project-card project-card--wide reveal">
+            <div class="project-card__number">Case Study 01</div>
+            <h3 class="project-card__title">NAV-PowerCloud Datenmigration & Reconciliation</h3>
+            <p class="project-card__desc">Komplette Datenmigration von Microsoft Dynamics NAV zu PowerCloud für Gas- und Stromsparten. Harmonisierung der Soll/Haben-Logik (NAV) mit Vorzeichen-Logik (PowerCloud), Voucher-Processing, automatische Diskrepanz-Erkennung und Validierung aller Debitorensalden.</p>
+            <div class="project-card__result">10.000+ Datensätze mit 100% Datenintegrität migriert</div>
+            <div class="project-card__tags">
+              <span class="tag">SQL</span>
+              <span class="tag">Power Query</span>
+              <span class="tag">Python</span>
+              <span class="tag">HTML</span>
+            </div>
+          </div>
+          <div class="project-card reveal">
+            <div class="project-card__number">Case Study 02</div>
+            <h3 class="project-card__title">BILA Reporting (Gas/Strom)</h3>
+            <p class="project-card__desc">Aufbau automatisierter SQL-Views für Bilanzabrechnungsprojekte. VIEW-Erstellung mit komplexen JOINs über Vouchers, Contracts und Items-Tabellen. CASE-WHEN-Logik für automatische Kontenzuordnung.</p>
+            <div class="project-card__result">Regulatorisches Reporting vollständig automatisiert</div>
+            <div class="project-card__tags">
+              <span class="tag">SQL Views</span>
+              <span class="tag">Power Query</span>
+              <span class="tag">Python</span>
+            </div>
+          </div>
+          <div class="project-card reveal">
+            <div class="project-card__number">Case Study 03</div>
+            <h3 class="project-card__title">HZA-Meldungen Gasabrechnung</h3>
+            <p class="project-card__desc">Verarbeitung und Aufbereitung von Verbrauchsdaten für Hauptzollamt. Dynamische Pivot-Tabellen mit jahresübergreifender Analyse. Automatische Filterung nach Gas-Abgrenzungsarten (AaV, AvV, SAAV, SaV, SvV).</p>
+            <div class="project-card__result">Zeitersparnis: 8h → 30min pro Monat</div>
+            <div class="project-card__tags">
+              <span class="tag">Power Query M</span>
+              <span class="tag">Excel</span>
+              <span class="tag">VBA</span>
+            </div>
+          </div>
+          <div class="project-card reveal">
+            <div class="project-card__number">Case Study 04</div>
+            <h3 class="project-card__title">OData-Integration Business Central</h3>
+            <p class="project-card__desc">Anbindung von Business Central über OData V4 an Power Query. OAuth 2.0 Authentifizierung, WIN/NAS Server-Konfiguration und automatisierter Datenabruf für Sachposten, Debitoren und Kreditoren.</p>
+            <div class="project-card__result">Echtzeit-Datenanbindung für Dashboards</div>
+            <div class="project-card__tags">
+              <span class="tag">Power Query</span>
+              <span class="tag">OData V4</span>
+              <span class="tag">REST API</span>
+              <span class="tag">Business Central</span>
+            </div>
+          </div>
+          <div class="project-card reveal">
+            <div class="project-card__number">Case Study 05</div>
+            <h3 class="project-card__title">Kostenstellenanalyse Dashboard</h3>
+            <p class="project-card__desc">Interaktives Dashboard für OVH-Verteilung mit automatisierter Kostenstellen-Zuordnung. VBA-gesteuerte Worksheet-Verwaltung, Datenformatierung und Verteilung auf verschiedene Geschäftsbereiche des Versorgers.</p>
+            <div class="project-card__result">Vollautomatisierte Kostenstellen-Zuordnung</div>
+            <div class="project-card__tags">
+              <span class="tag">React</span>
+              <span class="tag">Tailwind CSS</span>
+              <span class="tag">Power Query</span>
+              <span class="tag">VBA</span>
+            </div>
+          </div>
+          <div class="project-card reveal">
+            <div class="project-card__number">Case Study 06</div>
+            <h3 class="project-card__title">KPI-Dashboards AWO Konzern</h3>
+            <p class="project-card__desc">Konzeption und Pflege SAP-basierter KPI-Dashboards zur Echtzeitverfolgung der Finanzperformance. Management-Reporting für 12 Tochtergesellschaften mit entscheidungsrelevanten Kennzahlen für die Geschäftsführung.</p>
+            <div class="project-card__result">100% Automatisierung der Journalbuchungen</div>
+            <div class="project-card__tags">
+              <span class="tag">SAP FI/CO</span>
+              <span class="tag">Python</span>
+              <span class="tag">VBA</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Leistungen -->
+    <section class="section" id="leistungen">
+      <div class="container">
+        <div class="section__header reveal">
+          <span class="section__number">05</span>
+          <h2 class="section__title">Leistungen</h2>
+        </div>
+        <div class="services__grid">
+          <div class="service-card reveal">
+            <div class="service-card__number">01</div>
+            <div>
+              <h3 class="service-card__title">Datenanalyse & Prozessautomatisierung</h3>
+              <p class="service-card__desc">Identifikation von Optimierungspotenzialen und Entwicklung automatisierter Workflows mit Python, SQL und Power Query für wiederkehrende Aufgaben.</p>
+            </div>
+          </div>
+          <div class="service-card reveal">
+            <div class="service-card__number">02</div>
+            <div>
+              <h3 class="service-card__title">Systemmigration & Daten-Reconciliation</h3>
+              <p class="service-card__desc">Planung und Durchführung von Datenmigrationen (NAV, PowerCloud, Business Central) mit lückenloser Abstimmung und Validierung.</p>
+            </div>
+          </div>
+          <div class="service-card reveal">
+            <div class="service-card__number">03</div>
+            <div>
+              <h3 class="service-card__title">Automatisierte Reporting-Systeme</h3>
+              <p class="service-card__desc">Aufbau integrierter Berichtslösungen für Management und regulatorische Anforderungen (BNetzA, Hauptzollamt). Nachweisliche Reduktion manueller Aufwände.</p>
+            </div>
+          </div>
+          <div class="service-card reveal">
+            <div class="service-card__number">04</div>
+            <div>
+              <h3 class="service-card__title">KI-gestützte Controlling-Lösungen</h3>
+              <p class="service-card__desc">Integration von KI-Tools (Claude AI, MCP) in bestehende Controlling-Workflows. Automatisierte Dokumentenerstellung, Code-Generierung und Datenverarbeitung.</p>
+            </div>
+          </div>
+          <div class="service-card reveal" style="grid-column: span 2;">
+            <div class="service-card__number">05</div>
+            <div>
+              <h3 class="service-card__title">Schulung & Wissenstransfer</h3>
+              <p class="service-card__desc">Praxisnahe Schulungen in Power Query, SQL für Controller, Python-Automatisierung und KI-Tools &ndash; damit Ihr Team eigenständig weiterarbeiten kann.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Referenzen -->
+    <section class="section section--alt" id="referenzen">
+      <div class="container">
+        <div class="section__header reveal">
+          <span class="section__number">06</span>
+          <h2 class="section__title">Referenzen</h2>
+        </div>
+        <div class="testimonials__grid">
+          <div class="testimonial-card reveal">
+            <p class="testimonial-card__text">Sehr hohe Einsatzbereitschaft und außergewöhnliche Auffassungsgabe</p>
+            <div class="testimonial-card__source">Arbeitszeugnis</div>
+          </div>
+          <div class="testimonial-card reveal">
+            <p class="testimonial-card__text">Löst alle Aufgaben und Herausforderungen in hervorragender Weise</p>
+            <div class="testimonial-card__source">Arbeitszeugnis</div>
+          </div>
+          <div class="testimonial-card reveal">
+            <p class="testimonial-card__text">Stets sehr gute Arbeitsergebnisse mit größter Zuverlässigkeit</p>
+            <div class="testimonial-card__source">Arbeitszeugnis</div>
+          </div>
+          <div class="testimonial-card reveal">
+            <p class="testimonial-card__text">Befähigt, in pragmatischen, strategischen und perspektivischen Kategorien zu denken und zu handeln</p>
+            <div class="testimonial-card__source">Arbeitszeugnis</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Kontakt -->
+    <section class="section" id="kontakt">
+      <div class="container">
+        <div class="section__header reveal">
+          <span class="section__number">07</span>
+          <h2 class="section__title">Kontakt</h2>
+        </div>
+        <div class="contact__grid">
+          <div class="contact__info reveal">
+            <p>Sie haben ein Projekt, bei dem datengetriebenes Controlling gefragt ist? Oder suchen Sie Unterstützung bei einer Systemmigration oder KI-gestützter Automatisierung? Lassen Sie uns darüber sprechen.</p>
+            <div class="contact__detail">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Hamburg, Deutschland</span>
+            </div>
+            <div class="contact__detail">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <a href="mailto:Wodny33@googlemail.com">Wodny33@googlemail.com</a>
+            </div>
+            <div class="contact__detail">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <a href="tel:+4917621101200">+49 176 211 012 00</a>
+            </div>
+            <div class="contact__langs">
+              <div class="contact__langs-title">Sprachen</div>
+              <p>Deutsch &ndash; Muttersprache</p>
+              <p>Englisch &ndash; Verhandlungssicher</p>
+            </div>
+          </div>
+          <div class="contact__form-wrap reveal">
+            <form id="contactForm" novalidate>
+              <div class="form-row form-row--half">
+                <div class="form-group">
+                  <label for="name">Name *</label>
+                  <input type="text" id="name" name="name" required placeholder="Ihr Name">
+                </div>
+                <div class="form-group">
+                  <label for="email">E-Mail *</label>
+                  <input type="email" id="email" name="email" required placeholder="ihre@email.de">
+                </div>
+              </div>
+              <div class="form-row form-row--half">
+                <div class="form-group">
+                  <label for="company">Unternehmen</label>
+                  <input type="text" id="company" name="company" placeholder="Optional">
+                </div>
+                <div class="form-group">
+                  <label for="subject">Betreff *</label>
+                  <select id="subject" name="subject" required>
+                    <option value="" disabled selected>Bitte wählen</option>
+                    <option value="beratung">Beratungsanfrage</option>
+                    <option value="projekt">Projektanfrage</option>
+                    <option value="schulung">Schulung</option>
+                    <option value="sonstiges">Sonstiges</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="message">Nachricht *</label>
+                  <textarea id="message" name="message" required placeholder="Beschreiben Sie Ihr Anliegen..."></textarea>
+                </div>
+              </div>
+              <div class="form-checkbox">
+                <input type="checkbox" id="privacy" name="privacy" required>
+                <label for="privacy">Ich habe die <a href="#" onclick="openModal('datenschutz');return false;">Datenschutzerkl&auml;rung</a> gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung meiner Anfrage zu. *</label>
+              </div>
+              <button type="submit" class="btn btn--primary" style="width:100%;justify-content:center;">Nachricht senden</button>
+            </form>
+            <div class="form-success" id="formSuccess">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <h3>Vielen Dank!</h3>
+              <p>Ihre Nachricht wurde gesendet. Ich melde mich zeitnah bei Ihnen.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">Thomas Wodny</div>
+        <div class="footer__links">
+          <a href="#" onclick="openModal('impressum');return false;">Impressum</a>
+          <a href="#" onclick="openModal('datenschutz');return false;">Datenschutzerkl&auml;rung</a>
+          <a href="https://www.linkedin.com/in/thomas-wodny-075427225/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+        <div class="footer__copy">&copy; 2026 Thomas Wodny. Alle Rechte vorbehalten.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to top -->
+  <button class="back-to-top" id="backToTop" aria-label="Nach oben scrollen">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <!-- Impressum Modal -->
+  <div class="modal-overlay" id="impressumModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="impressumTitle">
+      <button class="modal__close" onclick="closeModal('impressum')" aria-label="Schließen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <h2 id="impressumTitle">Impressum</h2>
+      <h3>Angaben gemäß § 5 TMG</h3>
+      <p>Thomas Wodny<br>Financial Analyst & Senior Controller<br>Hamburg, Deutschland</p>
+      <h3>Kontakt</h3>
+      <p>E-Mail: Wodny33@googlemail.com<br>Telefon: +49 176 211 012 00</p>
+      <h3>Haftungsausschluss</h3>
+      <p>Die Inhalte dieser Seite wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann jedoch keine Gewähr übernommen werden.</p>
+      <h3>Urheberrecht</h3>
+      <p>Die durch den Seitenbetreiber erstellten Inhalte und Werke auf dieser Seite unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung bedürfen der schriftlichen Zustimmung des Autors.</p>
+    </div>
+  </div>
+
+  <!-- Datenschutz Modal -->
+  <div class="modal-overlay" id="datenschutzModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="datenschutzTitle">
+      <button class="modal__close" onclick="closeModal('datenschutz')" aria-label="Schließen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <h2 id="datenschutzTitle">Datenschutzerkl&auml;rung</h2>
+      <h3>1. Verantwortlicher</h3>
+      <p>Thomas Wodny<br>Hamburg, Deutschland<br>E-Mail: Wodny33@googlemail.com</p>
+      <h3>2. Erhebung und Speicherung personenbezogener Daten</h3>
+      <p>Beim Besuch dieser Website werden automatisch Informationen durch den Browser übermittelt und in Server-Logfiles gespeichert (Browsertyp, Betriebssystem, Referrer-URL, IP-Adresse, Zeitpunkt des Zugriffs). Diese Daten sind nicht bestimmten Personen zuordenbar und werden nicht mit anderen Datenquellen zusammengeführt.</p>
+      <h3>3. Kontaktformular</h3>
+      <p>Bei Nutzung des Kontaktformulars werden die von Ihnen eingegebenen Daten (Name, E-Mail, Unternehmen, Betreff, Nachricht) zum Zweck der Bearbeitung Ihrer Anfrage gespeichert. Eine Weitergabe an Dritte erfolgt nicht. Die Daten werden gelöscht, sobald sie für den Zweck ihrer Verarbeitung nicht mehr erforderlich sind.</p>
+      <h3>4. Cookies</h3>
+      <p>Diese Website verwendet technisch notwendige Cookies (z.B. Theme-Präferenz, Cookie-Consent-Status). Diese Cookies sind für den Betrieb der Seite notwendig und können nicht deaktiviert werden. Es werden keine Tracking-Cookies eingesetzt.</p>
+      <h3>5. Ihre Rechte</h3>
+      <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer personenbezogenen Daten. Zudem steht Ihnen ein Beschwerderecht bei der zuständigen Aufsichtsbehörde zu.</p>
+      <ul>
+        <li>Recht auf Auskunft (Art. 15 DSGVO)</li>
+        <li>Recht auf Berichtigung (Art. 16 DSGVO)</li>
+        <li>Recht auf Löschung (Art. 17 DSGVO)</li>
+        <li>Recht auf Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
+        <li>Recht auf Datenübertragbarkeit (Art. 20 DSGVO)</li>
+        <li>Recht auf Widerspruch (Art. 21 DSGVO)</li>
+      </ul>
+      <h3>6. Aktualität</h3>
+      <p>Diese Datenschutzerkl&auml;rung ist aktuell gültig. Stand: Februar 2026.</p>
+    </div>
+  </div>
+
+  <script>
+    /* ========== THEME TOGGLE ========== */
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = saved || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      updateThemeIcon(theme);
+    })();
+
+    function updateThemeIcon(theme) {
+      const sun = document.querySelector('.icon-sun');
+      const moon = document.querySelector('.icon-moon');
+      if (!sun || !moon) return;
+      if (theme === 'dark') {
+        sun.style.display = 'none';
+        moon.style.display = 'block';
+      } else {
+        sun.style.display = 'block';
+        moon.style.display = 'none';
+      }
+    }
+
+    document.getElementById('themeToggle').addEventListener('click', function() {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      updateThemeIcon(next);
+    });
+
+    /* ========== MOBILE NAV ========== */
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+    navToggle.addEventListener('click', function() {
+      this.classList.toggle('active');
+      navMenu.classList.toggle('open');
+      this.setAttribute('aria-label', navMenu.classList.contains('open') ? 'Menü schließen' : 'Menü öffnen');
+    });
+    navMenu.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        navToggle.classList.remove('active');
+        navMenu.classList.remove('open');
+      });
+    });
+
+    /* ========== SCROLL: NAV, PROGRESS, BACK-TO-TOP, ACTIVE LINK ========== */
+    const nav = document.getElementById('nav');
+    const progressBar = document.getElementById('scrollProgress');
+    const backToTop = document.getElementById('backToTop');
+    const sections = document.querySelectorAll('.section, .hero');
+    const navLinks = document.querySelectorAll('.nav__menu a');
+
+    window.addEventListener('scroll', function() {
+      const scrollY = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
+
+      progressBar.style.width = progress + '%';
+      nav.classList.toggle('scrolled', scrollY > 20);
+      backToTop.classList.toggle('visible', scrollY > 600);
+
+      let current = '';
+      sections.forEach(function(sec) {
+        if (scrollY >= sec.offsetTop - 200) current = sec.getAttribute('id');
+      });
+      navLinks.forEach(function(link) {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+      });
+    });
+
+    backToTop.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    /* ========== SCROLL REVEAL ========== */
+    const revealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(function(el, i) {
+      var group = el.closest('.about__highlights, .skills__grid, .projects__grid, .services__grid, .testimonials__grid, .timeline');
+      if (group) {
+        var siblings = Array.from(group.querySelectorAll('.reveal'));
+        var idx = siblings.indexOf(el);
+        el.style.transitionDelay = (idx * 0.1) + 's';
+      }
+      revealObserver.observe(el);
+    });
+
+    /* ========== SKILL LEVEL BARS ANIMATION ========== */
+    const skillObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.skill-level__fill').forEach(function(bar, i) {
+            setTimeout(function() {
+              bar.classList.add('animated');
+            }, i * 150);
+          });
+          skillObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    var skillLevels = document.querySelector('.skill-levels');
+    if (skillLevels) skillObserver.observe(skillLevels);
+
+    /* ========== HERO CANVAS ANIMATION ========== */
+    (function() {
+      var canvas = document.getElementById('heroCanvas');
+      if (!canvas) return;
+      var ctx = canvas.getContext('2d');
+      var particles = [];
+      var raf;
+
+      function resize() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+      }
+
+      function init() {
+        var count = window.innerWidth < 768 ? 30 : 55;
+        particles = [];
+        for (var i = 0; i < count; i++) {
+          particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.25,
+            vy: (Math.random() - 0.5) * 0.25,
+            r: Math.random() * 1.8 + 0.5
+          });
+        }
+      }
+
+      function getColors() {
+        var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+        return {
+          particle: dark ? 'rgba(212,160,74,' : 'rgba(176,125,30,',
+          line: dark ? 'rgba(212,160,74,' : 'rgba(176,125,30,'
+        };
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        var c = getColors();
+        var maxDist = 130;
+
+        for (var i = 0; i < particles.length; i++) {
+          var p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0) p.x = canvas.width;
+          if (p.x > canvas.width) p.x = 0;
+          if (p.y < 0) p.y = canvas.height;
+          if (p.y > canvas.height) p.y = 0;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = c.particle + '0.35)';
+          ctx.fill();
+
+          for (var j = i + 1; j < particles.length; j++) {
+            var q = particles[j];
+            var dx = p.x - q.x, dy = p.y - q.y;
+            var dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < maxDist) {
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(q.x, q.y);
+              ctx.strokeStyle = c.line + (0.12 * (1 - dist / maxDist)).toFixed(3) + ')';
+              ctx.lineWidth = 0.6;
+              ctx.stroke();
+            }
+          }
+        }
+        raf = requestAnimationFrame(draw);
+      }
+
+      resize();
+      init();
+      draw();
+
+      window.addEventListener('resize', function() {
+        resize();
+        init();
+      });
+    })();
+
+    /* ========== CONTACT FORM ========== */
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var valid = true;
+      var required = this.querySelectorAll('[required]');
+      required.forEach(function(field) {
+        if (!field.value || (field.type === 'checkbox' && !field.checked)) {
+          field.style.borderColor = '#c0392b';
+          valid = false;
+        } else {
+          field.style.borderColor = '';
+        }
+      });
+      var emailField = this.querySelector('#email');
+      if (emailField.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value)) {
+        emailField.style.borderColor = '#c0392b';
+        valid = false;
+      }
+      if (valid) {
+        this.style.display = 'none';
+        document.getElementById('formSuccess').classList.add('visible');
+      }
+    });
+
+    /* ========== COOKIE BANNER ========== */
+    (function() {
+      if (!localStorage.getItem('cookieConsent')) {
+        setTimeout(function() {
+          document.getElementById('cookieBanner').classList.add('visible');
+        }, 1000);
+      }
+    })();
+
+    function handleCookies(accepted) {
+      localStorage.setItem('cookieConsent', accepted ? 'accepted' : 'declined');
+      document.getElementById('cookieBanner').classList.remove('visible');
+    }
+
+    /* ========== MODALS ========== */
+    function openModal(type) {
+      var id = type + 'Modal';
+      var modal = document.getElementById(id);
+      if (modal) {
+        modal.classList.add('visible');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeModal(type) {
+      var id = type + 'Modal';
+      var modal = document.getElementById(id);
+      if (modal) {
+        modal.classList.remove('visible');
+        document.body.style.overflow = '';
+      }
+    }
+
+    document.querySelectorAll('.modal-overlay').forEach(function(overlay) {
+      overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) {
+          overlay.classList.remove('visible');
+          document.body.style.overflow = '';
+        }
+      });
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.visible').forEach(function(m) {
+          m.classList.remove('visible');
+        });
+        document.body.style.overflow = '';
+      }
+    });
+  </script>
+</body>
+</html>
