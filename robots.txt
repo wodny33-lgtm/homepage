@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wodny33-lgtm.github.io/homepage/sitemap.xml
