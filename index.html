@@ -6,6 +6,7 @@
   <meta name="google-site-verification" content="j8oWPYnLlu_8UwAogGeLpot2FqDVdCRnQmSCh5scxPo" />
   <meta name="description" content="Thomas Wodny – Financial Analyst & Senior Controller. Datengetriebenes Controlling für die Energiewirtschaft mit SQL, Python, Power Query und KI-gestützter Automatisierung.">
   <title>Thomas Wodny | Financial Analyst & Senior Controller</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100' height='100' rx='12' fill='%231C1917'/%3E%3Cpath d='M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z' fill='%23B07D1E' opacity='0.12'/%3E%3Cpath d='M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z' fill='none' stroke='%23B07D1E' stroke-width='3'/%3E%3Ctext x='50' y='54' text-anchor='middle' dominant-baseline='central' font-family='Georgia,serif' font-weight='700' font-size='36' fill='%23B07D1E'%3ETW%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,opsz,wght@0,14,300..700;1,14,300..700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -153,6 +154,10 @@
       font-family: var(--font-display); font-weight: 600;
       font-size: 24px; color: var(--text-primary);
       letter-spacing: -0.02em;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav__logo svg {
+      width: 32px; height: 32px; flex-shrink: 0;
     }
     .nav__menu {
       display: flex; align-items: center; gap: 28px;
@@ -687,6 +692,10 @@
     .footer__brand {
       font-family: var(--font-display); font-weight: 600;
       font-size: 22px; color: var(--text-primary);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .footer__brand svg {
+      width: 28px; height: 28px; flex-shrink: 0;
     }
     .footer__links { display: flex; gap: 28px; }
     .footer__links a {
@@ -858,7 +867,7 @@
   <!-- Navigation -->
   <header class="nav" id="nav">
     <div class="nav__container">
-      <a href="#hero" class="nav__logo">T. Wodny</a>
+      <a href="#hero" class="nav__logo"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50,4 L92,20 L92,52 Q92,84 50,98 Q8,84 8,52 L8,20 Z" fill="var(--accent)" opacity="0.1"/><path d="M50,4 L92,20 L92,52 Q92,84 50,98 Q8,84 8,52 L8,20 Z" fill="none" stroke="var(--accent)" stroke-width="2.5"/><text x="50" y="54" text-anchor="middle" dominant-baseline="central" font-family="Georgia,serif" font-weight="700" font-size="36" fill="var(--accent)">TW</text></svg>T. Wodny</a>
       <nav class="nav__menu" id="navMenu" role="navigation" aria-label="Hauptnavigation">
         <a href="#ueber-mich">Profil</a>
         <a href="#erfahrung">Erfahrung</a>
@@ -1393,7 +1402,7 @@
   <footer class="footer">
     <div class="container">
       <div class="footer__inner">
-        <div class="footer__brand">Thomas Wodny</div>
+        <div class="footer__brand"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50,4 L92,20 L92,52 Q92,84 50,98 Q8,84 8,52 L8,20 Z" fill="var(--accent)" opacity="0.1"/><path d="M50,4 L92,20 L92,52 Q92,84 50,98 Q8,84 8,52 L8,20 Z" fill="none" stroke="var(--accent)" stroke-width="2.5"/><text x="50" y="54" text-anchor="middle" dominant-baseline="central" font-family="Georgia,serif" font-weight="700" font-size="36" fill="var(--accent)">TW</text></svg>Thomas Wodny</div>
         <div class="footer__links">
           <a href="#" onclick="openModal('impressum');return false;">Impressum</a>
           <a href="#" onclick="openModal('datenschutz');return false;">Datenschutzerkl&auml;rung</a>
