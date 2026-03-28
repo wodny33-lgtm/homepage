@@ -1,1430 +1,1901 @@
 <!DOCTYPE html>
-<html lang="de" data-theme="light">
+<html lang="de">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="google-site-verification" content="j8oWPYnLlu_8UwAogGeLpot2FqDVdCRnQmSCh5scxPo" />
   <meta name="description" content="Thomas Wodny – Financial Analyst & Senior Controller. Datengetriebenes Controlling für die Energiewirtschaft mit SQL, Python, Power Query und KI-gestützter Automatisierung.">
   <title>Thomas Wodny | Financial Analyst & Senior Controller</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100' height='100' rx='12' fill='%231C1917'/%3E%3Cpath d='M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z' fill='%23B07D1E' opacity='0.12'/%3E%3Cpath d='M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z' fill='none' stroke='%23B07D1E' stroke-width='3'/%3E%3Ctext x='50' y='54' text-anchor='middle' dominant-baseline='central' font-family='Georgia,serif' font-weight='700' font-size='36' fill='%23B07D1E'%3ETW%3C/text%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100' height='100' rx='12' fill='%230a0e1a'/%3E%3Ctext x='50' y='54' text-anchor='middle' dominant-baseline='central' font-family='monospace' font-weight='700' font-size='36' fill='%2300f0ff'%3ETW%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,opsz,wght@0,14,300..700;1,14,300..700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     /* ========== CUSTOM PROPERTIES ========== */
     :root {
-      --bg-primary: #F8F6F1;
-      --bg-secondary: #EFECE5;
-      --bg-card: #FFFFFF;
-      --bg-card-hover: #FDFCFA;
-      --text-primary: #1C1917;
-      --text-secondary: #57534E;
-      --text-tertiary: #78716C;
-      --accent: #B07D1E;
-      --accent-light: #D4A854;
-      --accent-bg: rgba(176,125,30,0.06);
-      --accent-border: rgba(176,125,30,0.25);
-      --teal: #2D7A7A;
-      --teal-bg: rgba(45,122,122,0.08);
-      --border: #E7E2DA;
-      --border-light: #F0ECE5;
-      --nav-bg: rgba(248,246,241,0.88);
-      --hero-overlay: rgba(248,246,241,0.55);
-      --shadow-sm: 0 1px 3px rgba(28,25,23,0.04);
-      --shadow-md: 0 4px 16px rgba(28,25,23,0.07);
-      --shadow-lg: 0 12px 40px rgba(28,25,23,0.10);
-      --radius-sm: 6px;
-      --radius-md: 12px;
-      --radius-lg: 20px;
-      --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
-      --font-display: 'Cormorant', Georgia, serif;
-      --font-body: 'Outfit', system-ui, sans-serif;
-    }
-
-    [data-theme="dark"] {
-      --bg-primary: #0F1218;
-      --bg-secondary: #161B24;
-      --bg-card: #1C222C;
-      --bg-card-hover: #232A35;
-      --text-primary: #E8E4DC;
-      --text-secondary: #9B9690;
-      --text-tertiary: #706C66;
-      --accent: #D4A04A;
-      --accent-light: #E8BE70;
-      --accent-bg: rgba(212,160,74,0.07);
-      --accent-border: rgba(212,160,74,0.25);
-      --teal: #5ABFBF;
-      --teal-bg: rgba(90,191,191,0.08);
-      --border: #2A303B;
-      --border-light: #21262E;
-      --nav-bg: rgba(15,18,24,0.88);
-      --hero-overlay: rgba(15,18,24,0.55);
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
-      --shadow-md: 0 4px 16px rgba(0,0,0,0.25);
-      --shadow-lg: 0 12px 40px rgba(0,0,0,0.35);
+      --bg-primary: #0a0e1a;
+      --bg-secondary: #0d1225;
+      --bg-panel: rgba(10, 20, 40, 0.85);
+      --bg-panel-hover: rgba(15, 30, 55, 0.9);
+      --text-primary: #e8e0d0;
+      --text-secondary: #b0a080;
+      --text-tertiary: #8a7a5a;
+      --cyan: #ffbe2e;
+      --cyan-dim: #c49220;
+      --cyan-glow: rgba(255, 190, 46, 0.3);
+      --cyan-bg: rgba(255, 190, 46, 0.06);
+      --cyan-border: rgba(255, 190, 46, 0.25);
+      --teal: #e8a830;
+      --teal-bg: rgba(232, 168, 48, 0.08);
+      --warning: #ff6b35;
+      --border: rgba(255, 190, 46, 0.12);
+      --border-bright: rgba(255, 190, 46, 0.35);
+      --shadow-glow: 0 0 20px rgba(255, 190, 46, 0.15);
+      --shadow-glow-strong: 0 0 40px rgba(255, 190, 46, 0.25);
+      --font-display: 'Orbitron', sans-serif;
+      --font-body: 'Rajdhani', sans-serif;
+      --font-mono: 'Share Tech Mono', monospace;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     /* ========== RESET ========== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    html { font-size: 18px; }
     body {
       font-family: var(--font-body);
       font-weight: 400;
-      font-size: 16px;
-      line-height: 1.7;
+      font-size: 18px;
+      line-height: 1.6;
       color: var(--text-primary);
       background: var(--bg-primary);
-      transition: background var(--transition), color var(--transition);
-      overflow-x: hidden;
+      overflow: hidden;
+      height: 100vh;
     }
     img { max-width: 100%; display: block; }
-    a { color: inherit; text-decoration: none; }
+    a { color: var(--cyan); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: #fff; text-shadow: 0 0 8px var(--cyan-glow); }
     button { font-family: inherit; cursor: pointer; border: none; background: none; }
     ul, ol { list-style: none; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+    ::-webkit-scrollbar-thumb { background: var(--cyan-dim); border-radius: 2px; }
 
-    /* ========== NOISE OVERLAY ========== */
-    .noise-overlay {
-      position: fixed; inset: 0;
-      pointer-events: none; z-index: 9999;
-      opacity: 0.025;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-size: 200px 200px;
-    }
-
-    /* ========== SCROLL PROGRESS ========== */
-    .scroll-progress {
-      position: fixed; top: 0; left: 0; height: 3px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-light));
-      z-index: 10001; width: 0; transition: none;
+    /* ========== GRID OVERLAY ========== */
+    .grid-overlay {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background-image:
+        linear-gradient(rgba(255,190,46,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,190,46,0.025) 1px, transparent 1px);
+      background-size: 40px 40px;
     }
 
-    /* ========== SKIP LINK ========== */
-    .skip-link {
-      position: fixed; top: -100px; left: 16px;
-      background: var(--accent); color: #fff;
-      padding: 8px 16px; border-radius: var(--radius-sm);
-      z-index: 10002; font-weight: 600; font-size: 14px;
-      transition: top 0.2s;
-    }
-    .skip-link:focus { top: 16px; }
-
-    /* ========== UTILITIES ========== */
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 14px 32px; border-radius: var(--radius-sm);
-      font-family: var(--font-body); font-weight: 600; font-size: 15px;
-      letter-spacing: 0.02em; transition: all var(--transition);
-      white-space: nowrap;
-    }
-    .btn--primary {
-      background: var(--accent); color: #fff;
-      box-shadow: 0 2px 8px rgba(176,125,30,0.25);
-    }
-    .btn--primary:hover {
-      background: var(--accent-light);
-      box-shadow: 0 4px 16px rgba(176,125,30,0.35);
-      transform: translateY(-1px);
-    }
-    .btn--outline {
-      border: 1.5px solid var(--accent-border);
-      color: var(--accent);
-    }
-    .btn--outline:hover {
-      background: var(--accent-bg);
-      border-color: var(--accent);
+    /* ========== SCANLINE ========== */
+    .scanline {
+      position: fixed; inset: 0; pointer-events: none; z-index: 9998;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 2px,
+        rgba(255, 190, 46, 0.008) 2px, rgba(255, 190, 46, 0.008) 4px
+      );
     }
 
-    /* ========== NAVIGATION ========== */
-    .nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      background: var(--nav-bg);
-      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid transparent;
+    /* ========== MAIN LAYOUT ========== */
+    .hud-layout {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      height: 100vh;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ========== HEADER ========== */
+    .hud-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 28px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10, 14, 26, 0.95);
+      backdrop-filter: blur(12px);
+      position: relative;
+    }
+    .hud-header::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+      opacity: 0.5;
+    }
+    .hud-header__left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .hud-header__portrait {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px solid var(--cyan);
+      box-shadow: 0 0 12px var(--cyan-glow), inset 0 0 8px var(--cyan-glow);
+      object-fit: cover;
+      object-position: center 20%;
+    }
+    .hud-header__info {
+      display: flex;
+      flex-direction: column;
+    }
+    .hud-header__name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 18px;
+      color: #fff;
+      letter-spacing: 0.08em;
+      text-shadow: 0 0 10px var(--cyan-glow);
+    }
+    .hud-header__title {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--cyan);
+      letter-spacing: 0.05em;
+    }
+    .hud-header__right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .hud-header__status {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--teal);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .hud-header__status::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 6px var(--teal);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .hud-header__links {
+      display: flex;
+      gap: 12px;
+    }
+    .hud-header__links a {
+      color: var(--text-secondary);
       transition: all var(--transition);
+      display: flex;
+      align-items: center;
     }
-    .nav.scrolled { border-bottom-color: var(--border); }
-    .nav__container {
-      max-width: 1200px; margin: 0 auto; padding: 0 24px;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 72px;
+    .hud-header__links a:hover {
+      color: var(--cyan);
+      filter: drop-shadow(0 0 4px var(--cyan-glow));
     }
-    .nav__logo {
-      font-family: var(--font-display); font-weight: 600;
-      font-size: 24px; color: var(--text-primary);
-      letter-spacing: -0.02em;
-      display: flex; align-items: center; gap: 10px;
+    .hud-header__links svg {
+      width: 18px;
+      height: 18px;
     }
-    .nav__logo svg {
-      width: 32px; height: 32px; flex-shrink: 0;
-    }
-    .nav__menu {
-      display: flex; align-items: center; gap: 28px;
-    }
-    .nav__menu a {
-      font-size: 13px; font-weight: 500; color: var(--text-secondary);
-      letter-spacing: 0.03em; text-transform: uppercase;
-      position: relative; transition: color var(--transition);
-    }
-    .nav__menu a::after {
-      content: ''; position: absolute; bottom: -4px; left: 0;
-      width: 0; height: 1.5px; background: var(--accent);
-      transition: width var(--transition);
-    }
-    .nav__menu a:hover, .nav__menu a.active { color: var(--text-primary); }
-    .nav__menu a:hover::after, .nav__menu a.active::after { width: 100%; }
-    .nav__actions { display: flex; align-items: center; gap: 12px; }
-    .nav__theme-toggle {
-      width: 40px; height: 40px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--text-secondary); transition: all var(--transition);
-      border: 1px solid var(--border);
-    }
-    .nav__theme-toggle:hover { color: var(--accent); border-color: var(--accent-border); }
-    .nav__theme-toggle svg { width: 18px; height: 18px; }
-    .nav__toggle {
-      display: none; flex-direction: column; gap: 5px;
-      width: 28px; padding: 4px 0;
-    }
-    .nav__toggle span {
-      display: block; width: 100%; height: 2px;
-      background: var(--text-primary); border-radius: 2px;
-      transition: all 0.3s;
-    }
-    .nav__toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .nav__toggle.active span:nth-child(2) { opacity: 0; }
-    .nav__toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-    /* ========== HERO ========== */
-    .hero {
-      position: relative; min-height: 100vh; display: flex;
-      align-items: center; justify-content: center;
+    /* ========== MAIN CONTENT AREA ========== */
+    .hud-main {
+      display: grid;
+      grid-template-columns: 200px 1fr;
       overflow: hidden;
     }
-    .hero__canvas {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-    }
-    .hero__content {
-      position: relative; z-index: 2; text-align: center;
-      max-width: 820px; padding: 0 24px;
-    }
-    .hero__label {
-      display: inline-block; font-size: 12px; font-weight: 600;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 20px;
-      padding: 6px 16px; border: 1px solid var(--accent-border);
-      border-radius: 100px;
-      opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
-    }
-    .typing-cursor {
-      display: inline-block; color: var(--accent); font-weight: 300;
-      animation: blink 0.7s step-end infinite;
-    }
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-    .hero__name {
-      font-family: var(--font-display); font-weight: 700;
-      font-size: clamp(44px, 8vw, 88px); line-height: 1.05;
-      letter-spacing: -0.03em; color: var(--text-primary);
-      margin-bottom: 24px;
-      opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
-    }
-    .hero__tagline {
-      font-size: clamp(17px, 2.2vw, 20px); line-height: 1.6;
-      color: var(--text-secondary); max-width: 640px; margin: 0 auto 40px;
-      opacity: 0; animation: fadeUp 0.8s 0.6s forwards;
-    }
-    .hero__cta {
-      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
-      opacity: 0; animation: fadeUp 0.8s 0.8s forwards;
-    }
-    .hero__scroll {
-      position: absolute; bottom: 32px; left: 50%;
-      transform: translateX(-50%); z-index: 2;
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
-      color: var(--text-tertiary); font-size: 11px; font-weight: 500;
-      letter-spacing: 0.15em; text-transform: uppercase;
-      opacity: 0; animation: fadeUp 0.8s 1s forwards;
-    }
-    .hero__scroll svg {
-      width: 20px; height: 20px;
-      animation: scrollBounce 2s infinite;
-    }
 
-    /* ========== SECTIONS ========== */
-    .section { padding: 120px 0; }
-    .section--alt { background: var(--bg-secondary); }
-    .section__header {
-      margin-bottom: 64px;
-      opacity: 0; transform: translateY(24px);
-      transition: all 0.7s cubic-bezier(0.4,0,0.2,1);
+    /* ========== SIDE NAV ========== */
+    .hud-nav {
+      background: rgba(10, 14, 26, 0.9);
+      border-right: 1px solid var(--border);
+      padding: 24px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      position: relative;
     }
-    .section__header.revealed { opacity: 1; transform: translateY(0); }
-    .section__number {
-      display: block; font-family: var(--font-display); font-weight: 300;
-      font-size: 14px; color: var(--accent); letter-spacing: 0.15em;
-      margin-bottom: 12px;
+    .hud-nav::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: -1px;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(180deg, transparent, var(--cyan-border), transparent);
     }
-    .section__title {
-      font-family: var(--font-display); font-weight: 600;
-      font-size: clamp(32px, 5vw, 48px); line-height: 1.15;
-      letter-spacing: -0.02em; color: var(--text-primary);
-    }
-    .section__title::after {
-      content: ''; display: block; width: 48px; height: 2px;
-      background: var(--accent); margin-top: 20px;
-    }
-
-    /* ========== ABOUT ========== */
-    .about__grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
-      align-items: start;
-    }
-    .about__portrait {
-      display: flex; justify-content: center;
-      margin-top: 24px; margin-bottom: 32px;
-      opacity: 0; transform: translateY(20px);
-      transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
-    }
-    .about__portrait.revealed { opacity: 1; transform: translateY(0); }
-    .about__portrait img {
-      width: 180px; height: 180px; object-fit: cover;
-      object-position: center 20%;
-      border-radius: 50%; border: 3px solid var(--accent-border);
-      box-shadow: var(--shadow-md), 0 0 0 8px var(--accent-bg);
+    .hud-nav__item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      cursor: pointer;
       transition: all var(--transition);
+      position: relative;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
     }
-    .about__portrait img:hover {
-      box-shadow: var(--shadow-lg), 0 0 0 12px var(--accent-bg);
-      transform: scale(1.03);
+    .hud-nav__item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan-glow);
+      transform: scaleY(0);
+      transition: transform var(--transition);
     }
-    .about__text p {
-      color: var(--text-secondary); font-size: 17px; margin-bottom: 20px;
-      opacity: 0; transform: translateY(20px);
-      transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
+    .hud-nav__item:hover {
+      color: var(--text-primary);
+      background: var(--cyan-bg);
     }
-    .about__text p.revealed { opacity: 1; transform: translateY(0); }
-    .about__personal {
-      margin-top: 28px; padding: 20px 24px;
-      background: var(--accent-bg); border-left: 3px solid var(--accent);
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-      opacity: 0; transform: translateY(20px);
-      transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
+    .hud-nav__item.active {
+      color: var(--cyan);
+      background: rgba(255, 190, 46, 0.08);
+      text-shadow: 0 0 6px var(--cyan-glow);
     }
-    .about__personal.revealed { opacity: 1; transform: translateY(0); }
-    .about__personal p {
-      font-size: 15px; color: var(--text-secondary); margin: 0;
-      opacity: 1; transform: none;
+    .hud-nav__item.active::before {
+      transform: scaleY(1);
     }
-    .about__highlights {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    .hud-nav__item svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+    .hud-nav__number {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-tertiary);
+      min-width: 18px;
+    }
+
+    /* ========== CONTENT PANELS ========== */
+    .hud-content {
+      overflow-y: auto;
+      padding: 32px;
+      position: relative;
+    }
+    .panel {
+      display: none;
+      animation: panelIn 0.4s ease forwards;
+    }
+    .panel.active {
+      display: block;
+    }
+    @keyframes panelIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* HUD Frame for panels */
+    .hud-frame {
+      border: 1px solid var(--border);
+      background: var(--bg-panel);
+      padding: 28px;
+      margin-bottom: 24px;
+      position: relative;
+      clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+      overflow: visible;
+    }
+    .hud-frame::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: -1px;
+      right: -1px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--cyan), transparent 60%);
+    }
+    .hud-frame::after {
+      content: '';
+      position: absolute;
+      top: -1px;
+      right: -1px;
+      width: 16px;
+      height: 16px;
+      border-right: 1px solid var(--cyan-border);
+      border-bottom: 1px solid var(--cyan-border);
+      transform: rotate(45deg) translate(-5px, -5px);
+    }
+
+    .hud-frame--glow {
+      box-shadow: var(--shadow-glow);
+    }
+
+    .panel__title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 24px;
+      color: var(--cyan);
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+      text-shadow: 0 0 12px var(--cyan-glow);
+    }
+    .panel__subtitle {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .panel__label {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .panel__text {
+      color: var(--text-secondary);
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    /* ========== PROFIL PANEL ========== */
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .profile-personal {
+      padding: 16px 20px;
+      border-left: 2px solid var(--cyan);
+      background: rgba(255, 190, 46, 0.04);
+      margin-top: 8px;
+    }
+    .profile-personal p {
+      color: var(--text-secondary);
+      font-size: 15px;
+      margin: 0;
+    }
+
+    /* Highlight cards */
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
     }
     .highlight-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: var(--radius-md); padding: 28px 24px;
-      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-panel);
+      padding: 20px;
+      text-align: center;
       transition: all var(--transition);
-      opacity: 0; transform: translateY(20px);
+      position: relative;
+      overflow: hidden;
     }
-    .highlight-card.revealed { opacity: 1; transform: translateY(0); }
+    .highlight-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan-glow);
+      transform: scaleX(0);
+      transition: transform 0.4s;
+    }
     .highlight-card:hover {
-      box-shadow: var(--shadow-md); transform: translateY(-3px);
-      border-color: var(--accent-border);
+      border-color: var(--cyan-border);
+      box-shadow: var(--shadow-glow);
+    }
+    .highlight-card:hover::before {
+      transform: scaleX(1);
     }
     .highlight-card__value {
-      font-family: var(--font-display); font-weight: 700;
-      font-size: 28px; color: var(--accent); line-height: 1.2;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 26px;
+      color: var(--cyan);
+      text-shadow: 0 0 10px var(--cyan-glow);
       margin-bottom: 6px;
     }
     .highlight-card__label {
-      font-size: 13px; font-weight: 500; color: var(--text-tertiary);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-tertiary);
       letter-spacing: 0.03em;
+      text-transform: uppercase;
     }
 
     /* ========== TIMELINE ========== */
     .timeline { position: relative; padding-left: 32px; }
     .timeline::before {
-      content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px;
-      width: 2px; background: var(--border);
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--cyan), var(--cyan-dim), var(--border));
     }
     .timeline__item {
-      position: relative; padding-bottom: 40px;
-      opacity: 0; transform: translateY(20px);
-      transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
+      position: relative;
+      padding-bottom: 32px;
     }
-    .timeline__item.revealed { opacity: 1; transform: translateY(0); }
     .timeline__item:last-child { padding-bottom: 0; }
     .timeline__item::before {
-      content: ''; position: absolute; left: -32px; top: 8px;
-      width: 16px; height: 16px; border-radius: 50%;
-      background: var(--bg-primary); border: 2px solid var(--accent);
+      content: '';
+      position: absolute;
+      left: -32px;
+      top: 8px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--bg-primary);
+      border: 2px solid var(--cyan-dim);
       z-index: 1;
     }
     .timeline__item--active::before {
-      background: var(--accent);
-      box-shadow: 0 0 0 4px var(--accent-bg);
+      background: var(--cyan);
+      border-color: var(--cyan);
+      box-shadow: 0 0 10px var(--cyan-glow), 0 0 20px var(--cyan-glow);
     }
     .timeline__date {
-      font-size: 13px; font-weight: 600; color: var(--accent);
-      letter-spacing: 0.05em; margin-bottom: 6px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--cyan);
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
     }
     .timeline__role {
-      font-family: var(--font-display); font-weight: 600;
-      font-size: 22px; line-height: 1.3; margin-bottom: 4px;
-      color: var(--text-primary);
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 16px;
+      color: #fff;
+      letter-spacing: 0.03em;
+      margin-bottom: 2px;
     }
     .timeline__company {
-      font-size: 15px; font-weight: 500; color: var(--text-secondary);
-      margin-bottom: 12px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
     }
-    .timeline__desc { font-size: 14px; color: var(--text-tertiary); line-height: 1.7; }
+    .timeline__desc { font-size: 15px; color: var(--text-secondary); font-weight: 500; line-height: 1.7; }
     .timeline__desc li {
-      padding-left: 16px; position: relative; margin-bottom: 6px;
+      padding-left: 16px;
+      position: relative;
+      margin-bottom: 4px;
     }
     .timeline__desc li::before {
-      content: ''; position: absolute; left: 0; top: 9px;
-      width: 5px; height: 5px; border-radius: 50%;
-      background: var(--accent); opacity: 0.5;
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--cyan-dim);
     }
+
     .timeline__education {
-      margin-top: 48px; padding-top: 48px; border-top: 1px solid var(--border);
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
     }
-    .timeline__education-title {
-      font-family: var(--font-display); font-weight: 600;
-      font-size: 22px; margin-bottom: 24px; color: var(--text-primary);
-      opacity: 0; transform: translateY(20px);
-      transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
-    }
-    .timeline__education-title.revealed { opacity: 1; transform: translateY(0); }
     .edu-item {
-      display: flex; gap: 16px; margin-bottom: 20px;
-      opacity: 0; transform: translateY(20px);
-      transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
+      display: flex;
+      gap: 16px;
+      margin-bottom: 14px;
     }
-    .edu-item.revealed { opacity: 1; transform: translateY(0); }
     .edu-item__year {
-      font-size: 13px; font-weight: 600; color: var(--accent);
-      min-width: 90px; padding-top: 2px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--cyan);
+      min-width: 90px;
+      padding-top: 2px;
     }
-    .edu-item__title { font-size: 15px; font-weight: 600; color: var(--text-primary); }
-    .edu-item__detail { font-size: 14px; color: var(--text-tertiary); }
-
-    /* ========== SKILLS ========== */
-    .skills__grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
-    }
-    .skill-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: var(--radius-md); padding: 36px 32px;
-      box-shadow: var(--shadow-sm); position: relative; overflow: hidden;
-      transition: all var(--transition);
-      opacity: 0; transform: translateY(24px);
-    }
-    .skill-card.revealed { opacity: 1; transform: translateY(0); }
-    .skill-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0;
-      height: 3px; background: var(--accent); transform: scaleX(0);
-      transform-origin: left; transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
-    }
-    .skill-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
-    .skill-card:hover::before { transform: scaleX(1); }
-    .skill-card__icon {
-      width: 44px; height: 44px; border-radius: var(--radius-sm);
-      background: var(--accent-bg); display: flex;
-      align-items: center; justify-content: center;
-      margin-bottom: 20px; color: var(--accent);
-    }
-    .skill-card__icon svg { width: 22px; height: 22px; }
-    .skill-card__title {
-      font-family: var(--font-display); font-weight: 600;
-      font-size: 22px; margin-bottom: 16px; color: var(--text-primary);
-    }
-    .skill-card__list { display: flex; flex-direction: column; gap: 10px; }
-    .skill-card__list li {
-      font-size: 14px; color: var(--text-secondary);
-      padding-left: 16px; position: relative;
-    }
-    .skill-card__list li::before {
-      content: ''; position: absolute; left: 0; top: 8px;
-      width: 5px; height: 5px; border-radius: 50%;
-      background: var(--accent); opacity: 0.6;
-    }
-
-    /* Skill Levels */
-    .skill-levels {
-      margin-top: 48px;
-      opacity: 0; transform: translateY(24px);
-      transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
-    }
-    .skill-levels.revealed { opacity: 1; transform: translateY(0); }
-    .skill-levels__title {
-      font-family: var(--font-display); font-weight: 600;
-      font-size: 26px; margin-bottom: 32px; color: var(--text-primary);
-    }
-    .skill-level {
-      display: grid; grid-template-columns: 180px 1fr auto; gap: 16px;
-      align-items: center; margin-bottom: 20px;
-    }
-    .skill-level__name {
-      font-size: 15px; font-weight: 500; color: var(--text-primary);
-    }
-    .skill-level__bar {
-      height: 8px; background: var(--border); border-radius: 4px;
-      overflow: hidden; position: relative;
-    }
-    .skill-level__fill {
-      height: 100%; border-radius: 4px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-light));
-      width: 0; transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
-    }
-    .skill-level__fill.animated { width: var(--level); }
-    .skill-level__pct {
-      font-size: 13px; font-weight: 600; color: var(--accent);
-      min-width: 36px; text-align: right;
-    }
-
-    /* ========== PROJECTS ========== */
-    .projects__grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
-    }
-    .project-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: var(--radius-md); padding: 36px 32px;
-      box-shadow: var(--shadow-sm); position: relative;
-      transition: all var(--transition);
-      opacity: 0; transform: translateY(24px);
-    }
-    .project-card.revealed { opacity: 1; transform: translateY(0); }
-    .project-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
-    .project-card::before {
-      content: ''; position: absolute; top: 0; left: -75%; width: 50%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-      transform: skewX(-25deg); transition: none; pointer-events: none; z-index: 1;
-    }
-    .project-card:hover::before {
-      animation: cardShine 0.6s ease forwards;
-    }
-    @keyframes cardShine {
-      to { left: 125%; }
-    }
-    .project-card { overflow: hidden; }
-    .project-card--wide { grid-column: span 2; }
-    .project-card__number {
-      font-family: var(--font-display); font-weight: 300;
-      font-size: 13px; color: var(--accent); letter-spacing: 0.1em;
-      margin-bottom: 16px;
-    }
-    .project-card__title {
-      font-family: var(--font-display); font-weight: 600;
-      font-size: 22px; line-height: 1.3; margin-bottom: 14px;
+    .edu-item__title {
+      font-size: 15px;
+      font-weight: 600;
       color: var(--text-primary);
     }
+    .edu-item__detail {
+      font-size: 13px;
+      color: var(--text-tertiary);
+    }
+
+    /* ========== RADAR CHART ========== */
+    .radar-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+    .radar-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      min-height: 420px;
+    }
+    .radar-container canvas {
+      max-width: 100%;
+      display: block;
+    }
+    .skill-categories {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .skill-cat {
+      border: 1px solid var(--border);
+      background: var(--bg-panel);
+      padding: 16px 20px;
+      transition: all var(--transition);
+    }
+    .skill-cat:hover {
+      border-color: var(--cyan-border);
+    }
+    .skill-cat__title {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      color: var(--cyan);
+      margin-bottom: 8px;
+    }
+    .skill-cat__list {
+      font-size: 15px;
+      color: var(--text-primary);
+      font-weight: 500;
+      line-height: 1.8;
+    }
+    .skill-cat__list li {
+      padding-left: 14px;
+      position: relative;
+    }
+    .skill-cat__list li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--cyan-dim);
+      font-size: 11px;
+    }
+
+    /* ========== PROJECT CARDS ========== */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .project-card {
+      border: 1px solid var(--border);
+      background: var(--bg-panel);
+      padding: 24px;
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .project-card:hover {
+      border-color: var(--cyan-border);
+      box-shadow: var(--shadow-glow);
+      transform: translateY(-2px);
+    }
+    .project-card:hover::before { opacity: 1; }
+    .project-card--wide { grid-column: span 2; }
+    .project-card__number {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .project-card__title {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 15px;
+      color: #fff;
+      letter-spacing: 0.03em;
+      margin-bottom: 10px;
+    }
     .project-card__desc {
-      font-size: 15px; color: var(--text-secondary);
-      margin-bottom: 12px; line-height: 1.6;
+      font-size: 15px;
+      color: var(--text-primary);
+      font-weight: 500;
+      margin-bottom: 10px;
+      line-height: 1.6;
     }
     .project-card__result {
-      font-size: 14px; font-weight: 500; color: var(--accent);
-      padding: 8px 14px; background: var(--accent-bg);
-      border-radius: var(--radius-sm); display: inline-block;
-      margin-bottom: 20px; border: 1px solid var(--accent-border);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--cyan);
+      padding: 6px 12px;
+      background: var(--cyan-bg);
+      border: 1px solid var(--cyan-border);
+      display: inline-block;
+      margin-bottom: 14px;
     }
-    .project-card__tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .project-card__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
     .tag {
-      font-size: 12px; font-weight: 500; padding: 4px 12px;
-      border-radius: 100px; background: var(--teal-bg);
-      color: var(--teal); border: 1px solid transparent;
-      letter-spacing: 0.02em;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 3px 10px;
+      border: 1px solid var(--border);
+      color: var(--teal);
+      background: var(--teal-bg);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
     }
 
     /* ========== SERVICES ========== */
-    .services__grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
     }
     .service-card {
-      display: flex; gap: 20px; padding: 32px 28px;
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-panel);
+      padding: 24px;
+      display: flex;
+      gap: 16px;
       transition: all var(--transition);
-      opacity: 0; transform: translateY(24px);
     }
-    .service-card.revealed { opacity: 1; transform: translateY(0); }
-    .service-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .service-card:hover {
+      border-color: var(--cyan-border);
+      box-shadow: var(--shadow-glow);
+    }
     .service-card__number {
-      font-family: var(--font-display); font-weight: 300;
-      font-size: 32px; color: var(--accent); line-height: 1;
-      flex-shrink: 0;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 24px;
+      color: var(--cyan);
+      text-shadow: 0 0 8px var(--cyan-glow);
+      min-width: 36px;
+      line-height: 1;
     }
     .service-card__title {
-      font-family: var(--font-display); font-weight: 600;
-      font-size: 19px; margin-bottom: 6px; color: var(--text-primary);
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      color: #fff;
+      margin-bottom: 8px;
     }
     .service-card__desc {
-      font-size: 14px; color: var(--text-secondary); line-height: 1.6;
+      font-size: 15px;
+      color: var(--text-primary);
+      font-weight: 500;
+      line-height: 1.6;
     }
 
-    /* ========== TESTIMONIALS ========== */
-    .testimonials__grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    /* ========== REPORT PREVIEW ========== */
+    .report-preview {
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, #0e1015, #12141a);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+    .report-preview__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      border-bottom: 1px solid rgba(212,168,83,0.15);
+      background: rgba(212,168,83,0.04);
+    }
+    .report-preview__logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #d4a853;
+      letter-spacing: 0.08em;
+    }
+    .report-preview__badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: #6b6f7b;
+      padding: 3px 10px;
+      border: 1px solid rgba(212,168,83,0.2);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .report-kpis {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      padding: 20px 24px;
+    }
+    .report-kpi {
+      background: rgba(18, 20, 26, 0.9);
+      border: 1px solid #1e2230;
+      border-top: 2px solid #d4a853;
+      padding: 16px;
+      text-align: center;
+    }
+    .report-kpi__value {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 22px;
+      color: #e8e6e1;
+      margin-bottom: 4px;
+    }
+    .report-kpi__label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: #6b6f7b;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .report-kpi__change {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      margin-top: 6px;
+    }
+    .report-kpi__change--pos { color: #5ec269; }
+    .report-kpi__change--neg { color: #e85d5d; }
+    .report-charts {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 16px;
+      padding: 0 24px 20px;
+    }
+    .report-chart-box {
+      background: rgba(18, 20, 26, 0.9);
+      border: 1px solid #1e2230;
+      padding: 16px;
+    }
+    .report-chart-box__title {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 600;
+      color: #d4a853;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .report-bar-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      height: 120px;
+      padding-top: 8px;
+    }
+    .report-bar {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      height: 100%;
+      justify-content: flex-end;
+    }
+    .report-bar__fill {
+      width: 100%;
+      background: linear-gradient(180deg, #d4a853, rgba(212,168,83,0.4));
+      border-radius: 2px 2px 0 0;
+      min-height: 4px;
+      transition: height 1s cubic-bezier(0.4,0,0.2,1);
+    }
+    .report-bar__label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: #6b6f7b;
+    }
+    .report-donut {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+    .report-donut canvas {
+      flex-shrink: 0;
+    }
+    .report-donut__legend {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .report-donut__item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #6b6f7b;
+    }
+    .report-donut__dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .report-preview__watermark {
+      text-align: center;
+      padding: 12px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: rgba(212,168,83,0.3);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-top: 1px solid #1e2230;
+    }
+    .report-preview__blur {
+      position: relative;
+    }
+    .report-preview__blur::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: linear-gradient(transparent, #12141a);
+      pointer-events: none;
+    }
+
+    /* ========== REFERENZEN ========== */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
     }
     .testimonial-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: var(--radius-md); padding: 32px 28px;
-      box-shadow: var(--shadow-sm); position: relative;
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--cyan);
+      background: var(--bg-panel);
+      padding: 20px 24px;
       transition: all var(--transition);
-      opacity: 0; transform: translateY(24px);
     }
-    .testimonial-card.revealed { opacity: 1; transform: translateY(0); }
-    .testimonial-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
-    .testimonial-card::before {
-      content: '\201E'; position: absolute; top: 16px; left: 24px;
-      font-family: var(--font-display); font-size: 56px;
-      color: var(--accent); opacity: 0.2; line-height: 1;
+    .testimonial-card:hover {
+      box-shadow: var(--shadow-glow);
     }
     .testimonial-card__text {
-      font-family: var(--font-display); font-weight: 500;
-      font-size: 19px; font-style: italic; line-height: 1.5;
-      color: var(--text-primary); padding-top: 12px;
-      margin-bottom: 16px;
+      font-size: 15px;
+      font-style: italic;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+    .testimonial-card__text::before {
+      content: '» ';
+      color: var(--cyan);
     }
     .testimonial-card__source {
-      font-size: 13px; color: var(--text-tertiary); font-weight: 500;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
     }
 
     /* ========== CONTACT ========== */
-    .contact__grid {
-      display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px;
-      align-items: start;
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 32px;
     }
-    .contact__info {
-      opacity: 0; transform: translateY(24px);
-      transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
+    .contact-info p {
+      color: var(--text-secondary);
+      font-size: 15px;
+      margin-bottom: 20px;
+      line-height: 1.6;
     }
-    .contact__info.revealed { opacity: 1; transform: translateY(0); }
-    .contact__info p {
-      font-size: 17px; color: var(--text-secondary); margin-bottom: 32px;
-      line-height: 1.7;
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      color: var(--text-secondary);
+      font-size: 14px;
     }
-    .contact__detail {
-      display: flex; align-items: center; gap: 12px;
-      margin-bottom: 16px; font-size: 15px; color: var(--text-secondary);
+    .contact-detail svg {
+      width: 16px;
+      height: 16px;
+      color: var(--cyan);
     }
-    .contact__detail svg {
-      width: 18px; height: 18px; color: var(--accent); flex-shrink: 0;
+    .contact-langs {
+      margin-top: 20px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      background: var(--cyan-bg);
     }
-    .contact__detail a { color: var(--accent); transition: opacity var(--transition); }
-    .contact__detail a:hover { opacity: 0.8; }
-    .contact__langs {
-      margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--border);
-    }
-    .contact__langs-title {
-      font-size: 13px; font-weight: 600; color: var(--text-tertiary);
-      letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 10px;
-    }
-    .contact__langs p { font-size: 14px; color: var(--text-secondary); margin-bottom: 4px; }
-    .contact__form-wrap {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: var(--radius-lg); padding: 40px 36px;
-      box-shadow: var(--shadow-md);
-      opacity: 0; transform: translateY(24px);
-      transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
-    }
-    .contact__form-wrap.revealed { opacity: 1; transform: translateY(0); }
-    .form-row { margin-bottom: 24px; }
-    .form-row--half { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .form-group { display: flex; flex-direction: column; }
-    .form-group label {
-      font-size: 13px; font-weight: 600; color: var(--text-tertiary);
-      letter-spacing: 0.05em; text-transform: uppercase;
+    .contact-langs__title {
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
       margin-bottom: 8px;
+      text-transform: uppercase;
     }
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      font-family: var(--font-body); font-size: 15px;
-      padding: 12px 16px; border: 1px solid var(--border);
-      border-radius: var(--radius-sm); background: var(--bg-primary);
-      color: var(--text-primary); transition: all var(--transition);
+    .contact-langs p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* Form */
+    .hud-form .form-row {
+      margin-bottom: 16px;
+    }
+    .hud-form .form-row--half {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .hud-form label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .hud-form input,
+    .hud-form select,
+    .hud-form textarea {
+      width: 100%;
+      padding: 10px 14px;
+      background: rgba(0, 20, 40, 0.8);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 15px;
+      transition: all var(--transition);
       outline: none;
     }
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-bg);
+    .hud-form input:focus,
+    .hud-form select:focus,
+    .hud-form textarea:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan-glow);
     }
-    .form-group textarea { resize: vertical; min-height: 120px; }
-    .form-group select { cursor: pointer; }
+    .hud-form textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .hud-form select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%234a6a8a'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 32px;
+    }
+    .hud-form select option {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+    }
     .form-checkbox {
-      display: flex; gap: 10px; align-items: flex-start; margin-bottom: 28px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: var(--text-tertiary);
     }
     .form-checkbox input[type="checkbox"] {
-      width: 18px; height: 18px; margin-top: 2px; flex-shrink: 0;
-      accent-color: var(--accent); cursor: pointer;
+      width: 16px;
+      height: 16px;
+      margin-top: 2px;
+      accent-color: var(--cyan);
+      flex-shrink: 0;
     }
-    .form-checkbox label {
-      font-size: 13px; color: var(--text-tertiary); line-height: 1.5;
+    .form-checkbox a {
+      color: var(--cyan);
+    }
+    .btn-submit {
+      width: 100%;
+      padding: 12px 32px;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--bg-primary);
+      background: var(--cyan);
+      border: none;
       cursor: pointer;
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
     }
-    .form-checkbox a { color: var(--accent); text-decoration: underline; }
+    .btn-submit:hover {
+      background: #fff;
+      box-shadow: 0 0 20px var(--cyan-glow);
+    }
     .form-success {
-      display: none; text-align: center; padding: 40px 20px;
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
     }
     .form-success.visible { display: block; }
-    .form-success svg { width: 48px; height: 48px; color: var(--accent); margin-bottom: 16px; }
+    .form-success svg {
+      width: 48px;
+      height: 48px;
+      color: var(--teal);
+      margin: 0 auto 16px;
+    }
     .form-success h3 {
-      font-family: var(--font-display); font-size: 24px;
-      font-weight: 600; margin-bottom: 8px;
+      font-family: var(--font-display);
+      font-size: 20px;
+      color: var(--cyan);
+      margin-bottom: 8px;
     }
-    .form-success p { color: var(--text-secondary); }
+    .form-success p {
+      color: var(--text-secondary);
+    }
 
-    /* ========== FOOTER ========== */
-    .footer {
-      background: var(--bg-secondary); border-top: 1px solid var(--border);
-      padding: 48px 0;
+    /* ========== STATS BAR (BOTTOM) ========== */
+    .hud-stats {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 28px;
+      border-top: 1px solid var(--border);
+      background: rgba(10, 14, 26, 0.95);
+      backdrop-filter: blur(12px);
+      position: relative;
     }
-    .footer__inner {
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 20px;
+    .hud-stats::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+      opacity: 0.5;
     }
-    .footer__brand {
-      font-family: var(--font-display); font-weight: 600;
-      font-size: 22px; color: var(--text-primary);
-      display: flex; align-items: center; gap: 10px;
+    .hud-stats__group {
+      display: flex;
+      align-items: center;
+      gap: 32px;
     }
-    .footer__brand svg {
-      width: 28px; height: 28px; flex-shrink: 0;
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
-    .footer__links { display: flex; gap: 28px; }
-    .footer__links a {
-      font-size: 14px; color: var(--text-secondary);
+    .stat-item__value {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--cyan);
+      text-shadow: 0 0 8px var(--cyan-glow);
+    }
+    .stat-item__label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      line-height: 1.3;
+    }
+    .stat-item__divider {
+      width: 1px;
+      height: 28px;
+      background: var(--border);
+    }
+    .hud-stats__copy {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-tertiary);
+    }
+
+    /* ========== MODALS ========== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .modal-overlay.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      max-width: 640px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 36px;
+      position: relative;
+    }
+    .modal h2 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      color: var(--cyan);
+      margin-bottom: 20px;
+      letter-spacing: 0.06em;
+    }
+    .modal h3 {
+      font-family: var(--font-display);
+      font-size: 14px;
+      color: var(--text-primary);
+      margin: 16px 0 8px;
+      letter-spacing: 0.04em;
+    }
+    .modal p, .modal li {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
+    .modal ul {
+      padding-left: 16px;
+      margin-bottom: 12px;
+    }
+    .modal ul li::before {
+      content: '▸ ';
+      color: var(--cyan);
+    }
+    .modal__close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      color: var(--text-secondary);
+      padding: 4px;
       transition: color var(--transition);
     }
-    .footer__links a:hover { color: var(--accent); }
-    .footer__copy {
-      font-size: 13px; color: var(--text-tertiary); width: 100%;
-      text-align: center; margin-top: 20px; padding-top: 20px;
-      border-top: 1px solid var(--border);
-    }
+    .modal__close:hover { color: var(--cyan); }
+    .modal__close svg { width: 20px; height: 20px; }
 
     /* ========== COOKIE BANNER ========== */
     .cookie-banner {
-      position: fixed; bottom: 0; left: 0; right: 0; z-index: 9998;
-      background: var(--bg-card); border-top: 1px solid var(--border);
-      box-shadow: 0 -4px 24px rgba(0,0,0,0.08);
-      padding: 20px 24px;
-      transform: translateY(100%);
-      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+      position: fixed;
+      bottom: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: bottom 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      max-width: 600px;
+      width: 90%;
     }
-    .cookie-banner.visible { transform: translateY(0); }
-    .cookie-banner__inner {
-      max-width: 1200px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 24px; flex-wrap: wrap;
+    .cookie-banner.visible { bottom: 24px; }
+    .cookie-banner p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex: 1;
     }
-    .cookie-banner__text { font-size: 14px; color: var(--text-secondary); flex: 1; min-width: 280px; }
-    .cookie-banner__text a { color: var(--accent); text-decoration: underline; }
-    .cookie-banner__actions { display: flex; gap: 12px; flex-shrink: 0; }
-    .cookie-banner__actions .btn { padding: 10px 24px; font-size: 13px; }
-
-    /* ========== MODAL ========== */
-    .modal-overlay {
-      position: fixed; inset: 0; z-index: 10000;
-      background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; visibility: hidden;
-      transition: all 0.3s;
+    .cookie-banner__btns {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
     }
-    .modal-overlay.visible { opacity: 1; visibility: visible; }
-    .modal {
-      background: var(--bg-card); border-radius: var(--radius-lg);
-      max-width: 680px; width: 90%; max-height: 80vh;
-      overflow-y: auto; padding: 48px 40px;
-      transform: translateY(20px); transition: transform 0.3s;
-      box-shadow: var(--shadow-lg);
-    }
-    .modal-overlay.visible .modal { transform: translateY(0); }
-    .modal__close {
-      float: right; width: 36px; height: 36px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--text-tertiary); border: 1px solid var(--border);
-      transition: all var(--transition); margin: -8px -8px 16px 16px;
-    }
-    .modal__close:hover { color: var(--text-primary); border-color: var(--text-tertiary); }
-    .modal h2 {
-      font-family: var(--font-display); font-weight: 600;
-      font-size: 28px; margin-bottom: 24px;
-    }
-    .modal h3 {
-      font-family: var(--font-display); font-weight: 600;
-      font-size: 20px; margin: 24px 0 12px;
-    }
-    .modal p, .modal li {
-      font-size: 15px; color: var(--text-secondary);
-      line-height: 1.7; margin-bottom: 12px;
-    }
-    .modal ul { padding-left: 20px; }
-    .modal ul li { list-style: disc; }
-
-    /* ========== BACK TO TOP ========== */
-    .back-to-top {
-      position: fixed; bottom: 32px; right: 32px; z-index: 999;
-      width: 44px; height: 44px; border-radius: 50%;
-      background: var(--accent); color: #fff;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 12px rgba(176,125,30,0.3);
-      opacity: 0; visibility: hidden; transform: translateY(8px);
+    .cookie-btn {
+      padding: 6px 16px;
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      cursor: pointer;
       transition: all var(--transition);
     }
-    .back-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
-    .back-to-top:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(176,125,30,0.4); }
-    .back-to-top svg { width: 20px; height: 20px; }
+    .cookie-btn--accept {
+      background: var(--cyan);
+      color: var(--bg-primary);
+      border: none;
+    }
+    .cookie-btn--accept:hover { background: #fff; }
+    .cookie-btn--decline {
+      background: none;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+    .cookie-btn--decline:hover { border-color: var(--cyan-border); color: var(--text-primary); }
 
-    /* ========== ANIMATIONS ========== */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* ========== MOBILE ========== */
+    .mobile-nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      width: 28px;
+      padding: 4px 0;
+      cursor: pointer;
+      background: none;
+      border: none;
     }
-    @keyframes scrollBounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(6px); }
+    .mobile-nav-toggle span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--text-primary);
+      transition: all 0.3s;
     }
+    .mobile-nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .mobile-nav-toggle.active span:nth-child(2) { opacity: 0; }
+    .mobile-nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-    /* ========== RESPONSIVE ========== */
-    @media (max-width: 1024px) {
-      .about__grid { gap: 48px; }
-      .skills__grid, .services__grid, .testimonials__grid { gap: 20px; }
-      .contact__grid { gap: 48px; }
-      .skill-level { grid-template-columns: 140px 1fr auto; }
-    }
-    @media (max-width: 768px) {
-      .section { padding: 80px 0; }
-      .section__header { margin-bottom: 44px; }
-      .nav__menu {
-        position: fixed; top: 72px; left: 0; right: 0;
-        background: var(--nav-bg); backdrop-filter: blur(16px);
-        flex-direction: column; gap: 0; padding: 8px 0;
-        border-bottom: 1px solid var(--border);
-        transform: translateY(-100%); opacity: 0;
-        transition: all 0.3s; pointer-events: none;
+    @media (max-width: 900px) {
+      .hud-main { grid-template-columns: 1fr; }
+      .hud-nav {
+        display: none;
+        position: fixed;
+        top: 72px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 100;
+        background: rgba(10, 14, 26, 0.98);
+        padding: 20px 0;
       }
-      .nav__menu.open { transform: translateY(0); opacity: 1; pointer-events: all; }
-      .nav__menu a { padding: 14px 24px; display: block; width: 100%; }
-      .nav__menu a::after { display: none; }
-      .nav__toggle { display: flex; }
-      .about__grid { grid-template-columns: 1fr; gap: 40px; }
-      .about__highlights { grid-template-columns: 1fr 1fr; }
-      .skills__grid { grid-template-columns: 1fr; }
-      .skill-level { grid-template-columns: 120px 1fr auto; gap: 12px; }
-      .projects__grid { grid-template-columns: 1fr; }
+      .hud-nav.open { display: flex; }
+      .mobile-nav-toggle { display: flex; }
+      .profile-grid,
+      .radar-section,
+      .projects-grid,
+      .services-grid,
+      .testimonials-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
       .project-card--wide { grid-column: span 1; }
-      .services__grid { grid-template-columns: 1fr; }
-      .services__grid .service-card[style] { grid-column: span 1 !important; }
-      .testimonials__grid { grid-template-columns: 1fr; }
-      .contact__grid { grid-template-columns: 1fr; gap: 40px; }
-      .contact__form-wrap { padding: 28px 24px; }
-      .form-row--half { grid-template-columns: 1fr; }
-      .footer__inner { flex-direction: column; text-align: center; }
-      .footer__links { flex-wrap: wrap; justify-content: center; }
+      .highlights-grid { grid-template-columns: 1fr 1fr; }
+      .hud-stats__group { gap: 16px; flex-wrap: wrap; }
+      .stat-item__value { font-size: 14px; }
+      .hud-content { padding: 20px 16px; }
     }
-    @media (max-width: 480px) {
-      .hero__cta { flex-direction: column; align-items: center; }
-      .btn { width: 100%; justify-content: center; }
-      .about__highlights { grid-template-columns: 1fr; }
-      .highlight-card { padding: 20px 18px; }
-      .skill-level { grid-template-columns: 1fr; gap: 6px; }
-      .skill-level__pct { text-align: left; }
-      .modal { padding: 32px 24px; }
-    }
-
-    /* ========== REDUCED MOTION ========== */
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-      .hero__label, .hero__name, .hero__tagline, .hero__cta, .hero__scroll { opacity: 1; transform: none; }
-      .skill-level__fill { transition: none; }
-      html { scroll-behavior: auto; }
+    @media (max-width: 600px) {
+      .highlights-grid { grid-template-columns: 1fr; }
+      .hud-form .form-row--half { grid-template-columns: 1fr; }
+      .hud-header__status { display: none; }
     }
   </style>
 </head>
 <body>
-  <a class="skip-link" href="#main">Zum Inhalt springen</a>
-  <div class="scroll-progress" id="scrollProgress"></div>
-  <div class="noise-overlay"></div>
+  <div class="grid-overlay"></div>
+  <div class="scanline"></div>
 
-  <!-- Cookie Banner -->
-  <div class="cookie-banner" id="cookieBanner">
-    <div class="cookie-banner__inner">
-      <p class="cookie-banner__text">Diese Website verwendet Cookies, um Ihnen ein optimales Erlebnis zu bieten. Weitere Informationen finden Sie in unserer <a href="#" onclick="openModal('datenschutz');return false;">Datenschutzerkl&auml;rung</a>.</p>
-      <div class="cookie-banner__actions">
-        <button class="btn btn--outline" onclick="handleCookies(false)">Ablehnen</button>
-        <button class="btn btn--primary" onclick="handleCookies(true)">Akzeptieren</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Navigation -->
-  <header class="nav" id="nav">
-    <div class="nav__container">
-      <a href="#hero" class="nav__logo"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50,4 L92,20 L92,52 Q92,84 50,98 Q8,84 8,52 L8,20 Z" fill="var(--accent)" opacity="0.1"/><path d="M50,4 L92,20 L92,52 Q92,84 50,98 Q8,84 8,52 L8,20 Z" fill="none" stroke="var(--accent)" stroke-width="2.5"/><text x="50" y="54" text-anchor="middle" dominant-baseline="central" font-family="Georgia,serif" font-weight="700" font-size="36" fill="var(--accent)">TW</text></svg>T. Wodny</a>
-      <nav class="nav__menu" id="navMenu" role="navigation" aria-label="Hauptnavigation">
-        <a href="#ueber-mich">Profil</a>
-        <a href="#erfahrung">Erfahrung</a>
-        <a href="#skills">Skills</a>
-        <a href="#projekte">Projekte</a>
-        <a href="#leistungen">Leistungen</a>
-        <a href="#kontakt">Kontakt</a>
-      </nav>
-      <div class="nav__actions">
-        <button class="nav__theme-toggle" id="themeToggle" aria-label="Farbschema wechseln">
-          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <div class="hud-layout">
+    <!-- HEADER -->
+    <header class="hud-header">
+      <div class="hud-header__left">
+        <button class="mobile-nav-toggle" id="mobileToggle" aria-label="Menü öffnen">
+          <span></span><span></span><span></span>
         </button>
-        <button class="nav__toggle" id="navToggle" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
-      </div>
-    </div>
-  </header>
-
-  <!-- Hero -->
-  <section class="hero" id="hero">
-    <canvas class="hero__canvas" id="heroCanvas"></canvas>
-    <div class="hero__content">
-      <span class="hero__label"><span id="heroTyping"></span><span class="typing-cursor">|</span></span>
-      <h1 class="hero__name">Thomas Wodny</h1>
-      <p class="hero__tagline">Datengetriebenes Controlling für die Energiewirtschaft &ndash; von der Analyse über die Automatisierung bis zur strategischen Entscheidungsfindung</p>
-      <div class="hero__cta">
-        <a href="#projekte" class="btn btn--primary">Projekte ansehen</a>
-        <a href="#kontakt" class="btn btn--outline">Kontakt aufnehmen</a>
-      </div>
-    </div>
-    <div class="hero__scroll">
-      <span>Scrollen</span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
-  </section>
-
-  <main id="main">
-    <!-- Über mich -->
-    <section class="section" id="ueber-mich">
-      <div class="container">
-        <div class="section__header reveal">
-          <span class="section__number">01</span>
-          <h2 class="section__title">Über mich</h2>
-        </div>
-        <div class="about__grid">
-          <div class="about__text">
-            <p class="reveal">Hochanalytischer Financial Analyst und Senior Controller mit umfassender Erfahrung in FP&amp;A, Finanzmodellierung und Datenautomatisierung. Nachgewiesene Erfolgsbilanz beim Einsatz von SQL, Python und Power BI zur Optimierung von Reporting-Prozessen und strategischer Entscheidungsfindung.</p>
-            <p class="reveal">Als Senior Controller bei den Stadtwerken Ahrensburg verantworte ich das Finanzcontrolling für die Sparten Strom und EDL. Mein Fokus: die Verbindung von traditionellen Finanzen mit moderner Business Intelligence zur Verbesserung der Datenqualität und operativen Effizienz.</p>
-            <p class="reveal">Ich verstehe mich als Brückenbauer zwischen Finanzen und IT &ndash; ich entwickle technische Lösungen für betriebswirtschaftliche Herausforderungen und setze dabei auf KI-gestützte Workflows mit Claude AI, Python und SQL.</p>
-            <div class="about__personal reveal">
-              <p>Vor meiner Karriere im Controlling war ich Leistungssportler im Basketball (Pro A / Pro B Liga) und 4 Jahre Bundesliga-Trainer in der WNBL &ndash; Deutscher Meister 2014. Disziplin, strategisches Denken und Teamführung prägen auch heute meine Arbeitsweise.</p>
-            </div>
-          </div>
-          <div class="about__portrait reveal">
-            <img src="portrait.jpg" alt="Thomas Wodny – Financial Analyst & Senior Controller" width="180" height="180">
-          </div>
-          <div class="about__highlights">
-            <div class="highlight-card reveal">
-              <div class="highlight-card__value" data-counter="100" data-suffix="%">0%</div>
-              <div class="highlight-card__label">Datenintegrität bei Migration</div>
-            </div>
-            <div class="highlight-card reveal">
-              <div class="highlight-card__value" data-counter-special="time">8h &rarr; 30min</div>
-              <div class="highlight-card__label">Reporting-Aufwand reduziert</div>
-            </div>
-            <div class="highlight-card reveal">
-              <div class="highlight-card__value" data-counter="10000" data-suffix="+" data-format="dot">0+</div>
-              <div class="highlight-card__label">Kundendatensätze migriert</div>
-            </div>
-            <div class="highlight-card reveal">
-              <div class="highlight-card__value" data-counter="7" data-suffix="">0</div>
-              <div class="highlight-card__label">Tochtergesellschaften betreut</div>
-            </div>
-          </div>
+        <img src="portrait.jpg" alt="Thomas Wodny" class="hud-header__portrait">
+        <div class="hud-header__info">
+          <div class="hud-header__name">THOMAS WODNY</div>
+          <div class="hud-header__title" id="typingTarget">Financial Analyst & Senior Controller</div>
         </div>
       </div>
-    </section>
-
-    <!-- Berufserfahrung -->
-    <section class="section section--alt" id="erfahrung">
-      <div class="container">
-        <div class="section__header reveal">
-          <span class="section__number">02</span>
-          <h2 class="section__title">Berufserfahrung</h2>
-        </div>
-        <div class="timeline">
-          <div class="timeline__item timeline__item--active reveal">
-            <div class="timeline__date">Okt 2024 &ndash; heute</div>
-            <div class="timeline__role">Senior Controller &ndash; Energie & Versorgung</div>
-            <div class="timeline__company">Stadtwerke Ahrensburg GmbH</div>
-            <ul class="timeline__desc">
-              <li>Migration von über 10.000 Kundendatensätzen zwischen NAV- und PowerCloud-Systemen mit 100% Datenintegrität</li>
-              <li>Automatisierung regulatorischer Berichterstattung: Reduktion von 8 Stunden auf 30 Minuten monatlich</li>
-              <li>Entwicklung SQL-basierter Vorhersagemodelle für Gasverbrauchsmuster</li>
-              <li>Implementierung der OData-Integration für Echtzeit-Datenkonnektivität</li>
-            </ul>
-          </div>
-          <div class="timeline__item reveal">
-            <div class="timeline__date">Apr 2023 &ndash; Sep 2024</div>
-            <div class="timeline__role">Beteiligungs-Controller</div>
-            <div class="timeline__company">AWO-Landesverband Hamburg e.V.</div>
-            <ul class="timeline__desc">
-              <li>Management-Reporting f&uuml;r Landesverband und 7 Tochtergesellschaften</li>
-              <li>Automatisierung komplexer Buchungsprozesse mit Python und VBA &ndash; 100% Automatisierung budgetkontrollierter Journalbuchungen</li>
-              <li>Konzeption und Pflege SAP-basierter KPI-Dashboards</li>
-            </ul>
-          </div>
-          <div class="timeline__item reveal">
-            <div class="timeline__date">Mai 2021 &ndash; Mär 2023</div>
-            <div class="timeline__role">Leitungskreis &ndash; Koordination & Controlling</div>
-            <div class="timeline__company">Bildungswerk der nordhessischen Wirtschaft gGmbH, Kassel</div>
-            <ul class="timeline__desc">
-              <li>Leitung strategischer Planungsinitiativen für über 120 Einzelprojekte mit 150 Mitarbeitern</li>
-              <li>Durchführung umfassender Soll-Ist-Vergleiche und Abweichungsanalysen</li>
-              <li>Prozess- und Schwachstellenanalyse mit Optimierung der Steuerungsprozesse</li>
-            </ul>
-          </div>
-        </div>
-        <div class="timeline__education">
-          <h3 class="timeline__education-title reveal">Ausbildung</h3>
-          <div class="edu-item reveal">
-            <div class="edu-item__year">2014 &ndash; 2022</div>
-            <div>
-              <div class="edu-item__title">B.Sc. Wirtschaftspädagogik</div>
-              <div class="edu-item__detail">Universität Kassel &ndash; Schwerpunkt: Finance, Accounting, Controlling & Taxation (berufsbegleitend)</div>
-            </div>
-          </div>
-          <div class="edu-item reveal">
-            <div class="edu-item__year">2011 &ndash; 2013</div>
-            <div>
-              <div class="edu-item__title">Fachhochschulreife</div>
-              <div class="edu-item__detail">Abendgymnasium Sophie Scholl, Osnabrück</div>
-            </div>
-          </div>
-          <div class="edu-item reveal">
-            <div class="edu-item__year">Zertifikat</div>
-            <div>
-              <div class="edu-item__title">IFRS/HGB Rechnungslegung</div>
-              <div class="edu-item__detail">Internationale und nationale Rechnungslegungsstandards</div>
-            </div>
-          </div>
+      <div class="hud-header__right">
+        <div class="hud-header__status">SYSTEM ONLINE</div>
+        <div class="hud-header__links">
+          <a href="https://www.linkedin.com/in/thomas-wodny-075427225/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="https://github.com/wodny33-lgtm" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
         </div>
       </div>
-    </section>
+    </header>
 
-    <!-- Skills -->
-    <section class="section" id="skills">
-      <div class="container">
-        <div class="section__header reveal">
-          <span class="section__number">03</span>
-          <h2 class="section__title">Skills & Technologien</h2>
-        </div>
-        <div class="skills__grid">
-          <div class="skill-card reveal">
-            <div class="skill-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-            </div>
-            <h3 class="skill-card__title">Programmierung & Datenanalyse</h3>
-            <ul class="skill-card__list">
-              <li>SQL (T-SQL, Redshift) &ndash; VIEWs, CTEs, Window Functions, Query-Optimierung</li>
-              <li>Python &ndash; pandas, openpyxl, reportlab, Streamlit, Flask, CSV-Parsing</li>
-              <li>Power Query / M Language &ndash; ETL-Workflows, Pivot-Operationen, Batch-Verarbeitung</li>
-              <li>VBA &ndash; Automatisierte Buchungsprozesse, Dictionary-Objekte, Batch-Navigation</li>
-            </ul>
-          </div>
-          <div class="skill-card reveal">
-            <div class="skill-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
-            </div>
-            <h3 class="skill-card__title">Business Intelligence & Systeme</h3>
-            <ul class="skill-card__list">
-              <li>SAP FI/CO &ndash; KPI-Dashboards, Finanzperformance-Tracking</li>
-              <li>MS Dynamics NAV / Business Central</li>
-              <li>PowerCloud (Energieabrechnungssystem)</li>
-              <li>Power BI / Tableau &ndash; Datenvisualisierung & Reporting</li>
-              <li>OData V4 &ndash; OAuth 2.0, Echtzeit-Datenanbindung</li>
-            </ul>
-          </div>
-          <div class="skill-card reveal">
-            <div class="skill-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-            </div>
-            <h3 class="skill-card__title">Web-Development</h3>
-            <ul class="skill-card__list">
-              <li>TypeScript / JavaScript &ndash; Full-Stack Webentwicklung</li>
-              <li>Vite &ndash; Build-Tool, Hot Module Replacement</li>
-              <li>Tailwind CSS &ndash; Utility-First Styling, Responsive Design</li>
-              <li>Node.js &ndash; Backend-Logik, Datenverarbeitung, Automatisierung</li>
-              <li>HTML / CSS &ndash; Responsive Webseiten, Barrierefreiheit</li>
-            </ul>
-          </div>
-          <div class="skill-card reveal">
-            <div class="skill-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-            </div>
-            <h3 class="skill-card__title">Fachliche Expertise</h3>
-            <ul class="skill-card__list">
-              <li>FP&amp;A, Forecasting, Budgetierung, Varianzanalyse</li>
-              <li>IFRS/HGB Rechnungslegung, Unit Economics</li>
-              <li>Regulatorische Compliance (BNetzA, Hauptzollamt)</li>
-              <li>Debitorenmanagement & Saldenabstimmung</li>
-              <li>Energiewirtschaftliche Prozesse (Strom & Gas)</li>
-            </ul>
-          </div>
-          <div class="skill-card reveal">
-            <div class="skill-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 0-4 4c0 2 2 3 2 6H8a2 2 0 1 0 0 4h8a2 2 0 1 0 0-4h-2c0-3 2-4 2-6a4 4 0 0 0-4-4z"/><path d="M9 18v1a3 3 0 0 0 6 0v-1"/></svg>
-            </div>
-            <h3 class="skill-card__title">KI-Tools & Automatisierung</h3>
-            <ul class="skill-card__list">
-              <li>Claude AI &ndash; Projekte, Memory, Artifacts, Computer Use</li>
-              <li>Claude Code (CLI) &ndash; Agentic Coding, Git-Integration</li>
-              <li>Anthropic API &ndash; Tool Use, Streaming, Python SDK</li>
-              <li>MCP (Model Context Protocol) &ndash; Custom Tools, Filesystem-Zugriff</li>
-              <li>Document Generation &ndash; PDF (reportlab), Word, HTML/React</li>
-            </ul>
-          </div>
-        </div>
+    <!-- MAIN -->
+    <div class="hud-main">
+      <!-- SIDE NAV -->
+      <nav class="hud-nav" id="hudNav">
+        <button class="hud-nav__item active" data-panel="profil" onclick="switchPanel('profil')">
+          <span class="hud-nav__number">01</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Profil
+        </button>
+        <button class="hud-nav__item" data-panel="erfahrung" onclick="switchPanel('erfahrung')">
+          <span class="hud-nav__number">02</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Erfahrung
+        </button>
+        <button class="hud-nav__item" data-panel="skills" onclick="switchPanel('skills')">
+          <span class="hud-nav__number">03</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Skills
+        </button>
+        <button class="hud-nav__item" data-panel="projekte" onclick="switchPanel('projekte')">
+          <span class="hud-nav__number">04</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          Projekte
+        </button>
+        <button class="hud-nav__item" data-panel="report" onclick="switchPanel('report')">
+          <span class="hud-nav__number">05</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+          Report
+        </button>
+        <button class="hud-nav__item" data-panel="leistungen" onclick="switchPanel('leistungen')">
+          <span class="hud-nav__number">06</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          Leistungen
+        </button>
+        <button class="hud-nav__item" data-panel="kontakt" onclick="switchPanel('kontakt')">
+          <span class="hud-nav__number">07</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Kontakt
+        </button>
+      </nav>
 
-        <!-- Skill Levels -->
-        <div class="skill-levels reveal">
-          <h3 class="skill-levels__title">Kompetenzniveau</h3>
-          <div class="skill-level">
-            <div class="skill-level__name">Power Query M</div>
-            <div class="skill-level__bar"><div class="skill-level__fill" style="--level: 95%"></div></div>
-            <div class="skill-level__pct">95%</div>
-          </div>
-          <div class="skill-level">
-            <div class="skill-level__name">SQL (T-SQL)</div>
-            <div class="skill-level__bar"><div class="skill-level__fill" style="--level: 85%"></div></div>
-            <div class="skill-level__pct">85%</div>
-          </div>
-          <div class="skill-level">
-            <div class="skill-level__name">Python</div>
-            <div class="skill-level__bar"><div class="skill-level__fill" style="--level: 65%"></div></div>
-            <div class="skill-level__pct">65%</div>
-          </div>
-          <div class="skill-level">
-            <div class="skill-level__name">VBA</div>
-            <div class="skill-level__bar"><div class="skill-level__fill" style="--level: 65%"></div></div>
-            <div class="skill-level__pct">65%</div>
-          </div>
-          <div class="skill-level">
-            <div class="skill-level__name">Claude AI / KI-Tools</div>
-            <div class="skill-level__bar"><div class="skill-level__fill" style="--level: 90%"></div></div>
-            <div class="skill-level__pct">90%</div>
-          </div>
-          <div class="skill-level">
-            <div class="skill-level__name">SAP FI/CO</div>
-            <div class="skill-level__bar"><div class="skill-level__fill" style="--level: 70%"></div></div>
-            <div class="skill-level__pct">70%</div>
-          </div>
-          <div class="skill-level">
-            <div class="skill-level__name">TypeScript / JavaScript</div>
-            <div class="skill-level__bar"><div class="skill-level__fill" style="--level: 60%"></div></div>
-            <div class="skill-level__pct">60%</div>
-          </div>
-          <div class="skill-level">
-            <div class="skill-level__name">HTML / CSS / Tailwind</div>
-            <div class="skill-level__bar"><div class="skill-level__fill" style="--level: 60%"></div></div>
-            <div class="skill-level__pct">60%</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Projekte -->
-    <section class="section section--alt" id="projekte">
-      <div class="container">
-        <div class="section__header reveal">
-          <span class="section__number">04</span>
-          <h2 class="section__title">Projektreferenzen</h2>
-        </div>
-        <div class="projects__grid">
-          <div class="project-card project-card--wide reveal">
-            <div class="project-card__number">Case Study 01</div>
-            <h3 class="project-card__title">NAV-PowerCloud Datenmigration & Reconciliation</h3>
-            <p class="project-card__desc">Komplette Datenmigration von Microsoft Dynamics NAV zu PowerCloud für Gas- und Stromsparten. Harmonisierung der Soll/Haben-Logik (NAV) mit Vorzeichen-Logik (PowerCloud), Voucher-Processing, automatische Diskrepanz-Erkennung und Validierung aller Debitorensalden.</p>
-            <div class="project-card__result">10.000+ Datensätze mit 100% Datenintegrität migriert</div>
-            <div class="project-card__tags">
-              <span class="tag">SQL</span>
-              <span class="tag">Power Query</span>
-              <span class="tag">Python</span>
-              <span class="tag">HTML</span>
-            </div>
-          </div>
-          <div class="project-card reveal">
-            <div class="project-card__number">Case Study 02</div>
-            <h3 class="project-card__title">BILA Reporting (Gas/Strom)</h3>
-            <p class="project-card__desc">Aufbau automatisierter SQL-Views für Bilanzabrechnungsprojekte. VIEW-Erstellung mit komplexen JOINs über Vouchers, Contracts und Items-Tabellen. CASE-WHEN-Logik für automatische Kontenzuordnung.</p>
-            <div class="project-card__result">Regulatorisches Reporting vollständig automatisiert</div>
-            <div class="project-card__tags">
-              <span class="tag">SQL Views</span>
-              <span class="tag">Power Query</span>
-              <span class="tag">Python</span>
-            </div>
-          </div>
-          <div class="project-card reveal">
-            <div class="project-card__number">Case Study 03</div>
-            <h3 class="project-card__title">HZA-Meldungen Gasabrechnung</h3>
-            <p class="project-card__desc">Verarbeitung und Aufbereitung von Verbrauchsdaten für Hauptzollamt. Dynamische Pivot-Tabellen mit jahresübergreifender Analyse. Automatische Filterung nach Gas-Abgrenzungsarten (AaV, AvV, SAAV, SaV, SvV).</p>
-            <div class="project-card__result">Zeitersparnis: 8h → 30min pro Monat</div>
-            <div class="project-card__tags">
-              <span class="tag">Power Query M</span>
-              <span class="tag">Excel</span>
-              <span class="tag">VBA</span>
-            </div>
-          </div>
-          <div class="project-card reveal">
-            <div class="project-card__number">Case Study 04</div>
-            <h3 class="project-card__title">OData-Integration Business Central</h3>
-            <p class="project-card__desc">Anbindung von Business Central über OData V4 an Power Query. OAuth 2.0 Authentifizierung, WIN/NAS Server-Konfiguration und automatisierter Datenabruf für Sachposten, Debitoren und Kreditoren.</p>
-            <div class="project-card__result">Echtzeit-Datenanbindung für Dashboards</div>
-            <div class="project-card__tags">
-              <span class="tag">Power Query</span>
-              <span class="tag">OData V4</span>
-              <span class="tag">REST API</span>
-              <span class="tag">Business Central</span>
-            </div>
-          </div>
-          <div class="project-card reveal">
-            <div class="project-card__number">Case Study 05</div>
-            <h3 class="project-card__title">Kostenstellenanalyse Dashboard</h3>
-            <p class="project-card__desc">Interaktives Dashboard für OVH-Verteilung mit automatisierter Kostenstellen-Zuordnung. VBA-gesteuerte Worksheet-Verwaltung, Datenformatierung und Verteilung auf verschiedene Geschäftsbereiche des Versorgers.</p>
-            <div class="project-card__result">Vollautomatisierte Kostenstellen-Zuordnung</div>
-            <div class="project-card__tags">
-              <span class="tag">React</span>
-              <span class="tag">Tailwind CSS</span>
-              <span class="tag">Power Query</span>
-              <span class="tag">VBA</span>
-            </div>
-          </div>
-          <div class="project-card reveal">
-            <div class="project-card__number">Case Study 06</div>
-            <h3 class="project-card__title">KPI-Dashboards AWO Landesverband Hamburg e.V.</h3>
-            <p class="project-card__desc">Konzeption und Pflege SAP-basierter KPI-Dashboards zur Echtzeitverfolgung der Finanzperformance. Management-Reporting f&uuml;r den Landesverband und 7 Tochtergesellschaften mit entscheidungsrelevanten Kennzahlen f&uuml;r die Gesch&auml;ftsf&uuml;hrung.</p>
-            <div class="project-card__result">100% Automatisierung der Journalbuchungen</div>
-            <div class="project-card__tags">
-              <span class="tag">SAP FI/CO</span>
-              <span class="tag">Python</span>
-              <span class="tag">VBA</span>
-            </div>
-          </div>
-          <div class="project-card project-card--wide reveal">
-            <div class="project-card__number">Case Study 07</div>
-            <h3 class="project-card__title">Familien-Finanz-Dashboard</h3>
-            <p class="project-card__desc">Full-Stack Web-App zur privaten Finanzübersicht. Automatischer Import und Kategorisierung von Sparkasse-Kontoumsätzen und PayPal-Transaktionen. Interaktive Visualisierungen mit Einnahmen/Ausgaben-Analyse, Kategorie-Auswertungen und Trenddarstellung.</p>
-            <div class="project-card__result">Vollautomatisierte Finanztransparenz für den Haushalt</div>
-            <div class="project-card__tags">
-              <span class="tag">TypeScript</span>
-              <span class="tag">Vite</span>
-              <span class="tag">Tailwind CSS</span>
-              <span class="tag">Node.js</span>
-              <span class="tag">CSV-Parsing</span>
-            </div>
-          </div>
-          <div class="project-card reveal">
-            <div class="project-card__number">Case Study 08</div>
-            <h3 class="project-card__title">Automatisierung Zahnarztpraxis</h3>
-            <p class="project-card__desc">Individuelle Automatisierungsl&ouml;sung f&uuml;r eine Zahnarztpraxis. Vollautomatische Rechnungserstellung mit verschl&uuml;sselten Patientendaten &ndash; ma&szlig;geschneidert auf die bestehende Praxissoftware. Mitarbeiter wurden komplett von manueller Rechnungserstellung entlastet.</p>
-            <div class="project-card__result">Rechnungserstellung von manuell auf vollautomatisch umgestellt</div>
-            <div class="project-card__tags">
-              <span class="tag">Python</span>
-              <span class="tag">Claude AI</span>
-              <span class="tag">Verschl&uuml;sselung</span>
-              <span class="tag">Individualsoftware</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Leistungen -->
-    <section class="section" id="leistungen">
-      <div class="container">
-        <div class="section__header reveal">
-          <span class="section__number">05</span>
-          <h2 class="section__title">Leistungen</h2>
-        </div>
-        <div class="services__grid">
-          <div class="service-card reveal">
-            <div class="service-card__number">01</div>
-            <div>
-              <h3 class="service-card__title">Datenanalyse & Prozessautomatisierung</h3>
-              <p class="service-card__desc">Identifikation von Optimierungspotenzialen und Entwicklung automatisierter Workflows mit Python, SQL und Power Query für wiederkehrende Aufgaben.</p>
-            </div>
-          </div>
-          <div class="service-card reveal">
-            <div class="service-card__number">02</div>
-            <div>
-              <h3 class="service-card__title">Systemmigration & Daten-Reconciliation</h3>
-              <p class="service-card__desc">Planung und Durchführung von Datenmigrationen (NAV, PowerCloud, Business Central) mit lückenloser Abstimmung und Validierung.</p>
-            </div>
-          </div>
-          <div class="service-card reveal">
-            <div class="service-card__number">03</div>
-            <div>
-              <h3 class="service-card__title">Automatisierte Reporting-Systeme</h3>
-              <p class="service-card__desc">Aufbau integrierter Berichtslösungen für Management und regulatorische Anforderungen (BNetzA, Hauptzollamt). Nachweisliche Reduktion manueller Aufwände.</p>
-            </div>
-          </div>
-          <div class="service-card reveal">
-            <div class="service-card__number">04</div>
-            <div>
-              <h3 class="service-card__title">KI-gestützte Controlling-Lösungen</h3>
-              <p class="service-card__desc">Integration von KI-Tools (Claude AI, MCP) in bestehende Controlling-Workflows. Automatisierte Dokumentenerstellung, Code-Generierung und Datenverarbeitung.</p>
-            </div>
-          </div>
-          <div class="service-card reveal">
-            <div class="service-card__number">05</div>
-            <div>
-              <h3 class="service-card__title">Individuelle Praxis-Automatisierung</h3>
-              <p class="service-card__desc">Ma&szlig;geschneiderte Automatisierungsl&ouml;sungen f&uuml;r Arzt- und Zahnarztpraxen. Anbindung an bestehende Praxissoftware, automatisierte Rechnungserstellung mit verschl&uuml;sselter Datenverarbeitung &ndash; individuell auf Ihre Prozesse zugeschnitten.</p>
-            </div>
-          </div>
-          <div class="service-card reveal">
-            <div class="service-card__number">06</div>
-            <div>
-              <h3 class="service-card__title">Schulung & Wissenstransfer</h3>
-              <p class="service-card__desc">Praxisnahe Schulungen in Power Query, SQL für Controller, Python-Automatisierung und KI-Tools &ndash; damit Ihr Team eigenständig weiterarbeiten kann.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Referenzen -->
-    <section class="section section--alt" id="referenzen">
-      <div class="container">
-        <div class="section__header reveal">
-          <span class="section__number">06</span>
-          <h2 class="section__title">Referenzen</h2>
-        </div>
-        <div class="testimonials__grid">
-          <div class="testimonial-card reveal">
-            <p class="testimonial-card__text">Sehr hohe Einsatzbereitschaft und außergewöhnliche Auffassungsgabe</p>
-            <div class="testimonial-card__source">Arbeitszeugnis</div>
-          </div>
-          <div class="testimonial-card reveal">
-            <p class="testimonial-card__text">Löst alle Aufgaben und Herausforderungen in hervorragender Weise</p>
-            <div class="testimonial-card__source">Arbeitszeugnis</div>
-          </div>
-          <div class="testimonial-card reveal">
-            <p class="testimonial-card__text">Stets sehr gute Arbeitsergebnisse mit größter Zuverlässigkeit</p>
-            <div class="testimonial-card__source">Arbeitszeugnis</div>
-          </div>
-          <div class="testimonial-card reveal">
-            <p class="testimonial-card__text">Befähigt, in pragmatischen, strategischen und perspektivischen Kategorien zu denken und zu handeln</p>
-            <div class="testimonial-card__source">Arbeitszeugnis</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Kontakt -->
-    <section class="section" id="kontakt">
-      <div class="container">
-        <div class="section__header reveal">
-          <span class="section__number">07</span>
-          <h2 class="section__title">Kontakt</h2>
-        </div>
-        <div class="contact__grid">
-          <div class="contact__info reveal">
-            <p>Sie haben ein Projekt, bei dem datengetriebenes Controlling gefragt ist? Oder suchen Sie Unterstützung bei einer Systemmigration oder KI-gestützter Automatisierung? Lassen Sie uns darüber sprechen.</p>
-            <div class="contact__detail">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span>Hamburg, Deutschland</span>
-            </div>
-            <div class="contact__detail">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              <span>&Uuml;ber das Kontaktformular</span>
-            </div>
-            <div class="contact__langs">
-              <div class="contact__langs-title">Sprachen</div>
-              <p>Deutsch &ndash; Muttersprache</p>
-              <p>Englisch &ndash; Verhandlungssicher</p>
-            </div>
-          </div>
-          <div class="contact__form-wrap reveal">
-            <form id="contactForm" action="https://formsubmit.co/ajax/wodny33@googlemail.com" method="POST" novalidate>
-              <div class="form-row form-row--half">
-                <div class="form-group">
-                  <label for="name">Name *</label>
-                  <input type="text" id="name" name="name" required placeholder="Ihr Name">
-                </div>
-                <div class="form-group">
-                  <label for="email">E-Mail *</label>
-                  <input type="email" id="email" name="email" required placeholder="ihre@email.de">
+      <!-- CONTENT -->
+      <div class="hud-content" id="hudContent">
+        <!-- ===== PROFIL ===== -->
+        <div class="panel active" id="panel-profil">
+          <div class="hud-frame hud-frame--glow">
+            <div class="panel__title">TAKTISCHES PROFIL</div>
+            <div class="panel__subtitle">// Financial Analyst & Senior Controller — Hamburg, DE</div>
+            <div class="profile-grid">
+              <div>
+                <p class="panel__text">Hochanalytischer Financial Analyst und Senior Controller mit umfassender Erfahrung in FP&A, Finanzmodellierung und Datenautomatisierung. Nachgewiesene Erfolgsbilanz beim Einsatz von SQL, Python und Power BI zur Optimierung von Reporting-Prozessen und strategischer Entscheidungsfindung.</p>
+                <p class="panel__text">Als Senior Controller bei den Stadtwerken Ahrensburg verantworte ich das Finanzcontrolling für die Sparten Strom und EDL. Mein Fokus: die Verbindung von traditionellen Finanzen mit moderner Business Intelligence zur Verbesserung der Datenqualität und operativen Effizienz.</p>
+                <p class="panel__text">Ich verstehe mich als Brückenbauer zwischen Finanzen und IT – ich entwickle technische Lösungen für betriebswirtschaftliche Herausforderungen und setze dabei auf KI-gestützte Workflows mit Claude AI, Python und SQL.</p>
+                <div class="profile-personal">
+                  <p>Vor meiner Karriere im Controlling war ich Leistungssportler im Basketball (Pro A / Pro B).</p>
+                  <p style="margin-top:8px;">4 Jahre Bundesliga-Trainer in der WNBL – Deutscher Meister 2014.</p>
+                  <p style="margin-top:8px;">Disziplin, strategisches Denken und Teamführung prägen auch heute meine Arbeitsweise.</p>
                 </div>
               </div>
-              <div class="form-row form-row--half">
-                <div class="form-group">
-                  <label for="company">Unternehmen</label>
-                  <input type="text" id="company" name="company" placeholder="Optional">
+              <div>
+                <div class="panel__label">Operative Stats</div>
+                <div class="highlights-grid">
+                  <div class="highlight-card">
+                    <div class="highlight-card__value" data-counter="100" data-suffix="%">0%</div>
+                    <div class="highlight-card__label">Datenintegrität bei Migration</div>
+                  </div>
+                  <div class="highlight-card">
+                    <div class="highlight-card__value" data-counter-special="time">8h → 30min</div>
+                    <div class="highlight-card__label">Reporting-Aufwand reduziert</div>
+                  </div>
+                  <div class="highlight-card">
+                    <div class="highlight-card__value" data-counter="10000" data-suffix="+" data-format="dot">0+</div>
+                    <div class="highlight-card__label">Kundendatensätze migriert</div>
+                  </div>
+                  <div class="highlight-card">
+                    <div class="highlight-card__value" data-counter="7">0</div>
+                    <div class="highlight-card__label">Tochtergesellschaften betreut</div>
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label for="subject">Betreff *</label>
-                  <select id="subject" name="subject" required>
-                    <option value="" disabled selected>Bitte wählen</option>
-                    <option value="beratung">Beratungsanfrage</option>
-                    <option value="projekt">Projektanfrage</option>
-                    <option value="schulung">Schulung</option>
-                    <option value="jobangebot">Jobangebot</option>
-                    <option value="sonstiges">Sonstiges</option>
-                  </select>
+                <div style="margin-top:20px;">
+                  <div class="panel__label">Referenzen</div>
+                  <div class="testimonial-card" style="margin-bottom:12px;">
+                    <p class="testimonial-card__text">Sehr hohe Einsatzbereitschaft und außergewöhnliche Auffassungsgabe</p>
+                    <div class="testimonial-card__source">Arbeitszeugnis</div>
+                  </div>
+                  <div class="testimonial-card" style="margin-bottom:12px;">
+                    <p class="testimonial-card__text">Löst alle Aufgaben und Herausforderungen in hervorragender Weise</p>
+                    <div class="testimonial-card__source">Arbeitszeugnis</div>
+                  </div>
+                  <div class="testimonial-card" style="margin-bottom:12px;">
+                    <p class="testimonial-card__text">Stets sehr gute Arbeitsergebnisse mit größter Zuverlässigkeit</p>
+                    <div class="testimonial-card__source">Arbeitszeugnis</div>
+                  </div>
+                  <div class="testimonial-card">
+                    <p class="testimonial-card__text">Befähigt, in pragmatischen, strategischen und perspektivischen Kategorien zu denken und zu handeln</p>
+                    <div class="testimonial-card__source">Arbeitszeugnis</div>
+                  </div>
                 </div>
               </div>
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="message">Nachricht *</label>
-                  <textarea id="message" name="message" required placeholder="Beschreiben Sie Ihr Anliegen..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== ERFAHRUNG ===== -->
+        <div class="panel" id="panel-erfahrung">
+          <div class="hud-frame hud-frame--glow">
+            <div class="panel__title">BERUFSERFAHRUNG</div>
+            <div class="panel__subtitle">// Karriereverlauf — Controlling & Finance</div>
+            <div class="timeline">
+              <div class="timeline__item timeline__item--active">
+                <div class="timeline__date">OKT 2024 — HEUTE</div>
+                <div class="timeline__role">Senior Controller – Energie & Versorgung</div>
+                <div class="timeline__company">Stadtwerke Ahrensburg GmbH</div>
+                <ul class="timeline__desc">
+                  <li>Migration von über 10.000 Kundendatensätzen zwischen NAV- und PowerCloud-Systemen mit 100% Datenintegrität</li>
+                  <li>Automatisierung regulatorischer Berichterstattung: Reduktion von 8 Stunden auf 30 Minuten monatlich</li>
+                  <li>Entwicklung SQL-basierter Vorhersagemodelle für Gasverbrauchsmuster</li>
+                  <li>Implementierung der OData-Integration für Echtzeit-Datenkonnektivität</li>
+                </ul>
+              </div>
+              <div class="timeline__item">
+                <div class="timeline__date">APR 2023 — SEP 2024</div>
+                <div class="timeline__role">Beteiligungs-Controller</div>
+                <div class="timeline__company">AWO-Landesverband Hamburg e.V.</div>
+                <ul class="timeline__desc">
+                  <li>Management-Reporting für Landesverband und 7 Tochtergesellschaften</li>
+                  <li>Automatisierung komplexer Buchungsprozesse mit Python und VBA – 100% Automatisierung budgetkontrollierter Journalbuchungen</li>
+                  <li>Konzeption und Pflege SAP-basierter KPI-Dashboards</li>
+                </ul>
+              </div>
+              <div class="timeline__item">
+                <div class="timeline__date">MAI 2021 — MÄR 2023</div>
+                <div class="timeline__role">Leitungskreis – Koordination & Controlling</div>
+                <div class="timeline__company">Bildungswerk der nordhessischen Wirtschaft gGmbH, Kassel</div>
+                <ul class="timeline__desc">
+                  <li>Leitung strategischer Planungsinitiativen für über 120 Einzelprojekte mit 150 Mitarbeitern</li>
+                  <li>Durchführung umfassender Soll-Ist-Vergleiche und Abweichungsanalysen</li>
+                  <li>Prozess- und Schwachstellenanalyse mit Optimierung der Steuerungsprozesse</li>
+                </ul>
+              </div>
+            </div>
+            <div class="timeline__education">
+              <div class="panel__label">Ausbildung</div>
+              <div class="edu-item">
+                <div class="edu-item__year">2014 — 2022</div>
+                <div>
+                  <div class="edu-item__title">B.Sc. Wirtschaftspädagogik</div>
+                  <div class="edu-item__detail">Universität Kassel — Schwerpunkt: Finance, Accounting, Controlling & Taxation (berufsbegleitend)</div>
                 </div>
               </div>
-              <div class="form-checkbox">
-                <input type="checkbox" id="privacy" name="privacy" required>
-                <label for="privacy">Ich habe die <a href="#" onclick="openModal('datenschutz');return false;">Datenschutzerkl&auml;rung</a> gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung meiner Anfrage zu. *</label>
+              <div class="edu-item">
+                <div class="edu-item__year">2011 — 2013</div>
+                <div>
+                  <div class="edu-item__title">Fachhochschulreife</div>
+                  <div class="edu-item__detail">Abendgymnasium Sophie Scholl, Osnabrück</div>
+                </div>
               </div>
-              <button type="submit" class="btn btn--primary" style="width:100%;justify-content:center;">Nachricht senden</button>
-            </form>
-            <div class="form-success" id="formSuccess">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-              <h3>Vielen Dank!</h3>
-              <p>Ihre Nachricht wurde gesendet. Ich melde mich zeitnah bei Ihnen.</p>
+              <div class="edu-item">
+                <div class="edu-item__year">Zertifikat</div>
+                <div>
+                  <div class="edu-item__title">IFRS/HGB Rechnungslegung</div>
+                  <div class="edu-item__detail">Internationale und nationale Rechnungslegungsstandards</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== SKILLS ===== -->
+        <div class="panel" id="panel-skills">
+          <div class="hud-frame hud-frame--glow">
+            <div class="panel__title">SKILLS & TECHNOLOGIEN</div>
+            <div class="panel__subtitle">// Kompetenzprofil — Radar-Analyse</div>
+            <div class="radar-section">
+              <div class="radar-container">
+                <canvas id="radarChart" width="420" height="420"></canvas>
+              </div>
+              <div class="skill-categories">
+                <div class="skill-cat">
+                  <div class="skill-cat__title">Programmierung & Datenanalyse</div>
+                  <ul class="skill-cat__list">
+                    <li>SQL (T-SQL, Redshift) – VIEWs, CTEs, Window Functions</li>
+                    <li>Python – pandas, openpyxl, reportlab, Streamlit</li>
+                    <li>Power Query / M Language – ETL-Workflows</li>
+                    <li>VBA – Automatisierte Buchungsprozesse</li>
+                  </ul>
+                </div>
+                <div class="skill-cat">
+                  <div class="skill-cat__title">Business Intelligence & Systeme</div>
+                  <ul class="skill-cat__list">
+                    <li>SAP FI/CO – KPI-Dashboards</li>
+                    <li>MS Dynamics NAV / Business Central</li>
+                    <li>PowerCloud (Energieabrechnung)</li>
+                    <li>Power BI / Tableau</li>
+                    <li>OData V4 – OAuth 2.0</li>
+                  </ul>
+                </div>
+                <div class="skill-cat">
+                  <div class="skill-cat__title">Web-Development</div>
+                  <ul class="skill-cat__list">
+                    <li>TypeScript / JavaScript</li>
+                    <li>Vite, Tailwind CSS, Node.js</li>
+                    <li>HTML / CSS – Responsive Design</li>
+                  </ul>
+                </div>
+                <div class="skill-cat">
+                  <div class="skill-cat__title">KI-Tools & Automatisierung</div>
+                  <ul class="skill-cat__list">
+                    <li>Claude AI – Projekte, Memory, Computer Use</li>
+                    <li>Claude Code (CLI) – Agentic Coding</li>
+                    <li>Anthropic API – Tool Use, Python SDK</li>
+                    <li>MCP – Custom Tools, Filesystem-Zugriff</li>
+                  </ul>
+                </div>
+                <div class="skill-cat">
+                  <div class="skill-cat__title">Fachliche Expertise</div>
+                  <ul class="skill-cat__list">
+                    <li>FP&A, Forecasting, Budgetierung</li>
+                    <li>IFRS/HGB, Unit Economics</li>
+                    <li>Regulatorische Compliance (BNetzA, HZA)</li>
+                    <li>Energiewirtschaftliche Prozesse</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== PROJEKTE ===== -->
+        <div class="panel" id="panel-projekte">
+          <div class="hud-frame hud-frame--glow">
+            <div class="panel__title">PROJEKTREFERENZEN</div>
+            <div class="panel__subtitle">// Case Studies — Datengetriebene Lösungen</div>
+            <div class="projects-grid">
+              <div class="project-card project-card--wide">
+                <div class="project-card__number">// CASE STUDY 01</div>
+                <div class="project-card__title">NAV-PowerCloud Datenmigration & Reconciliation</div>
+                <p class="project-card__desc">Komplette Datenmigration von Microsoft Dynamics NAV zu PowerCloud für Gas- und Stromsparten. Harmonisierung der Soll/Haben-Logik (NAV) mit Vorzeichen-Logik (PowerCloud), Voucher-Processing, automatische Diskrepanz-Erkennung und Validierung aller Debitorensalden.</p>
+                <div class="project-card__result">10.000+ Datensätze mit 100% Datenintegrität migriert</div>
+                <div class="project-card__tags">
+                  <span class="tag">SQL</span>
+                  <span class="tag">Power Query</span>
+                  <span class="tag">Python</span>
+                  <span class="tag">HTML</span>
+                </div>
+              </div>
+              <div class="project-card">
+                <div class="project-card__number">// CASE STUDY 02</div>
+                <div class="project-card__title">BILA Reporting (Gas/Strom)</div>
+                <p class="project-card__desc">Aufbau automatisierter SQL-Views für Bilanzabrechnungsprojekte. VIEW-Erstellung mit komplexen JOINs über Vouchers, Contracts und Items-Tabellen.</p>
+                <div class="project-card__result">Zeitersparnis: 8h → 30min pro Monat</div>
+                <div class="project-card__tags">
+                  <span class="tag">SQL Views</span>
+                  <span class="tag">Power Query</span>
+                  <span class="tag">Python</span>
+                </div>
+              </div>
+              <div class="project-card">
+                <div class="project-card__number">// CASE STUDY 03</div>
+                <div class="project-card__title">HZA-Meldungen Gasabrechnung</div>
+                <p class="project-card__desc">Verarbeitung und Aufbereitung von Verbrauchsdaten für Hauptzollamt. Dynamische Pivot-Tabellen mit jahresübergreifender Analyse.</p>
+                <div class="project-card__result">Jährliche HZA-Meldung vollständig automatisiert</div>
+                <div class="project-card__tags">
+                  <span class="tag">Power Query M</span>
+                  <span class="tag">Excel</span>
+                  <span class="tag">VBA</span>
+                </div>
+              </div>
+              <div class="project-card">
+                <div class="project-card__number">// CASE STUDY 04</div>
+                <div class="project-card__title">OData-Integration Business Central</div>
+                <p class="project-card__desc">Anbindung von Business Central über OData V4 an Power Query. OAuth 2.0 Authentifizierung und automatisierter Datenabruf.</p>
+                <div class="project-card__result">Echtzeit-Datenanbindung für Dashboards</div>
+                <div class="project-card__tags">
+                  <span class="tag">Power Query</span>
+                  <span class="tag">OData V4</span>
+                  <span class="tag">REST API</span>
+                  <span class="tag">Business Central</span>
+                </div>
+              </div>
+              <div class="project-card">
+                <div class="project-card__number">// CASE STUDY 05</div>
+                <div class="project-card__title">Kostenstellenanalyse Dashboard</div>
+                <p class="project-card__desc">Interaktives Dashboard für OVH-Verteilung mit automatisierter Kostenstellen-Zuordnung und VBA-gesteuerter Worksheet-Verwaltung.</p>
+                <div class="project-card__result">Vollautomatisierte Kostenstellen-Zuordnung</div>
+                <div class="project-card__tags">
+                  <span class="tag">React</span>
+                  <span class="tag">Tailwind CSS</span>
+                  <span class="tag">Power Query</span>
+                  <span class="tag">VBA</span>
+                </div>
+              </div>
+              <div class="project-card">
+                <div class="project-card__number">// CASE STUDY 06</div>
+                <div class="project-card__title">KPI-Dashboards AWO Landesverband Hamburg e.V.</div>
+                <p class="project-card__desc">SAP-basierte KPI-Dashboards zur Echtzeitverfolgung der Finanzperformance. Management-Reporting für 7 Tochtergesellschaften.</p>
+                <div class="project-card__result">100% Automatisierung der Journalbuchungen</div>
+                <div class="project-card__tags">
+                  <span class="tag">SAP FI/CO</span>
+                  <span class="tag">Python</span>
+                  <span class="tag">VBA</span>
+                </div>
+              </div>
+              <div class="project-card project-card--wide">
+                <div class="project-card__number">// CASE STUDY 07</div>
+                <div class="project-card__title">Familien-Finanz-Dashboard</div>
+                <p class="project-card__desc">Full-Stack Web-App zur privaten Finanzübersicht. Automatischer Import und Kategorisierung von Sparkasse-Kontoumsätzen und PayPal-Transaktionen. Interaktive Visualisierungen mit Einnahmen/Ausgaben-Analyse.</p>
+                <div class="project-card__result">Vollautomatisierte Finanztransparenz für den Haushalt</div>
+                <div class="project-card__tags">
+                  <span class="tag">TypeScript</span>
+                  <span class="tag">Vite</span>
+                  <span class="tag">Tailwind CSS</span>
+                  <span class="tag">Node.js</span>
+                  <span class="tag">CSV-Parsing</span>
+                </div>
+              </div>
+              <div class="project-card">
+                <div class="project-card__number">// CASE STUDY 08</div>
+                <div class="project-card__title">Automatisierung Zahnarztpraxis</div>
+                <p class="project-card__desc">Individuelle Automatisierungslösung für eine Zahnarztpraxis. Vollautomatische Rechnungserstellung mit verschlüsselten Patientendaten.</p>
+                <div class="project-card__result">Rechnungserstellung von manuell auf vollautomatisch</div>
+                <div class="project-card__tags">
+                  <span class="tag">Python</span>
+                  <span class="tag">Claude AI</span>
+                  <span class="tag">Verschlüsselung</span>
+                  <span class="tag">Individualsoftware</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== REPORT PREVIEW ===== -->
+        <div class="panel" id="panel-report">
+          <div class="hud-frame hud-frame--glow">
+            <div class="panel__title">PERFORMANCE REPORT</div>
+            <div class="panel__subtitle">// Sneak Preview — Interaktives Finanz-Dashboard (Beispieldaten)</div>
+            <p class="panel__text" style="margin-bottom:24px;">Konzipiert für Geschäftsführung, Aufsichtsrat und Gesellschafter — ein Premium-Finanz-Dashboard im "Obsidian Ledger"-Stil. Alle Daten sind fiktive Beispielwerte zur Demonstration.</p>
+
+            <div class="report-preview">
+              <div class="report-preview__header">
+                <div class="report-preview__logo">MUSTERWERKE PERFORMANCE REPORT</div>
+                <div class="report-preview__badge">Demo — Fiktive Daten</div>
+              </div>
+
+              <div class="report-kpis">
+                <div class="report-kpi">
+                  <div class="report-kpi__value">24,8M</div>
+                  <div class="report-kpi__label">Umsatzerlöse</div>
+                  <div class="report-kpi__change report-kpi__change--pos">▲ +3,2%</div>
+                </div>
+                <div class="report-kpi">
+                  <div class="report-kpi__value">1,9M</div>
+                  <div class="report-kpi__label">EBIT</div>
+                  <div class="report-kpi__change report-kpi__change--pos">▲ +12,4%</div>
+                </div>
+                <div class="report-kpi">
+                  <div class="report-kpi__value">7,7%</div>
+                  <div class="report-kpi__label">EBIT-Marge</div>
+                  <div class="report-kpi__change report-kpi__change--pos">▲ +0,6pp</div>
+                </div>
+                <div class="report-kpi">
+                  <div class="report-kpi__value">142</div>
+                  <div class="report-kpi__label">Mitarbeiter (FTE)</div>
+                  <div class="report-kpi__change report-kpi__change--neg">▼ -2,1%</div>
+                </div>
+              </div>
+
+              <div class="report-charts">
+                <div class="report-chart-box">
+                  <div class="report-chart-box__title">Umsatzentwicklung (Mio. €)</div>
+                  <div class="report-bar-chart" id="reportBarChart">
+                    <div class="report-bar"><div class="report-bar__fill" data-h="55"></div><div class="report-bar__label">2018</div></div>
+                    <div class="report-bar"><div class="report-bar__fill" data-h="62"></div><div class="report-bar__label">2019</div></div>
+                    <div class="report-bar"><div class="report-bar__fill" data-h="58"></div><div class="report-bar__label">2020</div></div>
+                    <div class="report-bar"><div class="report-bar__fill" data-h="70"></div><div class="report-bar__label">2021</div></div>
+                    <div class="report-bar"><div class="report-bar__fill" data-h="78"></div><div class="report-bar__label">2022</div></div>
+                    <div class="report-bar"><div class="report-bar__fill" data-h="85"></div><div class="report-bar__label">2023</div></div>
+                    <div class="report-bar"><div class="report-bar__fill" data-h="92"></div><div class="report-bar__label">2024</div></div>
+                  </div>
+                </div>
+                <div class="report-chart-box">
+                  <div class="report-chart-box__title">Kostenstruktur</div>
+                  <div class="report-donut">
+                    <canvas id="reportDonut" width="120" height="120"></canvas>
+                    <div class="report-donut__legend">
+                      <div class="report-donut__item"><span class="report-donut__dot" style="background:#d4a853"></span>Material 42%</div>
+                      <div class="report-donut__item"><span class="report-donut__dot" style="background:#5ec269"></span>Personal 31%</div>
+                      <div class="report-donut__item"><span class="report-donut__dot" style="background:#6b93d6"></span>Betrieb 18%</div>
+                      <div class="report-donut__item"><span class="report-donut__dot" style="background:#c97f4a"></span>Sonstige 9%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="report-preview__watermark">◆ Beispielhafte Darstellung — Keine realen Unternehmensdaten ◆</div>
+            </div>
+
+            <div style="margin-top:24px;">
+              <div class="panel__label">Technologie-Stack</div>
+              <div class="projects-grid" style="grid-template-columns:1fr 1fr 1fr;">
+                <div class="project-card">
+                  <div class="project-card__title" style="font-size:13px;">Frontend</div>
+                  <p class="project-card__desc" style="font-size:13px;">Vanilla HTML/CSS/JS, Apache ECharts 5, Single-File Dashboard</p>
+                </div>
+                <div class="project-card">
+                  <div class="project-card__title" style="font-size:13px;">Design</div>
+                  <p class="project-card__desc" style="font-size:13px;">"Obsidian Ledger" — Premium Dark Theme mit Gold-Akzenten. Vollständig anpassbar an Ihr Corporate Design (Farben, Logo, Typografie).</p>
+                </div>
+                <div class="project-card">
+                  <div class="project-card__title" style="font-size:13px;">Features</div>
+                  <p class="project-card__desc" style="font-size:13px;">Jahresvergleich, KPI-Cards, interaktive Charts, Tab-Navigation, Offline-fähig</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== LEISTUNGEN ===== -->
+        <div class="panel" id="panel-leistungen">
+          <div class="hud-frame hud-frame--glow">
+            <div class="panel__title">LEISTUNGEN</div>
+            <div class="panel__subtitle">// Service-Portfolio — Datengetriebenes Controlling</div>
+            <div class="services-grid">
+              <div class="service-card">
+                <div class="service-card__number">01</div>
+                <div>
+                  <div class="service-card__title">Datenanalyse & Prozessautomatisierung</div>
+                  <p class="service-card__desc">Identifikation von Optimierungspotenzialen und Entwicklung automatisierter Workflows mit Python, SQL und Power Query für wiederkehrende Aufgaben.</p>
+                </div>
+              </div>
+              <div class="service-card">
+                <div class="service-card__number">02</div>
+                <div>
+                  <div class="service-card__title">Systemmigration & Daten-Reconciliation</div>
+                  <p class="service-card__desc">Planung und Durchführung von Datenmigrationen (NAV, PowerCloud, Business Central) mit lückenloser Abstimmung und Validierung.</p>
+                </div>
+              </div>
+              <div class="service-card">
+                <div class="service-card__number">03</div>
+                <div>
+                  <div class="service-card__title">Automatisierte Reporting-Systeme</div>
+                  <p class="service-card__desc">Aufbau integrierter Berichtslösungen für Management und regulatorische Anforderungen (BNetzA, Hauptzollamt). Nachweisliche Reduktion manueller Aufwände.</p>
+                </div>
+              </div>
+              <div class="service-card">
+                <div class="service-card__number">04</div>
+                <div>
+                  <div class="service-card__title">KI-gestützte Controlling-Lösungen</div>
+                  <p class="service-card__desc">Integration von KI-Tools (Claude AI, MCP) in bestehende Controlling-Workflows. Automatisierte Dokumentenerstellung, Code-Generierung und Datenverarbeitung.</p>
+                </div>
+              </div>
+              <div class="service-card">
+                <div class="service-card__number">05</div>
+                <div>
+                  <div class="service-card__title">Individuelle Praxis-Automatisierung</div>
+                  <p class="service-card__desc">Maßgeschneiderte Automatisierungslösungen für Arzt- und Zahnarztpraxen. Anbindung an bestehende Praxissoftware, automatisierte Rechnungserstellung mit verschlüsselter Datenverarbeitung.</p>
+                </div>
+              </div>
+              <div class="service-card">
+                <div class="service-card__number">06</div>
+                <div>
+                  <div class="service-card__title">Schulung & Wissenstransfer</div>
+                  <p class="service-card__desc">Praxisnahe Schulungen in Power Query, SQL für Controller, Python-Automatisierung und KI-Tools – damit Ihr Team eigenständig weiterarbeiten kann.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== KONTAKT ===== -->
+        <div class="panel" id="panel-kontakt">
+          <div class="hud-frame hud-frame--glow">
+            <div class="panel__title">KONTAKT</div>
+            <div class="panel__subtitle">// Kommunikationskanal — Nachricht senden</div>
+            <div class="contact-grid">
+              <div class="contact-info">
+                <p>Sie haben ein Projekt, bei dem datengetriebenes Controlling gefragt ist? Oder suchen Sie Unterstützung bei einer Systemmigration oder KI-gestützter Automatisierung? Lassen Sie uns darüber sprechen.</p>
+                <div class="contact-detail">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <span>Hamburg, Deutschland</span>
+                </div>
+                <div class="contact-detail">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  <span>Über das Kontaktformular</span>
+                </div>
+                <div class="contact-langs">
+                  <div class="contact-langs__title">Sprachen</div>
+                  <p>Deutsch – Muttersprache</p>
+                  <p>Englisch – Verhandlungssicher</p>
+                </div>
+              </div>
+              <div>
+                <form id="contactForm" class="hud-form" action="https://formsubmit.co/ajax/wodny33@googlemail.com" method="POST" novalidate>
+                  <div class="form-row form-row--half">
+                    <div class="form-group">
+                      <label for="name">Name *</label>
+                      <input type="text" id="name" name="name" required placeholder="Ihr Name">
+                    </div>
+                    <div class="form-group">
+                      <label for="email">E-Mail *</label>
+                      <input type="email" id="email" name="email" required placeholder="ihre@email.de">
+                    </div>
+                  </div>
+                  <div class="form-row form-row--half">
+                    <div class="form-group">
+                      <label for="company">Unternehmen</label>
+                      <input type="text" id="company" name="company" placeholder="Optional">
+                    </div>
+                    <div class="form-group">
+                      <label for="subject">Betreff *</label>
+                      <select id="subject" name="subject" required>
+                        <option value="" disabled selected>Bitte wählen</option>
+                        <option value="beratung">Beratungsanfrage</option>
+                        <option value="projekt">Projektanfrage</option>
+                        <option value="schulung">Schulung</option>
+                        <option value="jobangebot">Jobangebot</option>
+                        <option value="sonstiges">Sonstiges</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="message">Nachricht *</label>
+                      <textarea id="message" name="message" required placeholder="Beschreiben Sie Ihr Anliegen..."></textarea>
+                    </div>
+                  </div>
+                  <div class="form-checkbox">
+                    <input type="checkbox" id="privacy" name="privacy" required>
+                    <label for="privacy">Ich habe die <a href="#" onclick="openModal('datenschutz');return false;">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zu. *</label>
+                  </div>
+                  <button type="submit" class="btn-submit">NACHRICHT SENDEN</button>
+                </form>
+                <div class="form-success" id="formSuccess">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  <h3>ÜBERTRAGUNG ERFOLGREICH</h3>
+                  <p>Ihre Nachricht wurde gesendet. Ich melde mich zeitnah bei Ihnen.</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__inner">
-        <div class="footer__brand"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50,4 L92,20 L92,52 Q92,84 50,98 Q8,84 8,52 L8,20 Z" fill="var(--accent)" opacity="0.1"/><path d="M50,4 L92,20 L92,52 Q92,84 50,98 Q8,84 8,52 L8,20 Z" fill="none" stroke="var(--accent)" stroke-width="2.5"/><text x="50" y="54" text-anchor="middle" dominant-baseline="central" font-family="Georgia,serif" font-weight="700" font-size="36" fill="var(--accent)">TW</text></svg>Thomas Wodny</div>
-        <div class="footer__links">
-          <a href="#" onclick="openModal('impressum');return false;">Impressum</a>
-          <a href="#" onclick="openModal('datenschutz');return false;">Datenschutzerkl&auml;rung</a>
-          <a href="https://www.linkedin.com/in/thomas-wodny-075427225/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a>
-        </div>
-        <div class="footer__copy">&copy; 2026 Thomas Wodny. Alle Rechte vorbehalten.</div>
-      </div>
     </div>
-  </footer>
 
-  <!-- Back to top -->
-  <button class="back-to-top" id="backToTop" aria-label="Nach oben scrollen">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
-  </button>
+    <!-- STATS BAR -->
+    <footer class="hud-stats">
+      <div class="hud-stats__group">
+        <div class="stat-item">
+          <div class="stat-item__value" data-counter="100" data-suffix="%">100%</div>
+          <div class="stat-item__label">Daten-<br>integrität</div>
+        </div>
+        <div class="stat-item__divider"></div>
+        <div class="stat-item">
+          <div class="stat-item__value">8h→30m</div>
+          <div class="stat-item__label">Reporting<br>optimiert</div>
+        </div>
+        <div class="stat-item__divider"></div>
+        <div class="stat-item">
+          <div class="stat-item__value">10.000+</div>
+          <div class="stat-item__label">Datensätze<br>migriert</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div class="hud-stats__copy">
+          <a href="#" onclick="openModal('impressum');return false;">Impressum</a> ·
+          <a href="#" onclick="openModal('datenschutz');return false;">Datenschutz</a>
+        </div>
+        <div class="hud-stats__copy">© 2026 TW</div>
+      </div>
+    </footer>
+  </div>
 
   <!-- Impressum Modal -->
   <div class="modal-overlay" id="impressumModal">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="impressumTitle">
       <button class="modal__close" onclick="closeModal('impressum')" aria-label="Schließen">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
-      <h2 id="impressumTitle">Impressum</h2>
+      <h2 id="impressumTitle">IMPRESSUM</h2>
       <h3>Angaben gemäß § 5 TMG</h3>
       <p>Thomas Wodny<br>Financial Analyst & Senior Controller<br>Hamburg, Deutschland</p>
       <h3>Kontakt</h3>
@@ -1432,7 +1903,7 @@
       <h3>Haftungsausschluss</h3>
       <p>Die Inhalte dieser Seite wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann jedoch keine Gewähr übernommen werden.</p>
       <h3>Urheberrecht</h3>
-      <p>Die durch den Seitenbetreiber erstellten Inhalte und Werke auf dieser Seite unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung bedürfen der schriftlichen Zustimmung des Autors.</p>
+      <p>Die durch den Seitenbetreiber erstellten Inhalte und Werke auf dieser Seite unterliegen dem deutschen Urheberrecht.</p>
     </div>
   </div>
 
@@ -1440,19 +1911,18 @@
   <div class="modal-overlay" id="datenschutzModal">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="datenschutzTitle">
       <button class="modal__close" onclick="closeModal('datenschutz')" aria-label="Schließen">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
-      <h2 id="datenschutzTitle">Datenschutzerkl&auml;rung</h2>
+      <h2 id="datenschutzTitle">DATENSCHUTZERKLÄRUNG</h2>
       <h3>1. Verantwortlicher</h3>
       <p>Thomas Wodny<br>Hamburg, Deutschland<br>E-Mail: Wodny33@googlemail.com</p>
       <h3>2. Erhebung und Speicherung personenbezogener Daten</h3>
-      <p>Beim Besuch dieser Website werden automatisch Informationen durch den Browser übermittelt und in Server-Logfiles gespeichert (Browsertyp, Betriebssystem, Referrer-URL, IP-Adresse, Zeitpunkt des Zugriffs). Diese Daten sind nicht bestimmten Personen zuordenbar und werden nicht mit anderen Datenquellen zusammengeführt.</p>
+      <p>Beim Besuch dieser Website werden automatisch Informationen durch den Browser übermittelt und in Server-Logfiles gespeichert (Browsertyp, Betriebssystem, Referrer-URL, IP-Adresse, Zeitpunkt des Zugriffs). Diese Daten sind nicht bestimmten Personen zuordenbar.</p>
       <h3>3. Kontaktformular</h3>
-      <p>Bei Nutzung des Kontaktformulars werden die von Ihnen eingegebenen Daten (Name, E-Mail, Unternehmen, Betreff, Nachricht) zum Zweck der Bearbeitung Ihrer Anfrage gespeichert. Eine Weitergabe an Dritte erfolgt nicht. Die Daten werden gelöscht, sobald sie für den Zweck ihrer Verarbeitung nicht mehr erforderlich sind.</p>
+      <p>Bei Nutzung des Kontaktformulars werden die von Ihnen eingegebenen Daten zum Zweck der Bearbeitung Ihrer Anfrage gespeichert. Eine Weitergabe an Dritte erfolgt nicht.</p>
       <h3>4. Cookies</h3>
-      <p>Diese Website verwendet technisch notwendige Cookies (z.B. Theme-Präferenz, Cookie-Consent-Status). Diese Cookies sind für den Betrieb der Seite notwendig und können nicht deaktiviert werden. Es werden keine Tracking-Cookies eingesetzt.</p>
+      <p>Diese Website verwendet technisch notwendige Cookies (z.B. Cookie-Consent-Status). Es werden keine Tracking-Cookies eingesetzt.</p>
       <h3>5. Ihre Rechte</h3>
-      <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer personenbezogenen Daten. Zudem steht Ihnen ein Beschwerderecht bei der zuständigen Aufsichtsbehörde zu.</p>
       <ul>
         <li>Recht auf Auskunft (Art. 15 DSGVO)</li>
         <li>Recht auf Berichtigung (Art. 16 DSGVO)</li>
@@ -1462,106 +1932,108 @@
         <li>Recht auf Widerspruch (Art. 21 DSGVO)</li>
       </ul>
       <h3>6. Aktualität</h3>
-      <p>Diese Datenschutzerkl&auml;rung ist aktuell gültig. Stand: Februar 2026.</p>
+      <p>Diese Datenschutzerklärung ist aktuell gültig. Stand: März 2026.</p>
+    </div>
+  </div>
+
+  <!-- Cookie Banner -->
+  <div class="cookie-banner" id="cookieBanner">
+    <p>Diese Website nutzt technisch notwendige Cookies.</p>
+    <div class="cookie-banner__btns">
+      <button class="cookie-btn cookie-btn--accept" onclick="handleCookies(true)">OK</button>
+      <button class="cookie-btn cookie-btn--decline" onclick="handleCookies(false)">ABLEHNEN</button>
     </div>
   </div>
 
   <script>
-    /* ========== THEME TOGGLE ========== */
-    (function() {
-      const saved = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const theme = saved || (prefersDark ? 'dark' : 'light');
-      document.documentElement.setAttribute('data-theme', theme);
-      updateThemeIcon(theme);
-    })();
+    /* ========== PANEL SWITCHING ========== */
+    function switchPanel(name) {
+      // Update nav
+      document.querySelectorAll('.hud-nav__item').forEach(function(btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-panel') === name);
+      });
+      // Update panels
+      document.querySelectorAll('.panel').forEach(function(p) {
+        p.classList.remove('active');
+      });
+      var panel = document.getElementById('panel-' + name);
+      if (panel) {
+        panel.classList.add('active');
+        // Reset scroll
+        document.getElementById('hudContent').scrollTop = 0;
+      }
+      // Close mobile nav
+      document.getElementById('hudNav').classList.remove('open');
+      document.getElementById('mobileToggle').classList.remove('active');
 
-    function updateThemeIcon(theme) {
-      const sun = document.querySelector('.icon-sun');
-      const moon = document.querySelector('.icon-moon');
-      if (!sun || !moon) return;
-      if (theme === 'dark') {
-        sun.style.display = 'none';
-        moon.style.display = 'block';
-      } else {
-        sun.style.display = 'block';
-        moon.style.display = 'none';
+      // Trigger radar if skills panel
+      if (name === 'skills') {
+        setTimeout(drawRadar, 100);
+      }
+      // Trigger report charts
+      if (name === 'report') {
+        setTimeout(drawReportCharts, 100);
+      }
+      // Trigger counters if profil
+      if (name === 'profil') {
+        triggerCounters();
       }
     }
 
-    document.getElementById('themeToggle').addEventListener('click', function() {
-      const current = document.documentElement.getAttribute('data-theme');
-      const next = current === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-      updateThemeIcon(next);
-    });
-
     /* ========== MOBILE NAV ========== */
-    const navToggle = document.getElementById('navToggle');
-    const navMenu = document.getElementById('navMenu');
-    navToggle.addEventListener('click', function() {
+    document.getElementById('mobileToggle').addEventListener('click', function() {
       this.classList.toggle('active');
-      navMenu.classList.toggle('open');
-      this.setAttribute('aria-label', navMenu.classList.contains('open') ? 'Menü schließen' : 'Menü öffnen');
-    });
-    navMenu.querySelectorAll('a').forEach(function(a) {
-      a.addEventListener('click', function() {
-        navToggle.classList.remove('active');
-        navMenu.classList.remove('open');
-      });
+      document.getElementById('hudNav').classList.toggle('open');
     });
 
-    /* ========== SCROLL: NAV, PROGRESS, BACK-TO-TOP, ACTIVE LINK ========== */
-    const nav = document.getElementById('nav');
-    const progressBar = document.getElementById('scrollProgress');
-    const backToTop = document.getElementById('backToTop');
-    const sections = document.querySelectorAll('.section, .hero');
-    const navLinks = document.querySelectorAll('.nav__menu a');
+    /* ========== TYPING ANIMATION ========== */
+    (function() {
+      var el = document.getElementById('typingTarget');
+      if (!el) return;
+      var texts = ['Financial Analyst & Senior Controller', 'Data-Driven Controlling', 'SQL • Python • Power Query • KI'];
+      var textIdx = 0, charIdx = 0, deleting = false;
+      var typeSpeed = 65, deleteSpeed = 35, pauseEnd = 2200, pauseStart = 600;
 
-    window.addEventListener('scroll', function() {
-      const scrollY = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
-
-      progressBar.style.width = progress + '%';
-      nav.classList.toggle('scrolled', scrollY > 20);
-      backToTop.classList.toggle('visible', scrollY > 600);
-
-      let current = '';
-      sections.forEach(function(sec) {
-        if (scrollY >= sec.offsetTop - 200) current = sec.getAttribute('id');
-      });
-      navLinks.forEach(function(link) {
-        link.classList.toggle('active', link.getAttribute('href') === '#' + current);
-      });
-    });
-
-    backToTop.addEventListener('click', function() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    /* ========== SCROLL REVEAL ========== */
-    const revealObserver = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
-          revealObserver.unobserve(entry.target);
+      function type() {
+        var current = texts[textIdx];
+        if (!deleting) {
+          el.textContent = current.substring(0, charIdx + 1);
+          charIdx++;
+          if (charIdx === current.length) {
+            setTimeout(function() { deleting = true; type(); }, pauseEnd);
+            return;
+          }
+          setTimeout(type, typeSpeed);
+        } else {
+          el.textContent = current.substring(0, charIdx - 1);
+          charIdx--;
+          if (charIdx === 0) {
+            deleting = false;
+            textIdx = (textIdx + 1) % texts.length;
+            setTimeout(type, pauseStart);
+            return;
+          }
+          setTimeout(type, deleteSpeed);
         }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-    document.querySelectorAll('.reveal').forEach(function(el, i) {
-      var group = el.closest('.about__highlights, .skills__grid, .projects__grid, .services__grid, .testimonials__grid, .timeline');
-      if (group) {
-        var siblings = Array.from(group.querySelectorAll('.reveal'));
-        var idx = siblings.indexOf(el);
-        el.style.transitionDelay = (idx * 0.1) + 's';
       }
-      revealObserver.observe(el);
-    });
+      setTimeout(type, 1500);
+    })();
 
-    /* ========== KPI COUNTER ANIMATION ========== */
+    /* ========== KPI COUNTERS ========== */
+    var countersTriggered = false;
+    function triggerCounters() {
+      if (countersTriggered) return;
+      countersTriggered = true;
+      setTimeout(function() {
+        document.querySelectorAll('#panel-profil [data-counter]').forEach(function(el) {
+          animateCounter(el);
+        });
+        document.querySelectorAll('#panel-profil [data-counter-special="time"]').forEach(function(el) {
+          animateTimeCounter(el);
+        });
+      }, 400);
+    }
+
     function animateCounter(el) {
       var target = parseInt(el.getAttribute('data-counter'));
       var suffix = el.getAttribute('data-suffix') || '';
@@ -1587,188 +2059,139 @@
       var start = performance.now();
       function update(now) {
         var progress = Math.min((now - start) / duration, 1);
-        var eased = 1 - Math.pow(1 - progress, 3);
-        var currentMin = Math.round(eased * minEnd);
         if (progress < 0.3) {
-          el.innerHTML = '8h &rarr; 0min';
+          el.textContent = '8h → 0min';
         } else {
           var minProgress = (progress - 0.3) / 0.7;
           var minEased = 1 - Math.pow(1 - minProgress, 3);
           var currentMin = Math.round(minEased * 30);
-          el.innerHTML = '8h &rarr; ' + currentMin + 'min';
+          el.textContent = '8h → ' + currentMin + 'min';
         }
         if (progress < 1) requestAnimationFrame(update);
-        else el.innerHTML = '8h &rarr; 30min';
+        else el.textContent = '8h → 30min';
       }
       requestAnimationFrame(update);
     }
 
-    /* Start counters when highlight cards become visible (after reveal animation) */
-    var counterStarted = false;
-    var origRevealCallback = revealObserver;
-    var highlightsEl = document.querySelector('.about__highlights');
+    // Start counters on load (profil is default panel)
+    triggerCounters();
 
-    function tryStartCounters() {
-      if (counterStarted) return;
-      var cards = highlightsEl.querySelectorAll('.highlight-card.revealed');
-      if (cards.length > 0) {
-        counterStarted = true;
-        setTimeout(function() {
-          highlightsEl.querySelectorAll('[data-counter]').forEach(function(el) {
-            animateCounter(el);
-          });
-          highlightsEl.querySelectorAll('[data-counter-special="time"]').forEach(function(el) {
-            animateTimeCounter(el);
-          });
-        }, 300);
-      }
-    }
+    /* ========== RADAR CHART ========== */
+    var radarDrawn = false;
+    function drawRadar() {
+      if (radarDrawn) return;
+      radarDrawn = true;
 
-    if (highlightsEl) {
-      var counterCheckObserver = new MutationObserver(function() {
-        tryStartCounters();
-      });
-      highlightsEl.querySelectorAll('.highlight-card').forEach(function(card) {
-        counterCheckObserver.observe(card, { attributes: true, attributeFilter: ['class'] });
-      });
-    }
-
-    /* ========== SKILL LEVEL BARS ANIMATION ========== */
-    const skillObserver = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.querySelectorAll('.skill-level__fill').forEach(function(bar, i) {
-            setTimeout(function() {
-              bar.classList.add('animated');
-            }, i * 150);
-          });
-          skillObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
-
-    var skillLevels = document.querySelector('.skill-levels');
-    if (skillLevels) skillObserver.observe(skillLevels);
-
-    /* ========== HERO CANVAS ANIMATION ========== */
-    (function() {
-      var canvas = document.getElementById('heroCanvas');
+      var canvas = document.getElementById('radarChart');
       if (!canvas) return;
       var ctx = canvas.getContext('2d');
-      var particles = [];
-      var raf;
+      var w = canvas.width, h = canvas.height;
+      var cx = w / 2, cy = h / 2;
+      var maxR = Math.min(cx, cy) - 60;
 
-      function resize() {
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
-      }
+      var labels = ['Power Query M', 'SQL', 'Claude AI / KI', 'SAP FI/CO', 'Python', 'VBA', 'TypeScript/JS', 'HTML/CSS'];
+      var values = [0.95, 0.85, 0.90, 0.70, 0.65, 0.65, 0.60, 0.60];
+      var n = labels.length;
+      var angleStep = (Math.PI * 2) / n;
+      var startAngle = -Math.PI / 2;
 
-      function init() {
-        var count = window.innerWidth < 768 ? 30 : 55;
-        particles = [];
-        for (var i = 0; i < count; i++) {
-          particles.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            vx: (Math.random() - 0.5) * 0.25,
-            vy: (Math.random() - 0.5) * 0.25,
-            r: Math.random() * 1.8 + 0.5
-          });
-        }
-      }
+      // Animate
+      var animProgress = 0;
+      var animDuration = 1200;
+      var animStart = performance.now();
 
-      function getColors() {
-        var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      function getPoint(i, scale) {
+        var angle = startAngle + i * angleStep;
         return {
-          particle: dark ? 'rgba(212,160,74,' : 'rgba(176,125,30,',
-          line: dark ? 'rgba(212,160,74,' : 'rgba(176,125,30,'
+          x: cx + Math.cos(angle) * maxR * scale,
+          y: cy + Math.sin(angle) * maxR * scale
         };
       }
 
       function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        var c = getColors();
-        var maxDist = 130;
+        var now = performance.now();
+        animProgress = Math.min((now - animStart) / animDuration, 1);
+        var eased = 1 - Math.pow(1 - animProgress, 3);
 
-        for (var i = 0; i < particles.length; i++) {
-          var p = particles[i];
-          p.x += p.vx;
-          p.y += p.vy;
-          if (p.x < 0) p.x = canvas.width;
-          if (p.x > canvas.width) p.x = 0;
-          if (p.y < 0) p.y = canvas.height;
-          if (p.y > canvas.height) p.y = 0;
+        ctx.clearRect(0, 0, w, h);
 
+        // Grid rings
+        for (var ring = 1; ring <= 5; ring++) {
+          var ringScale = ring / 5;
           ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fillStyle = c.particle + '0.35)';
+          for (var i = 0; i <= n; i++) {
+            var p = getPoint(i % n, ringScale);
+            if (i === 0) ctx.moveTo(p.x, p.y);
+            else ctx.lineTo(p.x, p.y);
+          }
+          ctx.strokeStyle = 'rgba(255, 190, 46, 0.1)';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+
+        // Axis lines
+        for (var i = 0; i < n; i++) {
+          var p = getPoint(i, 1);
+          ctx.beginPath();
+          ctx.moveTo(cx, cy);
+          ctx.lineTo(p.x, p.y);
+          ctx.strokeStyle = 'rgba(255, 190, 46, 0.08)';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+
+        // Data polygon
+        ctx.beginPath();
+        for (var i = 0; i <= n; i++) {
+          var idx = i % n;
+          var p = getPoint(idx, values[idx] * eased);
+          if (i === 0) ctx.moveTo(p.x, p.y);
+          else ctx.lineTo(p.x, p.y);
+        }
+        ctx.fillStyle = 'rgba(255, 190, 46, 0.12)';
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(255, 190, 46, 0.8)';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Data points with glow
+        for (var i = 0; i < n; i++) {
+          var p = getPoint(i, values[i] * eased);
+          // Glow
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 6, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(255, 190, 46, 0.2)';
           ctx.fill();
-
-          for (var j = i + 1; j < particles.length; j++) {
-            var q = particles[j];
-            var dx = p.x - q.x, dy = p.y - q.y;
-            var dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < maxDist) {
-              ctx.beginPath();
-              ctx.moveTo(p.x, p.y);
-              ctx.lineTo(q.x, q.y);
-              ctx.strokeStyle = c.line + (0.12 * (1 - dist / maxDist)).toFixed(3) + ')';
-              ctx.lineWidth = 0.6;
-              ctx.stroke();
-            }
-          }
+          // Point
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+          ctx.fillStyle = '#ffbe2e';
+          ctx.fill();
         }
-        raf = requestAnimationFrame(draw);
-      }
 
-      resize();
-      init();
+        // Labels
+        ctx.font = '11px "Share Tech Mono", monospace';
+        ctx.fillStyle = '#7a9ec0';
+        for (var i = 0; i < n; i++) {
+          var p = getPoint(i, 1.16);
+          var angle = startAngle + i * angleStep;
+          ctx.textAlign = Math.cos(angle) > 0.1 ? 'left' : Math.cos(angle) < -0.1 ? 'right' : 'center';
+          ctx.textBaseline = Math.sin(angle) > 0.1 ? 'top' : Math.sin(angle) < -0.1 ? 'bottom' : 'middle';
+          ctx.fillText(labels[i], p.x, p.y);
+
+          // Percentage
+          var pctPoint = getPoint(i, values[i] * eased + 0.08);
+          ctx.font = '10px "Orbitron", sans-serif';
+          ctx.fillStyle = '#ffbe2e';
+          ctx.fillText(Math.round(values[i] * 100 * eased) + '%', pctPoint.x, pctPoint.y);
+          ctx.font = '11px "Share Tech Mono", monospace';
+          ctx.fillStyle = '#7a9ec0';
+        }
+
+        if (animProgress < 1) requestAnimationFrame(draw);
+      }
       draw();
-
-      window.addEventListener('resize', function() {
-        resize();
-        init();
-      });
-    })();
-
-    /* ========== HERO TYPING ANIMATION ========== */
-    (function() {
-      var el = document.getElementById('heroTyping');
-      var cursor = document.querySelector('.typing-cursor');
-      if (!el) return;
-      var texts = ['Financial Analyst & Senior Controller', 'Data-Driven Controlling', 'SQL \u2022 Python \u2022 Power Query \u2022 KI'];
-      var textIdx = 0, charIdx = 0, deleting = false;
-      var typeSpeed = 65, deleteSpeed = 35, pauseEnd = 2200, pauseStart = 600;
-
-      function type() {
-        var current = texts[textIdx];
-        if (!deleting) {
-          el.textContent = current.substring(0, charIdx + 1);
-          charIdx++;
-          if (charIdx === current.length) {
-            if (textIdx === 0) {
-              setTimeout(function() { deleting = true; type(); }, pauseEnd);
-            } else {
-              setTimeout(function() { deleting = true; type(); }, pauseEnd);
-            }
-            return;
-          }
-          setTimeout(type, typeSpeed);
-        } else {
-          el.textContent = current.substring(0, charIdx - 1);
-          charIdx--;
-          if (charIdx === 0) {
-            deleting = false;
-            textIdx = (textIdx + 1) % texts.length;
-            setTimeout(type, pauseStart);
-            return;
-          }
-          setTimeout(type, deleteSpeed);
-        }
-      }
-
-      setTimeout(type, 800);
-    })();
+    }
 
     /* ========== CONTACT FORM ========== */
     document.getElementById('contactForm').addEventListener('submit', function(e) {
@@ -1778,7 +2201,7 @@
       var required = form.querySelectorAll('[required]');
       required.forEach(function(field) {
         if (!field.value || (field.type === 'checkbox' && !field.checked)) {
-          field.style.borderColor = '#c0392b';
+          field.style.borderColor = '#ff6b35';
           valid = false;
         } else {
           field.style.borderColor = '';
@@ -1786,13 +2209,13 @@
       });
       var emailField = form.querySelector('#email');
       if (emailField.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value)) {
-        emailField.style.borderColor = '#c0392b';
+        emailField.style.borderColor = '#ff6b35';
         valid = false;
       }
       if (valid) {
         var btn = form.querySelector('button[type="submit"]');
         btn.disabled = true;
-        btn.textContent = 'Wird gesendet...';
+        btn.textContent = 'ÜBERTRAGUNG...';
         var formData = new FormData(form);
         fetch(form.action, {
           method: 'POST',
@@ -1806,19 +2229,19 @@
             document.getElementById('formSuccess').classList.add('visible');
           } else {
             btn.disabled = false;
-            btn.textContent = 'Nachricht senden';
-            alert('Fehler beim Senden. Bitte versuchen Sie es sp\u00e4ter erneut.');
+            btn.textContent = 'NACHRICHT SENDEN';
+            alert('Fehler beim Senden. Bitte versuchen Sie es später erneut.');
           }
         })
         .catch(function() {
           btn.disabled = false;
-          btn.textContent = 'Nachricht senden';
-          alert('Fehler beim Senden. Bitte versuchen Sie es sp\u00e4ter erneut.');
+          btn.textContent = 'NACHRICHT SENDEN';
+          alert('Fehler beim Senden. Bitte versuchen Sie es später erneut.');
         });
       }
     });
 
-    /* ========== COOKIE BANNER ========== */
+    /* ========== COOKIES ========== */
     (function() {
       if (!localStorage.getItem('cookieConsent')) {
         setTimeout(function() {
@@ -1834,20 +2257,16 @@
 
     /* ========== MODALS ========== */
     function openModal(type) {
-      var id = type + 'Modal';
-      var modal = document.getElementById(id);
+      var modal = document.getElementById(type + 'Modal');
       if (modal) {
         modal.classList.add('visible');
-        document.body.style.overflow = 'hidden';
       }
     }
 
     function closeModal(type) {
-      var id = type + 'Modal';
-      var modal = document.getElementById(id);
+      var modal = document.getElementById(type + 'Modal');
       if (modal) {
         modal.classList.remove('visible');
-        document.body.style.overflow = '';
       }
     }
 
@@ -1855,7 +2274,6 @@
       overlay.addEventListener('click', function(e) {
         if (e.target === overlay) {
           overlay.classList.remove('visible');
-          document.body.style.overflow = '';
         }
       });
     });
@@ -1865,7 +2283,76 @@
         document.querySelectorAll('.modal-overlay.visible').forEach(function(m) {
           m.classList.remove('visible');
         });
-        document.body.style.overflow = '';
+      }
+    });
+
+    /* ========== REPORT CHARTS ========== */
+    var reportDrawn = false;
+    function drawReportCharts() {
+      if (reportDrawn) return;
+      reportDrawn = true;
+
+      // Bar chart animation
+      document.querySelectorAll('#reportBarChart .report-bar__fill').forEach(function(bar) {
+        var h = bar.getAttribute('data-h');
+        bar.style.height = '0%';
+        setTimeout(function() {
+          bar.style.height = h + '%';
+        }, 50);
+      });
+
+      // Donut chart
+      var canvas = document.getElementById('reportDonut');
+      if (!canvas) return;
+      var ctx = canvas.getContext('2d');
+      var cx = 60, cy = 60, r = 48, lineW = 14;
+      var segments = [
+        { pct: 0.42, color: '#d4a853' },
+        { pct: 0.31, color: '#5ec269' },
+        { pct: 0.18, color: '#6b93d6' },
+        { pct: 0.09, color: '#c97f4a' }
+      ];
+
+      var animStart = performance.now();
+      var animDur = 1000;
+
+      function drawDonut() {
+        var now = performance.now();
+        var progress = Math.min((now - animStart) / animDur, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+
+        ctx.clearRect(0, 0, 120, 120);
+        var startAngle = -Math.PI / 2;
+        var totalAngle = Math.PI * 2 * eased;
+
+        segments.forEach(function(seg) {
+          var sweep = seg.pct * totalAngle;
+          ctx.beginPath();
+          ctx.arc(cx, cy, r, startAngle, startAngle + sweep);
+          ctx.strokeStyle = seg.color;
+          ctx.lineWidth = lineW;
+          ctx.lineCap = 'butt';
+          ctx.stroke();
+          startAngle += sweep;
+        });
+
+        // Center hole
+        ctx.beginPath();
+        ctx.arc(cx, cy, r - lineW, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(18, 20, 26, 0.9)';
+        ctx.fill();
+
+        if (progress < 1) requestAnimationFrame(drawDonut);
+      }
+      drawDonut();
+    }
+
+    /* ========== KEYBOARD NAV ========== */
+    document.addEventListener('keydown', function(e) {
+      var panels = ['profil', 'erfahrung', 'skills', 'projekte', 'report', 'leistungen', 'kontakt'];
+      var key = parseInt(e.key);
+      if (key >= 1 && key <= 7) {
+        switchPanel(panels[key - 1]);
       }
     });
   </script>
