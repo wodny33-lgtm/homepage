@@ -517,26 +517,25 @@
 
     /* ========== RADAR CHART ========== */
     .radar-section {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       gap: 32px;
-      align-items: start;
     }
     .radar-container {
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px;
-      min-height: 420px;
+      width: 100%;
     }
     .radar-container canvas {
-      max-width: 100%;
       display: block;
     }
     .skill-categories {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
       gap: 16px;
+      width: 100%;
     }
     .skill-cat {
       border: 1px solid var(--border);
@@ -1266,6 +1265,7 @@
       .hud-nav.open { display: flex; }
       .mobile-nav-toggle { display: flex; }
       .profile-grid,
+      .skill-categories { grid-template-columns: 1fr 1fr; }
       .radar-section,
       .projects-grid,
       .services-grid,
@@ -1491,7 +1491,7 @@
             <div class="panel__subtitle">// Kompetenzprofil — Radar-Analyse</div>
             <div class="radar-section">
               <div class="radar-container">
-                <canvas id="radarChart" width="420" height="420"></canvas>
+                <canvas id="radarChart" width="680" height="560"></canvas>
               </div>
               <div class="skill-categories">
                 <div class="skill-cat">
@@ -2087,40 +2087,60 @@
       var ctx = canvas.getContext('2d');
       var w = canvas.width, h = canvas.height;
       var cx = w / 2, cy = h / 2;
-      var maxR = Math.min(cx, cy) - 60;
+      var maxR = Math.min(cx, cy) - 100;
 
       var labels = ['Power Query M', 'SQL', 'Claude AI / KI', 'SAP FI/CO', 'Python', 'VBA', 'TypeScript/JS', 'HTML/CSS'];
       var values = [0.95, 0.85, 0.90, 0.70, 0.65, 0.65, 0.60, 0.60];
       var n = labels.length;
       var angleStep = (Math.PI * 2) / n;
       var startAngle = -Math.PI / 2;
+      var hoveredIdx = -1;
+      var pullStrength = 0;
+      var pullTarget = 0;
+      var pullIdx = -1;
 
-      // Animate
-      var animProgress = 0;
-      var animDuration = 1200;
-      var animStart = performance.now();
-
-      function getPoint(i, scale) {
+      function getPoint(i, scale, pull) {
         var angle = startAngle + i * angleStep;
+        var extraPull = 0;
+        if (pull && pullIdx >= 0 && pullStrength > 0) {
+          // Calculate angular distance to hovered point
+          var diff = Math.abs(i - pullIdx);
+          if (diff > n / 2) diff = n - diff;
+          if (diff === 0) extraPull = pullStrength * 0.14;
+          else if (diff === 1) extraPull = pullStrength * 0.06;
+        }
         return {
-          x: cx + Math.cos(angle) * maxR * scale,
-          y: cy + Math.sin(angle) * maxR * scale
+          x: cx + Math.cos(angle) * maxR * (scale + extraPull),
+          y: cy + Math.sin(angle) * maxR * (scale + extraPull)
         };
       }
 
-      function draw() {
-        var now = performance.now();
-        animProgress = Math.min((now - animStart) / animDuration, 1);
-        var eased = 1 - Math.pow(1 - animProgress, 3);
+      // Animate
+      var animDuration = 1200;
+      var animStart = performance.now();
+      var animDone = false;
 
+      function render(eased) {
         ctx.clearRect(0, 0, w, h);
+
+        // Hovered sector highlight
+        if (hoveredIdx >= 0 && animDone) {
+          var a1 = startAngle + (hoveredIdx - 0.5) * angleStep;
+          var a2 = startAngle + (hoveredIdx + 0.5) * angleStep;
+          ctx.beginPath();
+          ctx.moveTo(cx, cy);
+          ctx.arc(cx, cy, maxR * (1.05 + pullStrength * 0.14), a1, a2);
+          ctx.closePath();
+          ctx.fillStyle = 'rgba(255, 190, 46, 0.06)';
+          ctx.fill();
+        }
 
         // Grid rings
         for (var ring = 1; ring <= 5; ring++) {
           var ringScale = ring / 5;
           ctx.beginPath();
           for (var i = 0; i <= n; i++) {
-            var p = getPoint(i % n, ringScale);
+            var p = getPoint(i % n, ringScale, false);
             if (i === 0) ctx.moveTo(p.x, p.y);
             else ctx.lineTo(p.x, p.y);
           }
@@ -2131,12 +2151,12 @@
 
         // Axis lines
         for (var i = 0; i < n; i++) {
-          var p = getPoint(i, 1);
+          var p = getPoint(i, 1 + (i === hoveredIdx ? pullStrength * 0.14 : 0), false);
           ctx.beginPath();
           ctx.moveTo(cx, cy);
           ctx.lineTo(p.x, p.y);
-          ctx.strokeStyle = 'rgba(255, 190, 46, 0.08)';
-          ctx.lineWidth = 1;
+          ctx.strokeStyle = i === hoveredIdx ? 'rgba(255, 190, 46, 0.3)' : 'rgba(255, 190, 46, 0.08)';
+          ctx.lineWidth = i === hoveredIdx ? 2 : 1;
           ctx.stroke();
         }
 
@@ -2144,7 +2164,7 @@
         ctx.beginPath();
         for (var i = 0; i <= n; i++) {
           var idx = i % n;
-          var p = getPoint(idx, values[idx] * eased);
+          var p = getPoint(idx, values[idx] * eased, true);
           if (i === 0) ctx.moveTo(p.x, p.y);
           else ctx.lineTo(p.x, p.y);
         }
@@ -2154,43 +2174,139 @@
         ctx.lineWidth = 2;
         ctx.stroke();
 
-        // Data points with glow
+        // Data points
         for (var i = 0; i < n; i++) {
-          var p = getPoint(i, values[i] * eased);
+          var isHovered = (i === hoveredIdx);
+          var p = getPoint(i, values[i] * eased, true);
+          var pointR = isHovered ? 7 : 3;
+          var glowR = isHovered ? 16 : 6;
+
+          // Outer glow
+          if (isHovered) {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, 22, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(255, 190, 46, 0.08)';
+            ctx.fill();
+          }
           // Glow
           ctx.beginPath();
-          ctx.arc(p.x, p.y, 6, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(255, 190, 46, 0.2)';
+          ctx.arc(p.x, p.y, glowR, 0, Math.PI * 2);
+          ctx.fillStyle = isHovered ? 'rgba(255, 190, 46, 0.35)' : 'rgba(255, 190, 46, 0.2)';
           ctx.fill();
           // Point
           ctx.beginPath();
-          ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+          ctx.arc(p.x, p.y, pointR, 0, Math.PI * 2);
           ctx.fillStyle = '#ffbe2e';
           ctx.fill();
+          if (isHovered) {
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+          }
         }
 
         // Labels
-        ctx.font = '11px "Share Tech Mono", monospace';
-        ctx.fillStyle = '#7a9ec0';
         for (var i = 0; i < n; i++) {
-          var p = getPoint(i, 1.16);
+          var isHovered = (i === hoveredIdx);
+          var labelExtra = isHovered ? pullStrength * 0.12 : 0;
+          var p = getPoint(i, 1.14 + labelExtra, false);
           var angle = startAngle + i * angleStep;
           ctx.textAlign = Math.cos(angle) > 0.1 ? 'left' : Math.cos(angle) < -0.1 ? 'right' : 'center';
           ctx.textBaseline = Math.sin(angle) > 0.1 ? 'top' : Math.sin(angle) < -0.1 ? 'bottom' : 'middle';
+
+          // Label
+          ctx.font = isHovered ? 'bold 13px "Share Tech Mono", monospace' : '11px "Share Tech Mono", monospace';
+          ctx.fillStyle = isHovered ? '#fff' : '#b0a080';
           ctx.fillText(labels[i], p.x, p.y);
 
           // Percentage
-          var pctPoint = getPoint(i, values[i] * eased + 0.08);
-          ctx.font = '10px "Orbitron", sans-serif';
-          ctx.fillStyle = '#ffbe2e';
-          ctx.fillText(Math.round(values[i] * 100 * eased) + '%', pctPoint.x, pctPoint.y);
-          ctx.font = '11px "Share Tech Mono", monospace';
-          ctx.fillStyle = '#7a9ec0';
+          var pctPoint = getPoint(i, values[i] * eased + 0.08, true);
+          ctx.font = isHovered ? 'bold 14px "Orbitron", sans-serif' : '10px "Orbitron", sans-serif';
+          ctx.fillStyle = isHovered ? '#fff' : '#ffbe2e';
+          if (isHovered) {
+            // Tooltip background
+            var pctText = Math.round(values[i] * 100) + '%';
+            var tw = ctx.measureText(pctText).width;
+            ctx.fillStyle = 'rgba(255, 190, 46, 0.15)';
+            ctx.fillRect(pctPoint.x - tw/2 - 6, pctPoint.y - 9, tw + 12, 20);
+            ctx.strokeStyle = 'rgba(255, 190, 46, 0.4)';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(pctPoint.x - tw/2 - 6, pctPoint.y - 9, tw + 12, 20);
+            ctx.fillStyle = '#fff';
+            ctx.textAlign = 'center';
+            ctx.fillText(pctText, pctPoint.x, pctPoint.y + 5);
+          } else {
+            ctx.fillText(Math.round(values[i] * 100 * eased) + '%', pctPoint.x, pctPoint.y);
+          }
+        }
+      }
+
+      function animate() {
+        var now = performance.now();
+        var progress = Math.min((now - animStart) / animDuration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        render(eased);
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          animDone = true;
+        }
+      }
+      animate();
+
+      // Mouse interaction
+      canvas.style.cursor = 'crosshair';
+      canvas.addEventListener('mousemove', function(e) {
+        if (!animDone) return;
+        var rect = canvas.getBoundingClientRect();
+        var mx = (e.clientX - rect.left) * (w / rect.width);
+        var my = (e.clientY - rect.top) * (h / rect.height);
+
+        var closest = -1;
+        var closestDist = 40;
+        for (var i = 0; i < n; i++) {
+          var p = getPoint(i, values[i]);
+          var dx = mx - p.x, dy = my - p.y;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < closestDist) {
+            closestDist = dist;
+            closest = i;
+          }
         }
 
-        if (animProgress < 1) requestAnimationFrame(draw);
+        if (closest !== hoveredIdx) {
+          hoveredIdx = closest;
+          pullIdx = closest;
+          pullTarget = closest >= 0 ? 1 : 0;
+          animatePull();
+        }
+      });
+
+      canvas.addEventListener('mouseleave', function() {
+        hoveredIdx = -1;
+        pullIdx = -1;
+        pullTarget = 0;
+        animatePull();
+      });
+
+      var pullAnimating = false;
+      function animatePull() {
+        if (pullAnimating) return;
+        pullAnimating = true;
+        function step() {
+          var diff = pullTarget - pullStrength;
+          if (Math.abs(diff) < 0.01) {
+            pullStrength = pullTarget;
+            pullAnimating = false;
+            render(1);
+            return;
+          }
+          pullStrength += diff * 0.18;
+          render(1);
+          requestAnimationFrame(step);
+        }
+        step();
       }
-      draw();
     }
 
     /* ========== CONTACT FORM ========== */
