@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KI-Update KW 19 — Mai 2026</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100' height='100' rx='12' fill='%231C1917'/%3E%3Cpath d='M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z' fill='%23B07D1E' opacity='0.12'/%3E%3Cpath d='M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z' fill='none' stroke='%23B07D1E' stroke-width='3'/%3E%3Ctext x='50' y='54' text-anchor='middle' dominant-baseline='central' font-family='Georgia,serif' font-weight='700' font-size='36' fill='%23B07D1E'%3ETW%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-deep: #06090f;
+    --bg-card: #0c1018;
+    --bg-elevated: #111827;
+    --border-subtle: rgba(255,255,255,0.06);
+    --border-accent: rgba(255,255,255,0.12);
+    --text-primary: #f0f0f0;
+    --text-secondary: #8a94a6;
+    --text-muted: #4a5568;
+    --accent-blue: #3b82f6;
+    --accent-amber: #ffbe2e;
+    --accent-red: #ef4444;
+    --accent-green: #10b981;
+    --accent-purple: #8b5cf6;
+    --accent-cyan: #06b6d4;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'Source Sans 3', -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  .hero {
+    position: relative;
+    padding: 5rem 2rem 4rem;
+    text-align: left;
+    max-width: 820px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: 'KW19';
+    position: absolute;
+    top: -0.5rem;
+    right: -1rem;
+    font-family: var(--font-display);
+    font-size: 12rem;
+    font-weight: 900;
+    color: rgba(255,255,255,0.02);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .hero-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent-amber);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 900;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.1s forwards;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent-amber);
+  }
+
+  .hero-meta {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 1rem;
+    display: flex;
+    gap: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.2s forwards;
+  }
+
+  .hero-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .content {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+  }
+
+  .lede {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    border-left: 3px solid var(--accent-amber);
+    padding-left: 1.5rem;
+    margin-bottom: 3.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.3s forwards;
+  }
+
+  .lede strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .section {
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards;
+  }
+
+  .section:nth-child(1) { animation-delay: 0.35s; }
+  .section:nth-child(2) { animation-delay: 0.40s; }
+  .section:nth-child(3) { animation-delay: 0.45s; }
+  .section:nth-child(4) { animation-delay: 0.50s; }
+  .section:nth-child(5) { animation-delay: 0.55s; }
+  .section:nth-child(6) { animation-delay: 0.60s; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .section-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .section-name {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border-subtle);
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: border-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .card:hover {
+    border-color: var(--border-accent);
+    transform: translateY(-1px);
+  }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.75rem;
+    line-height: 1.35;
+  }
+
+  .card-body {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .card-body strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .card + .card {
+    margin-top: 0.75rem;
+  }
+
+  .signal {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    margin-right: 0.5rem;
+    position: relative;
+    top: -1px;
+  }
+
+  .signal--up { background: rgba(16,185,129,0.12); color: var(--accent-green); }
+  .signal--down { background: rgba(239,68,68,0.12); color: var(--accent-red); }
+  .signal--new { background: rgba(139,92,246,0.12); color: var(--accent-purple); }
+  .signal--neutral { background: rgba(255,255,255,0.06); color: var(--text-secondary); }
+  .signal--alert { background: rgba(255,190,46,0.12); color: var(--accent-amber); }
+
+  .big-number {
+    display: flex;
+    gap: 1.5rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+  }
+
+  .big-number-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    flex: 1;
+    min-width: 180px;
+    transition: border-color 0.3s ease;
+  }
+
+  .big-number-item:hover {
+    border-color: var(--border-accent);
+  }
+
+  .big-number-value {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+  }
+
+  .big-number-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.3rem;
+  }
+
+  .closer {
+    margin-top: 4rem;
+    padding: 2.5rem;
+    background: linear-gradient(135deg, rgba(255,190,46,0.06), rgba(59,130,246,0.04));
+    border: 1px solid rgba(255,190,46,0.1);
+    border-radius: 16px;
+    opacity: 0;
+    animation: fadeUp 0.5s ease 0.65s forwards;
+  }
+
+  .closer p {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.5;
+    color: #fff;
+  }
+
+  .closer p + p {
+    margin-top: 1rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+  }
+
+  .footer {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border-subtle);
+    opacity: 0;
+    animation: fadeUp 0.5s ease 0.7s forwards;
+  }
+
+  .footer-author {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .footer-author strong {
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
+
+  .footer-tags {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding: 3rem 1.25rem 2.5rem; }
+    .hero::before { font-size: 7rem; }
+    .content { padding: 0 1.25rem 3rem; }
+    .hero-meta { flex-direction: column; gap: 0.5rem; }
+    .big-number { flex-direction: column; }
+    .footer { flex-direction: column; gap: 0.75rem; text-align: center; }
+    .closer { padding: 1.5rem; }
+  }
+
+  .back-bar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.7rem 1.5rem;
+    background: rgba(6, 9, 15, 0.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border-subtle);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease, background 0.2s ease;
+  }
+  .back-bar:hover { color: var(--accent-amber); background: rgba(6, 9, 15, 0.95); }
+  .back-bar__logo { width: 22px; height: 22px; flex-shrink: 0; }
+  .back-bar__arrow { font-size: 1rem; line-height: 1; }
+  .back-bar__site { color: var(--text-primary); }
+  .footer-cta-wrap {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 2rem 1.5rem;
+    text-align: center;
+  }
+  .footer-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 1.5rem;
+    background: rgba(255, 190, 46, 0.08);
+    border: 1px solid var(--accent-amber);
+    border-radius: 999px;
+    color: var(--accent-amber);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .footer-cta:hover { background: rgba(255, 190, 46, 0.18); transform: translateY(-1px); }
+  .footer-author a { color: inherit; text-decoration: none; }
+  .footer-author a:hover strong { color: var(--accent-amber); }
+</style>
+</head>
+<body>
+<a class="back-bar" href="https://thomas-wodny.de/#panel-ki-updates">
+  <svg class="back-bar__logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect width="100" height="100" rx="12" fill="#1C1917"/>
+    <path d="M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z" fill="#B07D1E" opacity="0.12"/>
+    <path d="M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z" fill="none" stroke="#B07D1E" stroke-width="3"/>
+    <text x="50" y="54" text-anchor="middle" dominant-baseline="central" font-family="Georgia,serif" font-weight="700" font-size="36" fill="#B07D1E">TW</text>
+  </svg>
+  <span class="back-bar__arrow">&#8592;</span>
+  <span class="back-bar__site">thomas-wodny.de</span>
+</a>
+
+
+<header class="hero">
+  <div class="hero-label">Wochenrückblick · Künstliche Intelligenz</div>
+  <h1>Modelle treten in den Hintergrund.<br><em>Strom</em> wird zur Währung.</h1>
+  <div class="hero-meta">
+    <span>KW 19 / 2026</span>
+    <span>4. – 10. Mai</span>
+    <span>5 Hersteller · 9 Meldungen</span>
+  </div>
+</header>
+
+<main class="content">
+
+  <p class="lede">
+    Anthropic übernimmt <strong>300 Megawatt SpaceX-Compute</strong>, doppelt seine Rate Limits und verzichtet auf ein neues Modell.
+    OpenAI macht GPT-5.5 Instant zum ChatGPT-Default und reduziert Halluzinationen um <strong>52,5 Prozent</strong>.
+    Meta entlässt <strong>8.000 Menschen</strong>, um sich um seinen neuen Chief AI Officer zu sortieren.
+    Der Wettbewerb läuft nicht mehr über Modelle — er läuft über Compute, Verlässlichkeit und Reorganisation.
+  </p>
+
+  <!-- Zahlen der Woche -->
+  <div class="big-number">
+    <div class="big-number-item">
+      <div class="big-number-value" style="color: var(--accent-amber);">300+ MW</div>
+      <div class="big-number-label">Compute-Kapazität, die Anthropic von SpaceX Colossus 1 übernimmt — 220.000 GPUs</div>
+    </div>
+    <div class="big-number-item">
+      <div class="big-number-value" style="color: var(--accent-green);">−52,5%</div>
+      <div class="big-number-label">weniger Halluzinationen in GPT-5.5 Instant bei Recht, Medizin, Finanzen</div>
+    </div>
+    <div class="big-number-item">
+      <div class="big-number-value" style="color: var(--accent-red);">8.000</div>
+      <div class="big-number-label">Stellen, die Meta zum 20. Mai streicht — rund 10 % der Belegschaft</div>
+    </div>
+  </div>
+
+  <!-- Anthropic -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-dot" style="background: var(--accent-amber);"></div>
+      <span class="section-name">Anthropic · Code w/ Claude SF · 6. Mai</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="signal signal--new">Compute-Deal</span> SpaceX Colossus 1 — 300+ Megawatt, 220.000 GPUs</div>
+      <div class="card-body">Anthropic übernimmt die <strong>komplette Kapazität</strong> des Colossus 1 Data Centers von SpaceX. Über 300 Megawatt zusätzliche Kapazität (mehr als 220.000 NVIDIA GPUs) gehen <strong>noch im Mai</strong> online. Die Reaktion auf chronische Engpässe für Heavy User von Opus 4.7 ist gleichzeitig das größte Compute-Commitment in der Geschichte des Unternehmens.</div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="signal signal--up">Capacity</span> Doppelte Rate Limits, Peak-Hour-Drossel weg</div>
+      <div class="card-body">Pro, Max, Team und seat-based Enterprise erhalten <strong>verdoppelte 5-Stunden-Rate-Limits</strong> in Claude Code. Die Peak-Hour-Reduzierung für Pro und Max wird komplett gestrichen. Opus-API-Limits steigen schrittweise mit Inbetriebnahme der SpaceX-Kapazität.</div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="signal signal--new">Managed Agents</span> Multi-Agent-Orchestrierung & Dreaming</div>
+      <div class="card-body">Ein <strong>Lead-Agent</strong> zerlegt Aufgaben und delegiert an Spezialisten mit eigenem Modell, Prompt und Tools — die parallel auf einem geteilten Filesystem arbeiten. <strong>Dreaming</strong> (Research Preview) wertet vergangene Sessions aus, um Muster zu finden und Agenten selbst zu verbessern. Webhooks und Outcomes-API runden die Plattform ab.</div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="signal signal--new">Produkte</span> Claude Security Beta & Claude Design</div>
+      <div class="card-body">Claude Security ist als <strong>Public Beta für Enterprise</strong> verfügbar — scannt Code auf Vulnerabilities und schlägt Fixes per Opus 4.7 vor. Claude Design ist ein neues Anthropic-Labs-Produkt, das mit Opus 4.7 Designs, Prototypen, Slides und One-Pager generiert.</div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="signal signal--neutral">Strategie</span> Kein neues Modell — und das ist die Aussage</div>
+      <div class="card-body">Auf der Konferenz fiel der explizite Satz: <em>„Today is about how we are making our products work better for you."</em> Keine Modell-Ankündigung. Stattdessen ein klares Signal: Produktreife ist jetzt das Differenzierungsmerkmal, nicht der nächste Frontier-Score.</div>
+    </div>
+  </div>
+
+  <!-- OpenAI -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-dot" style="background: var(--accent-green);"></div>
+      <span class="section-name">OpenAI · 5. Mai</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="signal signal--new">Default-Wechsel</span> GPT-5.5 Instant ersetzt GPT-5.3 in ChatGPT</div>
+      <div class="card-body">GPT-5.5 Instant wird neuer Standardmodell in ChatGPT — Rollout an alle User, in der API als <code>chat-latest</code>. Bezahl-Nutzer können GPT-5.3 Instant noch <strong>drei Monate</strong> über die Modellauswahl verwenden, danach Retirement.</div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="signal signal--up">Halluzinationen</span> 52,5 % weniger bei High-Stakes-Prompts</div>
+      <div class="card-body">Größter Sprung: <strong>52,5 Prozent weniger halluzinierte Behauptungen</strong> bei Prompts aus Recht, Medizin und Finanzen — bei gleicher Latenz wie der Vorgänger. Zusätzlich messbare Verbesserungen bei Bildverständnis, STEM-Fragen und Web-Search-Entscheidungen.</div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="signal signal--up">Tonalität</span> Weniger Emoji-Spam, weniger Overformatting</div>
+      <div class="card-body">GPT-5.5 Instant gibt knappere, direktere Antworten ohne übermäßiges Formatieren oder gratis-Emojis. Stellt weniger Rückfragen. <strong>Personalisierung aus früheren Chats, Files und Gmail</strong> startet bei Plus und Pro im Web; Free, Go, Business und Enterprise folgen in den nächsten Wochen.</div>
+    </div>
+  </div>
+
+  <!-- xAI -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-dot" style="background: var(--accent-blue);"></div>
+      <span class="section-name">xAI · 3. – 6. Mai</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="signal signal--new">Release</span> Grok 4.3 GA — 1M Context, 1,25 USD pro Mio Input</div>
+      <div class="card-body">xAI macht Grok 4.3 als neuen Frontier-Default in der API verfügbar. Built-in Reasoning, <strong>1 Million Tokens Context</strong>, native Video-Inputs. Preis: <strong>1,25 Dollar pro Million Input-Tokens</strong> — deutlich unter den meisten Konkurrenten. Parallel: SuperGrok Heavy mit höheren Rate Limits, Custom Voices, Voice Library und der neue Voice Agent <code>grok-voice-think-fast-1.0</code>.</div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="signal signal--down">Sunset</span> 8 Legacy-Modelle werden 15. Mai retired</div>
+      <div class="card-body">Mit dem Rollout von Grok 4.3 werden <strong>acht ältere Modelle am 15. Mai abgeschaltet</strong>. Migration über die API erforderlich.</div>
+    </div>
+  </div>
+
+  <!-- Mistral -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-dot" style="background: var(--accent-purple);"></div>
+      <span class="section-name">Mistral · 1. – 2. Mai</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="signal signal--new">Open Weights</span> Mistral Medium 3.5 — 128B dense, 256k Context</div>
+      <div class="card-body">Public Preview unter modifizierter MIT-Lizenz. <strong>256k Context</strong>, multimodal, konfigurierbarer Reasoning-Effort. Auf SWE-Bench Verified erreicht das Modell <strong>77,6 Prozent</strong> — schlägt Devstral 2 und deutlich größere Modelle wie Qwen3.5 397B. Frontier-Niveau ohne Frontier-Größe.</div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="signal signal--new">Coding-Agent</span> Vibe — Cloud-Sessions, asynchron, parallel</div>
+      <div class="card-body">Vibe (Mistrals Coding-Agent) bekommt <strong>Remote-Sessions</strong>: Coding-Aufträge laufen asynchron und parallel im Hintergrund. Der Entwickler muss nicht mehr daneben sitzen. Standardmodell: Medium 3.5.</div>
+    </div>
+  </div>
+
+  <!-- Meta -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-dot" style="background: var(--accent-red);"></div>
+      <span class="section-name">Meta · Bekanntgabe Mai</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="signal signal--down">Layoffs</span> 8.000 Stellen werden zum 20. Mai gestrichen</div>
+      <div class="card-body">Rund <strong>10 Prozent der 78.865-köpfigen Belegschaft</strong>. Weitere Cuts für H2 2026 angekündigt. Anders als 2023: keine Performance-Filterung, sondern Reorganisation rund um den neuen Chief AI Officer <strong>Alexandr Wang</strong> und seine Superintelligence Labs.</div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="signal signal--alert">Capex</span> AI-Budget 2026: 115 – 135 Mrd. USD</div>
+      <div class="card-body">Die Restrukturierung dient der Umverteilung von Kapital und Köpfen Richtung AI-Infrastruktur und Pod-Struktur. Die <strong>teuerste Reorganisation der jüngeren Tech-Geschichte</strong>.</div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="signal signal--down">Verzögerung</span> Llama 4 Behemoth — auf Herbst oder später vertagt</div>
+      <div class="card-body">Der für April geplante Release wurde auf Juni verschoben und ist inzwischen auf <strong>Herbst oder später</strong> vertagt. Interne Stimmen sehen die Performance-Sprünge nur inkrementell.</div>
+    </div>
+  </div>
+
+  <!-- Closer -->
+  <div class="closer">
+    <p>Die Modell-Phase, in der jeder Hersteller mit Frontier-Scores um Aufmerksamkeit kämpfte, ist vorbei.</p>
+    <p>Anthropic kauft GPUs statt zu launchen. OpenAI verkauft Verlässlichkeit statt Geschwindigkeit. Meta entlässt, um zu fokussieren. Mistral und xAI liefern stille Substanz. Wer in den nächsten zwölf Monaten gewinnen will, braucht Strom, Distribution und einen Plan für Operations — nicht den nächsten Punkt im Benchmark.</p>
+  </div>
+
+</main>
+
+
+<div class="footer-cta-wrap">
+  <a class="footer-cta" href="https://thomas-wodny.de/#panel-ki-updates">&#8592; Zur&#252;ck zur &#220;bersicht aller KI-Updates</a>
+</div>
+<footer class="footer">
+  <div class="footer-author"><a href="https://thomas-wodny.de/"><strong>Thomas Wodny</strong> · Financial Analyst & Senior Controller</a></div>
+  <div class="footer-tags">#KI #AI #LLM #Anthropic #Compute</div>
+</footer>
+
+</body>
+</html>
