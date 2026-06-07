@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KI-Update KW 23 — Juni 2026</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100' height='100' rx='12' fill='%231C1917'/%3E%3Cpath d='M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z' fill='%23B07D1E' opacity='0.12'/%3E%3Cpath d='M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z' fill='none' stroke='%23B07D1E' stroke-width='3'/%3E%3Ctext x='50' y='54' text-anchor='middle' dominant-baseline='central' font-family='Georgia,serif' font-weight='700' font-size='36' fill='%23B07D1E'%3ETW%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-deep: #06090f;
+    --bg-card: #0c1018;
+    --bg-elevated: #111827;
+    --border-subtle: rgba(255,255,255,0.06);
+    --border-accent: rgba(255,255,255,0.12);
+    --text-primary: #f0f0f0;
+    --text-secondary: #8a94a6;
+    --text-muted: #4a5568;
+    --accent-blue: #3b82f6;
+    --accent-amber: #ffbe2e;
+    --accent-red: #ef4444;
+    --accent-green: #10b981;
+    --accent-purple: #8b5cf6;
+    --accent-cyan: #06b6d4;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'Source Sans 3', -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  .hero {
+    position: relative;
+    padding: 5rem 2rem 4rem;
+    text-align: left;
+    max-width: 820px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: 'KW23';
+    position: absolute;
+    top: -0.5rem;
+    right: -1rem;
+    font-family: var(--font-display);
+    font-size: 12rem;
+    font-weight: 900;
+    color: rgba(255,255,255,0.02);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .hero-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent-amber);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 900;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.1s forwards;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent-amber);
+  }
+
+  .hero-meta {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 1rem;
+    display: flex;
+    gap: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.2s forwards;
+  }
+
+  .hero-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .content {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+  }
+
+  .lede {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    border-left: 3px solid var(--accent-amber);
+    padding-left: 1.5rem;
+    margin-bottom: 3.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.3s forwards;
+  }
+
+  .lede strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .section {
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards;
+  }
+
+  .section:nth-child(1) { animation-delay: 0.35s; }
+  .section:nth-child(2) { animation-delay: 0.40s; }
+  .section:nth-child(3) { animation-delay: 0.45s; }
+  .section:nth-child(4) { animation-delay: 0.50s; }
+  .section:nth-child(5) { animation-delay: 0.55s; }
+  .section:nth-child(6) { animation-delay: 0.60s; }
+  .section:nth-child(7) { animation-delay: 0.65s; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .section-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .section-name {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border-subtle);
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: border-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .card:hover {
+    border-color: var(--border-accent);
+    transform: translateY(-1px);
+  }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.75rem;
+    line-height: 1.35;
+  }
+
+  .card-body {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .card-body strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .card + .card {
+    margin-top: 0.75rem;
+  }
+
+  .signal {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    margin-right: 0.5rem;
+    position: relative;
+    top: -1px;
+  }
+
+  .signal--up { background: rgba(16,185,129,0.12); color: var(--accent-green); }
+  .signal--down { background: rgba(239,68,68,0.12); color: var(--accent-red); }
+  .signal--new { background: rgba(139,92,246,0.12); color: var(--accent-purple); }
+  .signal--neutral { background: rgba(255,255,255,0.06); color: var(--text-secondary); }
+  .signal--alert { background: rgba(255,190,46,0.12); color: var(--accent-amber); }
+
+  .big-number {
+    display: flex;
+    gap: 1.5rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+  }
+
+  .big-number-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    flex: 1;
+    min-width: 180px;
+    transition: border-color 0.3s ease;
+  }
+
+  .big-number-item:hover {
+    border-color: var(--border-accent);
+  }
+
+  .big-number-value {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+  }
+
+  .big-number-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.3rem;
+  }
+
+  .closer {
+    margin-top: 4rem;
+    padding: 2.5rem;
+    background: linear-gradient(135deg, rgba(255,190,46,0.06), rgba(59,130,246,0.04));
+    border: 1px solid rgba(255,190,46,0.1);
+    border-radius: 16px;
+    opacity: 0;
+    animation: fadeUp 0.5s ease 0.7s forwards;
+  }
+
+  .closer p {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.5;
+    color: #fff;
+  }
+
+  .closer p + p {
+    margin-top: 1rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+  }
+
+  .footer {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border-subtle);
+    opacity: 0;
+    animation: fadeUp 0.5s ease 0.75s forwards;
+  }
+
+  .footer-author {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .footer-author strong {
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
+
+  .footer-tags {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding: 3rem 1.25rem 2.5rem; }
+    .hero::before { font-size: 7rem; }
+    .content { padding: 0 1.25rem 3rem; }
+    .hero-meta { flex-direction: column; gap: 0.5rem; }
+    .big-number { flex-direction: column; }
+    .footer { flex-direction: column; gap: 0.75rem; text-align: center; }
+    .closer { padding: 1.5rem; }
+  }
+
+  .back-bar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.7rem 1.5rem;
+    background: rgba(6, 9, 15, 0.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border-subtle);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease, background 0.2s ease;
+  }
+  .back-bar:hover { color: var(--accent-amber); background: rgba(6, 9, 15, 0.95); }
+  .back-bar__logo { width: 22px; height: 22px; flex-shrink: 0; }
+  .back-bar__arrow { font-size: 1rem; line-height: 1; }
+  .back-bar__site { color: var(--text-primary); }
+  .footer-cta-wrap {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 2rem 1.5rem;
+    text-align: center;
+  }
+  .footer-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 1.5rem;
+    background: rgba(255, 190, 46, 0.08);
+    border: 1px solid var(--accent-amber);
+    border-radius: 999px;
+    color: var(--accent-amber);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .footer-cta:hover { background: rgba(255, 190, 46, 0.18); transform: translateY(-1px); }
+  .footer-author a { color: inherit; text-decoration: none; }
+  .footer-author a:hover strong { color: var(--accent-amber); }
+</style>
+</head>
+<body>
+<a class="back-bar" href="https://thomas-wodny.de/#panel-ki-updates">
+  <svg class="back-bar__logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect width="100" height="100" rx="12" fill="#1C1917"/>
+    <path d="M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z" fill="#B07D1E" opacity="0.12"/>
+    <path d="M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z" fill="none" stroke="#B07D1E" stroke-width="3"/>
+    <text x="50" y="54" text-anchor="middle" dominant-baseline="central" font-family="Georgia,serif" font-weight="700" font-size="36" fill="#B07D1E">TW</text>
+  </svg>
+  <span class="back-bar__arrow">&#8592;</span>
+  <span class="back-bar__site">thomas-wodny.de</span>
+</a>
+
+
+<header class="hero">
+  <div class="hero-label">Wochenrückblick · Künstliche Intelligenz</div>
+  <h1>Anthropic geht an die Börse.<br>Bewertet mit <em>965 Milliarden.</em></h1>
+  <div class="hero-meta">
+    <span>KW 23 / 2026</span>
+    <span>01.&ndash;07. Juni</span>
+    <span>6 Hersteller &middot; 11 Meldungen</span>
+  </div>
+</header>
+
+<main class="content">
+
+  <p class="lede">
+    <strong>965 Milliarden Bewertung bei 47 Milliarden Umsatz.</strong>
+    Anthropic reicht den IPO-Antrag ein &mdash; das erste KI-Labor, das den Schritt an die B&ouml;rse wagt.
+    W&auml;hrend das Geld kommt, schlie&szlig;en sich die T&uuml;ren: Meta begr&auml;bt Open Source, OpenAI nimmt Modelle vom Netz, und Anthropic stellt die programmatische Nutzung hinter eine Bezahlschranke.
+  </p>
+
+  <!-- Zahlen der Woche -->
+  <div class="big-number">
+    <div class="big-number-item">
+      <div class="big-number-value" style="color: var(--accent-amber);">965 Mrd.&nbsp;$</div>
+      <div class="big-number-label">Anthropic-Bewertung &mdash; vertrauliches S-1 am 1. Juni bei der SEC eingereicht</div>
+    </div>
+    <div class="big-number-item">
+      <div class="big-number-value" style="color: var(--accent-green);">~20&times;</div>
+      <div class="big-number-label">Bewertung zu Umsatz-Run-Rate (47 Mrd. $, vor einem Jahr noch ~10 Mrd.)</div>
+    </div>
+    <div class="big-number-item">
+      <div class="big-number-value" style="color: var(--accent-cyan);">1,5 Bio.</div>
+      <div class="big-number-label">Parameter &mdash; xAI schlie&szlig;t Training von Grok V9 ab, Release Mitte Juni</div>
+    </div>
+  </div>
+
+  <!-- Anthropic -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-dot" style="background: var(--accent-amber);"></div>
+      <span class="section-name">Anthropic</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="signal signal--new">IPO</span> Vertrauliches S-1 bei der SEC &mdash; 1. Juni</div>
+      <div class="card-body">Anthropic hat am <strong>1. Juni</strong> vertraulich einen Entwurf der Registrierung (Form S-1) bei der US-B&ouml;rsenaufsicht eingereicht &mdash; der erste konkrete Schritt Richtung Public Offering. Hintergrund ist die <strong>Series-H-Runde vom 28. Mai</strong>: 65 Mrd. $ eingesammelt bei einer Post-Money-Bewertung von <strong>965 Mrd. $</strong>. Die Umsatz-Run-Rate lag im Mai bei rund <strong>47 Mrd. $</strong>, ein Jahr zuvor noch bei ca. 10 Mrd. Ticker, Preisspanne und Datum stehen noch nicht fest &mdash; das vertrauliche Verfahren erlaubt die Vorbereitung ohne Offenlegung der Finanzdetails.</div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="signal signal--down">Pricing</span> API-Nutzung aus den Abos &mdash; ab 15. Juni</div>
+      <div class="card-body">Die unangenehme Nachricht f&uuml;r Power-User: Ab <strong>15. Juni</strong> wandert die <strong>programmatische Nutzung von Claude</strong> &uuml;ber Abo-Pl&auml;ne in einen separaten monatlichen Credit-Topf. Wer Claude bisher per Abo skriptgesteuert oder agentisch genutzt hat, zahlt k&uuml;nftig effektiv extra. F&uuml;r reine Chat-Nutzer &auml;ndert sich nichts &mdash; f&uuml;r Automatisierer wird die Kostenrechnung neu.</div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="signal signal--neutral">Bemerkenswert</span> Claude schreibt &uuml;ber 80 % seines eigenen Codes</div>
+      <div class="card-body">Aus einer aktuellen Selbstauswertung: Bei Anthropic schreibt Claude inzwischen <strong>mehr als 80 % des eigenen Codes</strong> &mdash; im Februar des Vorjahres waren es noch unter 10 %. Eine Zahl, die mehr &uuml;ber das Tempo der Branche sagt als jeder Benchmark. Parallel startete am 3. Juni die <strong>Services-Track-Erweiterung</strong> des Claude Partner Network.</div>
+    </div>
+  </div>
+
+  <!-- OpenAI -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-dot" style="background: var(--accent-green);"></div>
+      <span class="section-name">OpenAI</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="signal signal--up">Update</span> GPT-Rosalind f&uuml;r Life Sciences &mdash; 3. Juni</div>
+      <div class="card-body">Gr&ouml;&szlig;eres Update des Forschungsmodells f&uuml;r Biologie und Wirkstoffforschung: <strong>st&auml;rkeres agentisches Coding</strong>, bessere Genomik-Leistung und neue Plugins f&uuml;r Evidenz-Recherche und Bioinformatik. OpenAI senkt den Compute-Bedarf bei Genomik-Aufgaben und &ouml;ffnet den Zugang &uuml;ber das Trusted-Access-Programm f&uuml;r mehr Organisationen weltweit. Fr&uuml;he Partner: Amgen, Moderna, Novo Nordisk, Thermo Fisher.</div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="signal signal--alert">Retirements</span> GPT-4.5 endet am 27. Juni, o3 im August</div>
+      <div class="card-body">Bestätigte Sunset-Daten: <strong>GPT-4.5</strong> wird am <strong>27. Juni 2026</strong> aus ChatGPT entfernt (30-Tage-Sunset), <strong>o3</strong> folgt am <strong>26. August</strong> (90-Tage-Sunset). Wer Workflows oder Prompts fest auf diese Modelle verdrahtet hat, sollte die Migration jetzt einplanen. Parallel rollt OpenAI ein <strong>&uuml;berarbeitetes Memory-System</strong> mit pr&uuml;fbarer Zusammenfassungs-Seite an Plus- und Pro-Nutzer in den USA aus.</div>
+    </div>
+  </div>
+
+  <!-- Google -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-dot" style="background: var(--accent-purple);"></div>
+      <span class="section-name">Google &middot; DeepMind</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="signal signal--new">Rollout</span> Gemini 3 Deep Think f&uuml;r Ultra-Subscriber</div>
+      <div class="card-body"><strong>Gemini 3 Deep Think</strong> wird als Googles st&auml;rkster Reasoning-Modus an <strong>AI-Ultra-Abonnenten</strong> ausgerollt &mdash; gedacht f&uuml;r Mathematik, Logik und schwere mehrstufige Probleme. <strong>Gemini 3.5 Pro</strong>, auf der I/O am 19. Mai vorgestellt, ist weiter f&uuml;r die allgemeine Verf&uuml;gbarkeit im Juni angek&uuml;ndigt: bis zu <strong>2 Mio. Token Kontext</strong> und eigener Deep-Think-Modus. Geliefert ist die GA bislang nicht &mdash; der Termin verschiebt sich faktisch nach hinten.</div>
+    </div>
+  </div>
+
+  <!-- xAI -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-dot" style="background: var(--accent-cyan);"></div>
+      <span class="section-name">xAI &middot; Grok</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="signal signal--new">Modell</span> Grok V9 fertig trainiert &mdash; 1,5 Billionen Parameter</div>
+      <div class="card-body">Grok V9-Medium hat das Training abgeschlossen: <strong>1,5 Billionen Parameter</strong>, das Dreifache des aktuellen v8-small in Produktion. Public Release ist f&uuml;r <strong>Mitte Juni</strong> erwartet. Elon Musk best&auml;tigte am <strong>5. Juni</strong> eine Verbesserung des Kernmodells und neue <strong>Worktrees-Unterst&uuml;tzung</strong> im Coding-Agent &mdash; mehrere Arbeitsverzeichnisse aus einem Repo, ein Komfort-Sprung f&uuml;r Entwickler.</div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="signal signal--up">Integration</span> Connectors in Grok Web</div>
+      <div class="card-body">Grok Web bekommt tiefe Integrationen f&uuml;r <strong>SharePoint, Outlook, OneDrive, Google Workspace, Notion, GitHub und Linear</strong> &mdash; plus eigene MCP-Server. Jeder Account bringt vorinstallierte Skills mit und erzeugt fertige Word-, PowerPoint-, Excel- und PDF-Dateien ohne Setup.</div>
+    </div>
+  </div>
+
+  <!-- Meta -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-dot" style="background: var(--accent-blue);"></div>
+      <span class="section-name">Meta</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="signal signal--down">Verz&ouml;gerung</span> Muse-Spark-API ohne Startdatum &mdash; Stand 2. Juni</div>
+      <div class="card-body">Knapp zwei Monate nach dem Versprechen "bald" hat Meta <strong>immer noch kein Startdatum</strong> f&uuml;r die Developer-API von Muse Spark. Das im April vorgestellte Modell ist zudem <strong>closed source</strong> &mdash; Architektur, Trainingscode und Gewichte bleiben unter Verschluss. Damit ist die offene Llama-&Auml;ra, die Metas KI-Strategie jahrelang gepr&auml;gt hat, faktisch beendet. F&uuml;r Entwickler, die auf offene Gewichte gesetzt haben, ein strategischer Bruch.</div>
+    </div>
+  </div>
+
+  <!-- Mistral -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-dot" style="background: var(--accent-red);"></div>
+      <span class="section-name">Mistral</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="signal signal--new">Enterprise</span> Physik-KI + Connectors im Studio</div>
+      <div class="card-body">Mistral integriert <strong>Emmi AI</strong> in die Enterprise-Plattform &mdash; Physik-KI f&uuml;r Industrie-Engineering mit schnellerer Simulation und Echtzeit-Digital-Twins f&uuml;r Fertigung, Energie und Halbleiter. Parallel kamen <strong>Connectors ins Studio</strong>: eingebaute und eigene MCP-Connectors mit direktem Tool-Calling und Human-in-the-Loop-Freigaben. Der franz&ouml;sische Anbieter sch&auml;rft sein Profil als Europas Enterprise-Alternative.</div>
+    </div>
+  </div>
+
+  <!-- Closer -->
+  <div class="closer">
+    <p>Diese Woche ist KI vom Forschungsprojekt zum b&ouml;rsenreifen Verm&ouml;genswert geworden &mdash; bei einer Bewertung, die das Zwanzigfache des Umsatzes betr&auml;gt.</p>
+    <p>Bemerkenswert ist die Gegenbewegung: W&auml;hrend das Kapital str&ouml;mt, schlie&szlig;t sich die Branche ab. Meta begr&auml;bt Open Source, OpenAI mottet Modelle ein, Anthropic zieht die programmatische Nutzung hinter eine Bezahlschranke. F&uuml;r Controller hei&szlig;t das: Die Frage ist nicht mehr, welches Modell das beste ist, sondern wer am Ende die Rechnung zahlt. Wer Workflows auf Abo-Konditionen oder Auslauf-Modelle gebaut hat, sollte jetzt die Total Cost of Ownership neu rechnen &mdash; bevor die Migration zur Notfall&uuml;bung wird.</p>
+  </div>
+
+</main>
+
+
+<div class="footer-cta-wrap">
+  <a class="footer-cta" href="https://thomas-wodny.de/#panel-ki-updates">&#8592; Zur&#252;ck zur &#220;bersicht aller KI-Updates</a>
+</div>
+<footer class="footer">
+  <div class="footer-author"><a href="https://thomas-wodny.de/"><strong>Thomas Wodny</strong> &middot; Financial Analyst &amp; Senior Controller</a></div>
+  <div class="footer-tags">#KI #AI #LLM #Anthropic #IPO</div>
+</footer>
+
+</body>
+</html>
