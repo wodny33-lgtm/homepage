@@ -2743,9 +2743,9 @@
 
     /* ========== KEYBOARD NAV ========== */
     document.addEventListener('keydown', function(e) {
-      var panels = ['profil', 'erfahrung', 'skills', 'projekte', 'report', 'leistungen', 'kontakt'];
+      var panels = ['profil', 'erfahrung', 'skills', 'projekte', 'report', 'leistungen', 'ki-updates', 'kontakt'];
       var key = parseInt(e.key);
-      if (key >= 1 && key <= 7) {
+      if (key >= 1 && key <= panels.length) {
         switchPanel(panels[key - 1]);
       }
     });
