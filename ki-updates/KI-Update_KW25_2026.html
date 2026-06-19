@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KI-Sonderausgabe — Claude Fable 5 &amp; Mythos 5</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100' height='100' rx='12' fill='%231C1917'/%3E%3Cpath d='M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z' fill='%23B07D1E' opacity='0.12'/%3E%3Cpath d='M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z' fill='none' stroke='%23B07D1E' stroke-width='3'/%3E%3Ctext x='50' y='54' text-anchor='middle' dominant-baseline='central' font-family='Georgia,serif' font-weight='700' font-size='36' fill='%23B07D1E'%3ETW%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500;1,9..144,900&family=Hanken+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --base: #0b0d14;
+    --ink: #f2f0ea;
+    --ink-soft: #a6adbe;
+    --ink-faint: #6b7283;
+    --gold: #f0a92e;
+    --gold-bright: #ffc35a;
+    --gold-deep: #d98a16;
+    --glass: rgba(255,255,255,0.045);
+    --glass-strong: rgba(255,255,255,0.075);
+    --glass-edge: rgba(255,255,255,0.12);
+    --glass-line: rgba(255,255,255,0.08);
+    --emerald: #34d399;
+    --violet: #a78bfa;
+    --cyan: #38bdf8;
+    --rose: #fb7185;
+    --blue: #6090f8;
+    --shadow: 0 2px 6px rgba(0,0,0,0.4), 0 16px 40px -12px rgba(0,0,0,0.6);
+    --shadow-sm: 0 2px 12px -4px rgba(0,0,0,0.5);
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Hanken Grotesk', -apple-system, sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--ink);
+    background: var(--base);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ---------- Gradient-Mesh-Hintergrund (dunkel, leuchtend) ---------- */
+  .mesh {
+    position: fixed;
+    inset: -20%;
+    z-index: -2;
+    background:
+      radial-gradient(38% 34% at 16% 10%, rgba(240,169,46,0.30), transparent 70%),
+      radial-gradient(36% 38% at 86% 6%, rgba(251,113,133,0.22), transparent 70%),
+      radial-gradient(44% 44% at 92% 70%, rgba(56,189,248,0.26), transparent 72%),
+      radial-gradient(48% 48% at 6% 90%, rgba(52,211,153,0.20), transparent 72%),
+      radial-gradient(60% 60% at 50% 50%, rgba(120,90,200,0.12), transparent 65%);
+    filter: saturate(1.15);
+    animation: drift 28s ease-in-out infinite alternate;
+  }
+  @keyframes drift {
+    0%   { transform: translate3d(0,0,0) scale(1); }
+    50%  { transform: translate3d(-2%, 1.5%, 0) scale(1.07); }
+    100% { transform: translate3d(2%, -1.5%, 0) scale(1.04); }
+  }
+
+  /* Grain-Overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.6;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- Glas-Grundbaustein ---------- */
+  .glass {
+    background: var(--glass);
+    backdrop-filter: blur(22px) saturate(1.4);
+    -webkit-backdrop-filter: blur(22px) saturate(1.4);
+    border: 1px solid var(--glass-edge);
+    box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+
+  /* ---------- Top-Bar ---------- */
+  .back-bar {
+    position: sticky;
+    top: 0.75rem;
+    z-index: 50;
+    width: min(960px, calc(100% - 2rem));
+    margin: 0.75rem auto 0;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1rem;
+    border-radius: 999px;
+    background: rgba(18,20,28,0.6);
+    backdrop-filter: blur(18px) saturate(1.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    border: 1px solid var(--glass-edge);
+    box-shadow: var(--shadow-sm);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+  }
+  .back-bar:hover { transform: translateY(-1px); box-shadow: var(--shadow); color: var(--gold-bright); }
+  .back-bar__logo { width: 24px; height: 24px; border-radius: 7px; flex-shrink: 0; }
+  .back-bar__arrow { font-size: 0.9rem; }
+  .back-bar__site { color: var(--ink); font-weight: 600; }
+  .back-bar__spacer { flex: 1; }
+  .back-bar__pill {
+    color: var(--gold-bright);
+    background: rgba(240,169,46,0.16);
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.66rem;
+  }
+
+  .wrap { width: min(960px, calc(100% - 2rem)); margin: 0 auto; }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 4.5rem 0 2.5rem; text-align: center; }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-bright);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  .hero-badge .spark {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--gold-bright);
+    box-shadow: 0 0 0 4px rgba(240,169,46,0.18), 0 0 12px rgba(255,195,90,0.6);
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-size: clamp(2.4rem, 6vw, 4.3rem);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    max-width: 15ch;
+    margin: 0 auto 1.6rem;
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) 0.08s forwards;
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 900;
+    background: linear-gradient(105deg, var(--gold-bright), var(--gold-deep));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    max-width: 54ch;
+    margin: 0 auto 2.2rem;
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) 0.16s forwards;
+  }
+  .hero-meta {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) 0.24s forwards;
+  }
+  .hero-meta span {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--ink-soft);
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    background: var(--glass);
+    border: 1px solid var(--glass-edge);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  /* ---------- Kennzahlen ---------- */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1rem 0 3.5rem;
+  }
+  .stat {
+    border-radius: 22px;
+    padding: 1.6rem 1.5rem;
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) forwards;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  }
+  .stat:nth-child(1){ animation-delay: 0.30s; }
+  .stat:nth-child(2){ animation-delay: 0.38s; }
+  .stat:nth-child(3){ animation-delay: 0.46s; }
+  .stat:hover { transform: translateY(-4px); box-shadow: var(--shadow); background: var(--glass-strong); }
+  .stat-value {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2rem, 4vw, 2.7rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .stat-1 .stat-value { background: linear-gradient(120deg,#ffc35a,#d98a16); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .stat-2 .stat-value { background: linear-gradient(120deg,#fb7185,#e11d48); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .stat-3 .stat-value { background: linear-gradient(120deg,#38bdf8,#2563eb); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .stat-label { margin-top: 0.7rem; font-size: 0.85rem; line-height: 1.5; color: var(--ink-soft); }
+
+  /* ---------- Lede ---------- */
+  .lede {
+    border-radius: 24px;
+    padding: 2rem 2.2rem;
+    margin-bottom: 3.5rem;
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    position: relative;
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) 0.5s forwards;
+    background: var(--glass);
+    backdrop-filter: blur(22px) saturate(1.4);
+    -webkit-backdrop-filter: blur(22px) saturate(1.4);
+    border: 1px solid var(--glass-edge);
+    box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+  .lede::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 1.6rem; bottom: 1.6rem;
+    width: 4px;
+    border-radius: 4px;
+    background: linear-gradient(var(--gold-bright), var(--gold-deep));
+  }
+  .lede strong { color: var(--ink); font-weight: 700; }
+
+  /* ---------- Sektionen ---------- */
+  .section { margin-bottom: 2.6rem; }
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 1rem;
+    padding-left: 0.25rem;
+  }
+  .dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; box-shadow: 0 0 12px currentColor; }
+  .section-name {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .section-rule { flex: 1; height: 1px; background: linear-gradient(90deg, var(--glass-line), transparent); }
+
+  .card {
+    border-radius: 22px;
+    padding: 1.5rem 1.7rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); background: var(--glass-strong); border-color: rgba(255,255,255,0.18); }
+  .card + .card { margin-top: 0.85rem; }
+  .card-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.2rem;
+    line-height: 1.35;
+    color: var(--ink);
+    margin-bottom: 0.7rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  .card-body { color: var(--ink-soft); font-size: 0.96rem; }
+  .card-body + .card-body { margin-top: 0.7rem; }
+  .card-body strong { color: var(--ink); font-weight: 600; }
+
+  .chip {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+  }
+  .chip--new   { color:#c4b5fd; background:rgba(167,139,250,0.16); border-color:rgba(167,139,250,0.3); }
+  .chip--down  { color:#fda4af; background:rgba(251,113,133,0.14); border-color:rgba(251,113,133,0.3); }
+  .chip--up    { color:#6ee7b7; background:rgba(52,211,153,0.16); border-color:rgba(52,211,153,0.3); }
+  .chip--alert { color:var(--gold-bright); background:rgba(240,169,46,0.16); border-color:rgba(240,169,46,0.36); }
+  .chip--neutral{ color:var(--ink-soft); background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.14); }
+
+  /* ---------- Closer ---------- */
+  .closer {
+    margin-top: 3.5rem;
+    border-radius: 28px;
+    padding: 2.8rem;
+    position: relative;
+    overflow: hidden;
+    background:
+      linear-gradient(135deg, rgba(240,169,46,0.18), rgba(56,189,248,0.14)),
+      rgba(255,255,255,0.05);
+    border: 1px solid var(--glass-edge);
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    box-shadow: var(--shadow);
+  }
+  .closer-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-bright);
+    margin-bottom: 1rem;
+  }
+  .closer p {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.4rem, 3vw, 1.8rem);
+    line-height: 1.4;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .closer p + p {
+    margin-top: 1.1rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--ink-soft);
+    letter-spacing: 0;
+  }
+  .closer p + p strong { color: var(--ink); font-weight: 700; }
+
+  /* ---------- Quellen ---------- */
+  .sources {
+    margin-top: 2.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    line-height: 1.9;
+    color: var(--ink-faint);
+  }
+  .sources .sources-label {
+    display: block;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 0.4rem;
+  }
+  .sources a { color: var(--ink-faint); text-decoration: none; }
+  .sources a:hover { color: var(--gold-bright); }
+
+  /* ---------- Footer ---------- */
+  .footer-cta-wrap { text-align: center; padding: 3rem 0 1.5rem; }
+  .footer-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.9rem 1.6rem;
+    border-radius: 999px;
+    background: linear-gradient(120deg, var(--gold-bright), var(--gold-deep));
+    color: #1a1206;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    box-shadow: var(--shadow), 0 0 24px -6px rgba(255,195,90,0.5);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .footer-cta:hover { transform: translateY(-2px); box-shadow: var(--shadow), 0 0 32px -4px rgba(255,195,90,0.7); }
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 1.5rem 0 4rem;
+    border-top: 1px solid var(--glass-line);
+    font-size: 0.82rem;
+    color: var(--ink-faint);
+  }
+  .footer a { color: var(--ink-soft); text-decoration: none; font-weight: 600; }
+  .footer a:hover { color: var(--gold-bright); }
+  .footer-tags { font-family: var(--font-mono); font-size: 0.72rem; }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mesh { animation: none; }
+    [style*="animation"], .hero-badge, .hero h1, .hero-sub, .hero-meta, .stat, .lede { animation: none !important; opacity: 1 !important; transform: none !important; }
+  }
+  @media (max-width: 720px) {
+    .stats { grid-template-columns: 1fr; }
+    .hero { padding: 3rem 0 2rem; }
+    .closer { padding: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+<div class="mesh" aria-hidden="true"></div>
+
+<a class="back-bar" href="https://thomas-wodny.de/#panel-ki-updates">
+  <svg class="back-bar__logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect width="100" height="100" rx="12" fill="#1C1917"/>
+    <path d="M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z" fill="#B07D1E" opacity="0.12"/>
+    <path d="M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z" fill="none" stroke="#B07D1E" stroke-width="3"/>
+    <text x="50" y="54" text-anchor="middle" dominant-baseline="central" font-family="Georgia,serif" font-weight="700" font-size="36" fill="#B07D1E">TW</text>
+  </svg>
+  <span class="back-bar__arrow">&#8592;</span>
+  <span class="back-bar__site">thomas-wodny.de</span>
+  <span class="back-bar__spacer"></span>
+  <span class="back-bar__pill">Sonderausgabe · KW 25 · 2026</span>
+</a>
+
+<header class="hero wrap">
+  <div class="hero-badge glass"><span class="spark"></span>KI-Sonderausgabe · Claude Fable 5 &amp; Mythos 5</div>
+  <h1>Drei Tage Spitze, dann <em>abgeschaltet.</em></h1>
+  <p class="hero-sub">Anthropic stellte am 9. Juni das fähigste öffentlich verfügbare KI-Modell der Welt vor. Am 12. Juni nahm es eine US-Anordnung wieder vom Netz — weltweit, für alle. Eine Sonderausgabe zu einem Modell, das es gerade nicht gibt.</p>
+  <div class="hero-meta">
+    <span>09.–12. Juni 2026</span>
+    <span>1 Modellklasse</span>
+    <span>Status: offline</span>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- Kennzahlen -->
+  <section class="stats">
+    <div class="stat stat-1 glass">
+      <div class="stat-value">3 Tage</div>
+      <div class="stat-label">live verfügbar — vom Launch am 9. bis zur Abschaltung am 12. Juni</div>
+    </div>
+    <div class="stat stat-2 glass">
+      <div class="stat-value">10&thinsp;/&thinsp;50&nbsp;$</div>
+      <div class="stat-label">pro Mio. Token (In/Out) — glatt das Doppelte von Opus 4.8</div>
+    </div>
+    <div class="stat stat-3 glass">
+      <div class="stat-value">Weltweit</div>
+      <div class="stat-label">deaktiviert für jeden Kunden; alle anderen Claude-Modelle laufen weiter</div>
+    </div>
+  </section>
+
+  <!-- Lede -->
+  <p class="lede">
+    <strong>Das beste öffentliche Modell der Welt hat 72 Stunden gehalten.</strong>
+    Claude Fable 5 war Anthropics erster Schritt über Opus hinaus — und der erste Fall, in dem eine Regierung ein kommerzielles KI-Modell per Anordnung aus dem Markt zog. Nicht wegen eines Defekts, sondern wegen Exportkontrolle. Für Anwender ist das weniger eine Technik- als eine Lieferketten-Geschichte.
+  </p>
+
+  <!-- Der Launch -->
+  <section class="section">
+    <div class="section-head">
+      <span class="dot" style="background:var(--gold-bright); color:var(--gold-bright)"></span>
+      <span class="section-name">Der Launch · 9. Juni</span>
+      <span class="section-rule"></span>
+    </div>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--new">Neue Klasse</span> Fable 5 &amp; Mythos 5 — eine Stufe über Opus</h3>
+      <p class="card-body">Anthropic führt erstmals eine Modellklasse <strong>über Opus 4.8</strong> ein: die „Mythos-Klasse", gebaut für die anspruchsvollsten Reasoning- und Langzeit-Agentenaufgaben. <strong>Fable 5</strong> ist die öffentliche, abgesicherte Variante; <strong>Mythos 5</strong> ist dasselbe Modell mit gelockerten Schutzmechanismen, ausgeliefert nur über das Programm <strong>„Project Glasswing"</strong> in Zusammenarbeit mit der US-Regierung — als Nachfolger der reinen Vorschau Mythos Preview.</p>
+      <p class="card-body">Technisch: <strong>1 Mio. Token Kontext</strong> (zugleich Standard und Maximum), bis zu 128K Output, durchgehend aktives „Thinking". Auf Cognitions Coding-Benchmark <strong>FrontierCode</strong> erzielt Fable 5 laut Anthropic die höchste Wertung unter allen Frontier-Modellen.</p>
+    </article>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--down">Pricing</span> Doppelter Preis — und ein Gratis-Fenster mit Verfallsdatum</h3>
+      <p class="card-body">Fable 5 kostet <strong>10 $ pro Mio. Input-Token und 50 $ für Output</strong> — exakt doppelt so viel wie Opus 4.8 (5 / 25 $) und damit das teuerste der großen Modelle. In den Abos (Pro, Max, Team, Enterprise) war es <strong>nur vom 9. bis 22. Juni</strong> ohne Aufpreis enthalten; ab dem 23. Juni hätte die Nutzung über Usage-Credits laufen sollen. Dieses Fenster wurde von der Abschaltung überholt.</p>
+    </article>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--neutral">Sicherheit</span> Ein Modell, das heikle Fragen weiterreicht</h3>
+      <p class="card-body">Fragen aus <strong>Cyber, Biologie, Chemie</strong> oder zur Modell-Distillation beantwortet Fable 5 nicht selbst — es reicht sie an das schwächere <strong>Opus 4.8</strong> weiter. Laut Anthropic greifen diese Schutzmechanismen im Schnitt in <strong>unter 5 % der Sessions</strong>. Genau dieser Sicherheits-Anspruch macht die anschließende Abschaltung umso bemerkenswerter.</p>
+    </article>
+  </section>
+
+  <!-- Die Abschaltung -->
+  <section class="section">
+    <div class="section-head">
+      <span class="dot" style="background:var(--rose); color:var(--rose)"></span>
+      <span class="section-name">Die Abschaltung · 12. Juni</span>
+      <span class="section-rule"></span>
+    </div>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--alert">Anordnung</span> 17:21 Uhr ET — die US-Regierung zieht den Stecker</h3>
+      <p class="card-body">Drei Tage nach dem Launch erhält Anthropic am <strong>12. Juni um 17:21 Uhr (ET)</strong> eine <strong>Export-Kontroll-Anordnung</strong> der US-Regierung. Inhalt: Der Zugang zu Fable 5 und Mythos 5 sei <strong>für jeden ausländischen Staatsbürger</strong> zu sperren — innerhalb wie außerhalb der USA, ausdrücklich auch für ausländische Anthropic-Mitarbeiter.</p>
+      <p class="card-body">Weil sich „foreign nationals" nicht in Echtzeit von US-Nutzern trennen lassen, zog Anthropic die Konsequenz und nahm <strong>beide Modelle weltweit für sämtliche Kunden vom Netz</strong>. Alle übrigen Claude-Modelle (Opus, Sonnet, Haiku) blieben unberührt.</p>
+    </article>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--neutral">Begründung</span> Ein mutmaßlicher Jailbreak — und Anthropics Widerspruch</h3>
+      <p class="card-body">Die Regierung beruft sich auf nationale Sicherheit: Man glaube, eine Methode gefunden zu haben, Fable 5 zu „jailbreaken" — konkret, das Modell Code nach Schwachstellen absuchen zu lassen. Anthropic hält dagegen, dies sei eine <strong>alltägliche Fähigkeit</strong>, die auch öffentlich verfügbare Modelle wie GPT-5.5 ohne jeden Bypass beherrschen.</p>
+      <p class="card-body">Anthropic <strong>befolgt die Anordnung</strong>, widerspricht aber der Verhältnismäßigkeit: Ein enger, alltäglicher Befund rechtfertige keinen Rückruf eines Modells, das bereits an hunderte Millionen Menschen ausgeliefert wurde. Eine Wiederherstellung sei „so bald wie möglich" geplant — einen Zeitplan gibt es nicht. <strong>Stand dieser Ausgabe (19. Juni) sind beide Modelle weiter offline.</strong></p>
+    </article>
+  </section>
+
+  <!-- Closer -->
+  <div class="closer">
+    <div class="closer-kicker">Einordnung · Controller-Perspektive</div>
+    <p>Ein Modell kann fachlich an der Spitze stehen und über Nacht verschwinden — nicht weil der Anbieter scheitert, sondern weil Geopolitik im Stack ankommt.</p>
+    <p>Für die Praxis zählt nicht, welches Modell heute das beste ist, sondern ob es morgen noch da ist. Fable 5 zeigt das Muster im Extrem: Top-Benchmark, doppelter Preis, Gratis-Fenster mit Ablaufdatum — und dann ein <strong>regulatorischer Totalausfall ohne Vorwarnung</strong>. Wer einen Prozess auf genau ein Frontier-Modell stellt, hat kein Technik-Risiko, sondern ein <strong>Klumpenrisiko beim Lieferanten</strong>. Die nüchterne Konsequenz: Fallback-Modell definieren, Anbieter-Wechsel testen, und kein produktives Verfahren von einem einzigen Modell abhängig machen — schon gar nicht von einem, das gerade vom Markt genommen wurde.</p>
+  </div>
+
+  <!-- Quellen -->
+  <div class="sources">
+    <span class="sources-label">Quellen</span>
+    <a href="https://www.anthropic.com/news/claude-fable-5-mythos-5" target="_blank" rel="noopener">anthropic.com — Claude Fable 5 &amp; Mythos 5</a><br>
+    <a href="https://www.anthropic.com/news/fable-mythos-access" target="_blank" rel="noopener">anthropic.com — Statement zur Aussetzung</a><br>
+    <a href="https://www.cnbc.com/2026/06/12/anthropic-disables-access-to-fable-5-and-mythos-5-to-comply-with-government-directive.html" target="_blank" rel="noopener">CNBC — Anthropic disables Fable 5 &amp; Mythos 5</a><br>
+    <a href="https://simonwillison.net/2026/Jun/13/us-government-directive-to-suspend-access/" target="_blank" rel="noopener">Simon Willison — US government directive</a>
+  </div>
+
+</main>
+
+<div class="wrap">
+  <div class="footer-cta-wrap">
+    <a class="footer-cta" href="https://thomas-wodny.de/#panel-ki-updates">&#8592; Alle KI-Updates ansehen</a>
+  </div>
+  <footer class="footer">
+    <div><a href="https://thomas-wodny.de/">Thomas Wodny</a> · Financial Analyst &amp; Senior Controller</div>
+    <div class="footer-tags">#KI #AI #LLM #Anthropic #Controlling</div>
+  </footer>
+</div>
+
+</body>
+</html>
