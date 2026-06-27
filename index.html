@@ -1440,6 +1440,38 @@
       .hud-form .form-row--half { grid-template-columns: 1fr; }
       .hud-header__status { display: none; }
     }
+
+    /* ========== LANGUAGE TOGGLE ========== */
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      padding: 3px;
+      border: 1px solid var(--cyan-border);
+      border-radius: 4px;
+      background: var(--cyan-bg);
+      font-family: var(--font-mono);
+    }
+    .lang-toggle__btn {
+      padding: 4px 9px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--text-tertiary);
+      background: none;
+      border-radius: 3px;
+      transition: color var(--transition), background var(--transition);
+    }
+    .lang-toggle__btn:hover { color: var(--text-primary); }
+    .lang-toggle__btn.active {
+      color: var(--bg-primary);
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan-glow);
+    }
+    @media (max-width: 768px) {
+      .lang-toggle { padding: 2px; }
+      .lang-toggle__btn { padding: 3px 7px; font-size: 11px; }
+    }
   </style>
   <script data-goatcounter="https://twodny.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
@@ -1452,17 +1484,21 @@
     <!-- HEADER -->
     <header class="hud-header">
       <div class="hud-header__left">
-        <button class="mobile-nav-toggle" id="mobileToggle" aria-label="Menü öffnen">
+        <button class="mobile-nav-toggle" id="mobileToggle" aria-label="Menü öffnen" data-i18n-attr="aria-label:a11y.menu">
           <span></span><span></span><span></span>
         </button>
-        <img src="portrait.jpg" alt="Thomas Wodny" class="hud-header__portrait">
+        <img src="portrait_avatar.jpg" alt="Thomas Wodny" class="hud-header__portrait" width="48" height="48" decoding="async">
         <div class="hud-header__info">
           <div class="hud-header__name">THOMAS WODNY</div>
           <div class="hud-header__title" id="typingTarget">Financial Analyst & Senior Controller</div>
         </div>
       </div>
       <div class="hud-header__right">
-        <div class="hud-header__status">SYSTEM ONLINE</div>
+        <div class="lang-toggle" role="group" aria-label="Sprache / Language">
+          <button type="button" class="lang-toggle__btn active" data-lang="de" onclick="setLang('de')" aria-label="Deutsch">DE</button>
+          <button type="button" class="lang-toggle__btn" data-lang="en" onclick="setLang('en')" aria-label="English">EN</button>
+        </div>
+        <div class="hud-header__status" data-i18n="header.status">SYSTEM ONLINE</div>
         <div class="hud-header__links">
           <a href="https://www.linkedin.com/in/thomas-wodny-075427225/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
@@ -1481,42 +1517,42 @@
         <button class="hud-nav__item active" data-panel="profil" onclick="switchPanel('profil')">
           <span class="hud-nav__number">01</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          Profil
+          <span data-i18n="nav.profil">Profil</span>
         </button>
         <button class="hud-nav__item" data-panel="erfahrung" onclick="switchPanel('erfahrung')">
           <span class="hud-nav__number">02</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-          Erfahrung
+          <span data-i18n="nav.erfahrung">Erfahrung</span>
         </button>
         <button class="hud-nav__item" data-panel="skills" onclick="switchPanel('skills')">
           <span class="hud-nav__number">03</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          Skills
+          <span data-i18n="nav.skills">Skills</span>
         </button>
         <button class="hud-nav__item" data-panel="projekte" onclick="switchPanel('projekte')">
           <span class="hud-nav__number">04</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-          Projekte
+          <span data-i18n="nav.projekte">Projekte</span>
         </button>
         <button class="hud-nav__item" data-panel="report" onclick="switchPanel('report')">
           <span class="hud-nav__number">05</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
-          Report
+          <span data-i18n="nav.report">Report</span>
         </button>
         <button class="hud-nav__item" data-panel="leistungen" onclick="switchPanel('leistungen')">
           <span class="hud-nav__number">06</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-          Leistungen
+          <span data-i18n="nav.leistungen">Leistungen</span>
         </button>
         <button class="hud-nav__item" data-panel="ki-updates" onclick="switchPanel('ki-updates')">
           <span class="hud-nav__number">07</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-          KI-Updates
+          <span data-i18n="nav.ki-updates">KI-Updates</span>
         </button>
         <button class="hud-nav__item" data-panel="kontakt" onclick="switchPanel('kontakt')">
           <span class="hud-nav__number">08</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          Kontakt
+          <span data-i18n="nav.kontakt">Kontakt</span>
         </button>
       </nav>
 
@@ -1525,56 +1561,56 @@
         <!-- ===== PROFIL ===== -->
         <div class="panel active" id="panel-profil">
           <div class="hud-frame hud-frame--glow">
-            <div class="panel__title">TAKTISCHES PROFIL</div>
-            <div class="panel__subtitle">// Financial Analyst & Senior Controller — Hamburg, DE</div>
+            <div class="panel__title" data-i18n="profil.title">TAKTISCHES PROFIL</div>
+            <div class="panel__subtitle" data-i18n="profil.subtitle">// Financial Analyst & Senior Controller — Hamburg, DE</div>
             <div class="profile-grid">
               <div>
-                <p class="panel__text">Hochanalytischer Financial Analyst und Senior Controller mit umfassender Erfahrung in FP&A, Finanzmodellierung und Datenautomatisierung. Nachgewiesene Erfolgsbilanz beim Einsatz von SQL, Python und Power BI zur Optimierung von Reporting-Prozessen und strategischer Entscheidungsfindung.</p>
-                <p class="panel__text">Als Senior Controller bei den Stadtwerken Ahrensburg verantworte ich das Finanzcontrolling für die Sparten Strom und EDL. Mein Fokus: die Verbindung von traditionellen Finanzen mit moderner Business Intelligence zur Verbesserung der Datenqualität und operativen Effizienz.</p>
-                <p class="panel__text">Ich verstehe mich als Brückenbauer zwischen Finanzen und IT – ich entwickle technische Lösungen für betriebswirtschaftliche Herausforderungen und setze dabei auf KI-gestützte Workflows mit Claude AI, Python und SQL.</p>
+                <p class="panel__text" data-i18n="profil.p1">Hochanalytischer Financial Analyst und Senior Controller mit umfassender Erfahrung in FP&A, Finanzmodellierung und Datenautomatisierung. Nachgewiesene Erfolgsbilanz beim Einsatz von SQL, Python und Power BI zur Optimierung von Reporting-Prozessen und strategischer Entscheidungsfindung.</p>
+                <p class="panel__text" data-i18n="profil.p2">Als Senior Controller bei den Stadtwerken Ahrensburg verantworte ich das Finanzcontrolling für die Sparten Strom und EDL. Mein Fokus: die Verbindung von traditionellen Finanzen mit moderner Business Intelligence zur Verbesserung der Datenqualität und operativen Effizienz.</p>
+                <p class="panel__text" data-i18n="profil.p3">Ich verstehe mich als Brückenbauer zwischen Finanzen und IT – ich entwickle technische Lösungen für betriebswirtschaftliche Herausforderungen und setze dabei auf KI-gestützte Workflows mit Claude AI, Python und SQL.</p>
                 <div class="profile-personal">
-                  <p>Vor meiner Karriere im Controlling war ich Leistungssportler im Basketball (Pro A / Pro B).</p>
-                  <p style="margin-top:8px;">4 Jahre Bundesliga-Trainer in der WNBL – Deutscher Meister 2014.</p>
-                  <p style="margin-top:8px;">Disziplin, strategisches Denken und Teamführung prägen auch heute meine Arbeitsweise.</p>
+                  <p data-i18n="profil.sport1">Vor meiner Karriere im Controlling war ich Leistungssportler im Basketball (Pro A / Pro B).</p>
+                  <p style="margin-top:8px;" data-i18n="profil.sport2">4 Jahre Bundesliga-Trainer in der WNBL – Deutscher Meister 2014.</p>
+                  <p style="margin-top:8px;" data-i18n="profil.sport3">Disziplin, strategisches Denken und Teamführung prägen auch heute meine Arbeitsweise.</p>
                 </div>
               </div>
               <div>
-                <div class="panel__label">Operative Stats</div>
+                <div class="panel__label" data-i18n="profil.stats">Operative Stats</div>
                 <div class="highlights-grid">
                   <div class="highlight-card">
                     <div class="highlight-card__value" data-counter="100" data-suffix="%">0%</div>
-                    <div class="highlight-card__label">Datenintegrität bei Migration</div>
+                    <div class="highlight-card__label" data-i18n="profil.stat1">Datenintegrität bei Migration</div>
                   </div>
                   <div class="highlight-card">
                     <div class="highlight-card__value" data-counter-special="time">8h → 30min</div>
-                    <div class="highlight-card__label">Reporting-Aufwand reduziert</div>
+                    <div class="highlight-card__label" data-i18n="profil.stat2">Reporting-Aufwand reduziert</div>
                   </div>
                   <div class="highlight-card">
                     <div class="highlight-card__value" data-counter="10000" data-suffix="+" data-format="dot">0+</div>
-                    <div class="highlight-card__label">Kundendatensätze migriert</div>
+                    <div class="highlight-card__label" data-i18n="profil.stat3">Kundendatensätze migriert</div>
                   </div>
                   <div class="highlight-card">
                     <div class="highlight-card__value" data-counter="7">0</div>
-                    <div class="highlight-card__label">Tochtergesellschaften betreut</div>
+                    <div class="highlight-card__label" data-i18n="profil.stat4">Tochtergesellschaften betreut</div>
                   </div>
                 </div>
                 <div style="margin-top:20px;">
-                  <div class="panel__label">Referenzen</div>
+                  <div class="panel__label" data-i18n="profil.refs">Referenzen</div>
                   <div class="testimonial-card" style="margin-bottom:12px;">
-                    <p class="testimonial-card__text">Sehr hohe Einsatzbereitschaft und außergewöhnliche Auffassungsgabe</p>
-                    <div class="testimonial-card__source">Arbeitszeugnis</div>
+                    <p class="testimonial-card__text" data-i18n="profil.ref1">Sehr hohe Einsatzbereitschaft und außergewöhnliche Auffassungsgabe</p>
+                    <div class="testimonial-card__source" data-i18n="profil.refsource">Arbeitszeugnis</div>
                   </div>
                   <div class="testimonial-card" style="margin-bottom:12px;">
-                    <p class="testimonial-card__text">Löst alle Aufgaben und Herausforderungen in hervorragender Weise</p>
-                    <div class="testimonial-card__source">Arbeitszeugnis</div>
+                    <p class="testimonial-card__text" data-i18n="profil.ref2">Löst alle Aufgaben und Herausforderungen in hervorragender Weise</p>
+                    <div class="testimonial-card__source" data-i18n="profil.refsource">Arbeitszeugnis</div>
                   </div>
                   <div class="testimonial-card" style="margin-bottom:12px;">
-                    <p class="testimonial-card__text">Stets sehr gute Arbeitsergebnisse mit größter Zuverlässigkeit</p>
-                    <div class="testimonial-card__source">Arbeitszeugnis</div>
+                    <p class="testimonial-card__text" data-i18n="profil.ref3">Stets sehr gute Arbeitsergebnisse mit größter Zuverlässigkeit</p>
+                    <div class="testimonial-card__source" data-i18n="profil.refsource">Arbeitszeugnis</div>
                   </div>
                   <div class="testimonial-card">
-                    <p class="testimonial-card__text">Befähigt, in pragmatischen, strategischen und perspektivischen Kategorien zu denken und zu handeln</p>
-                    <div class="testimonial-card__source">Arbeitszeugnis</div>
+                    <p class="testimonial-card__text" data-i18n="profil.ref4">Befähigt, in pragmatischen, strategischen und perspektivischen Kategorien zu denken und zu handeln</p>
+                    <div class="testimonial-card__source" data-i18n="profil.refsource">Arbeitszeugnis</div>
                   </div>
                 </div>
               </div>
@@ -1585,62 +1621,62 @@
         <!-- ===== ERFAHRUNG ===== -->
         <div class="panel" id="panel-erfahrung">
           <div class="hud-frame hud-frame--glow">
-            <div class="panel__title">BERUFSERFAHRUNG</div>
-            <div class="panel__subtitle">// Karriereverlauf — Controlling & Finance</div>
+            <div class="panel__title" data-i18n="erf.title">BERUFSERFAHRUNG</div>
+            <div class="panel__subtitle" data-i18n="erf.subtitle">// Karriereverlauf — Controlling & Finance</div>
             <div class="timeline">
               <div class="timeline__item timeline__item--active">
-                <div class="timeline__date">OKT 2024 — HEUTE</div>
-                <div class="timeline__role">Senior Controller – Energie & Versorgung</div>
+                <div class="timeline__date" data-i18n="erf.job1.date">OKT 2024 — HEUTE</div>
+                <div class="timeline__role" data-i18n="erf.job1.role">Senior Controller – Energie & Versorgung</div>
                 <div class="timeline__company">Stadtwerke Ahrensburg GmbH</div>
                 <ul class="timeline__desc">
-                  <li>Migration von über 10.000 Kundendatensätzen zwischen NAV- und PowerCloud-Systemen mit 100% Datenintegrität</li>
-                  <li>Automatisierung regulatorischer Berichterstattung: Reduktion von 8 Stunden auf 30 Minuten monatlich</li>
-                  <li>Entwicklung SQL-basierter Vorhersagemodelle für Gasverbrauchsmuster</li>
-                  <li>Implementierung der OData-Integration für Echtzeit-Datenkonnektivität</li>
+                  <li data-i18n="erf.job1.li1">Migration von über 10.000 Kundendatensätzen zwischen NAV- und PowerCloud-Systemen mit 100% Datenintegrität</li>
+                  <li data-i18n="erf.job1.li2">Automatisierung regulatorischer Berichterstattung: Reduktion von 8 Stunden auf 30 Minuten monatlich</li>
+                  <li data-i18n="erf.job1.li3">Entwicklung SQL-basierter Vorhersagemodelle für Gasverbrauchsmuster</li>
+                  <li data-i18n="erf.job1.li4">Implementierung der OData-Integration für Echtzeit-Datenkonnektivität</li>
                 </ul>
               </div>
               <div class="timeline__item">
-                <div class="timeline__date">APR 2023 — SEP 2024</div>
-                <div class="timeline__role">Beteiligungs-Controller</div>
+                <div class="timeline__date" data-i18n="erf.job2.date">APR 2023 — SEP 2024</div>
+                <div class="timeline__role" data-i18n="erf.job2.role">Beteiligungs-Controller</div>
                 <div class="timeline__company">AWO-Landesverband Hamburg e.V.</div>
                 <ul class="timeline__desc">
-                  <li>Management-Reporting für Landesverband und 7 Tochtergesellschaften</li>
-                  <li>Automatisierung komplexer Buchungsprozesse mit Python und VBA – 100% Automatisierung budgetkontrollierter Journalbuchungen</li>
-                  <li>Konzeption und Pflege SAP-basierter KPI-Dashboards</li>
+                  <li data-i18n="erf.job2.li1">Management-Reporting für Landesverband und 7 Tochtergesellschaften</li>
+                  <li data-i18n="erf.job2.li2">Automatisierung komplexer Buchungsprozesse mit Python und VBA – 100% Automatisierung budgetkontrollierter Journalbuchungen</li>
+                  <li data-i18n="erf.job2.li3">Konzeption und Pflege SAP-basierter KPI-Dashboards</li>
                 </ul>
               </div>
               <div class="timeline__item">
-                <div class="timeline__date">MAI 2021 — MÄR 2023</div>
-                <div class="timeline__role">Leitungskreis – Koordination & Controlling</div>
+                <div class="timeline__date" data-i18n="erf.job3.date">MAI 2021 — MÄR 2023</div>
+                <div class="timeline__role" data-i18n="erf.job3.role">Leitungskreis – Koordination & Controlling</div>
                 <div class="timeline__company">Bildungswerk der nordhessischen Wirtschaft gGmbH, Kassel</div>
                 <ul class="timeline__desc">
-                  <li>Leitung strategischer Planungsinitiativen für über 120 Einzelprojekte mit 150 Mitarbeitern</li>
-                  <li>Durchführung umfassender Soll-Ist-Vergleiche und Abweichungsanalysen</li>
-                  <li>Prozess- und Schwachstellenanalyse mit Optimierung der Steuerungsprozesse</li>
+                  <li data-i18n="erf.job3.li1">Leitung strategischer Planungsinitiativen für über 120 Einzelprojekte mit 150 Mitarbeitern</li>
+                  <li data-i18n="erf.job3.li2">Durchführung umfassender Soll-Ist-Vergleiche und Abweichungsanalysen</li>
+                  <li data-i18n="erf.job3.li3">Prozess- und Schwachstellenanalyse mit Optimierung der Steuerungsprozesse</li>
                 </ul>
               </div>
             </div>
             <div class="timeline__education">
-              <div class="panel__label">Ausbildung</div>
+              <div class="panel__label" data-i18n="erf.edu">Ausbildung</div>
               <div class="edu-item">
                 <div class="edu-item__year">2014 — 2022</div>
                 <div>
                   <div class="edu-item__title">B.Sc. Wirtschaftspädagogik</div>
-                  <div class="edu-item__detail">Universität Kassel — Schwerpunkt: Finance, Accounting, Controlling & Taxation (berufsbegleitend)</div>
+                  <div class="edu-item__detail" data-i18n="erf.edu1.detail">Universität Kassel — Schwerpunkt: Finance, Accounting, Controlling & Taxation (berufsbegleitend)</div>
                 </div>
               </div>
               <div class="edu-item">
                 <div class="edu-item__year">2011 — 2013</div>
                 <div>
-                  <div class="edu-item__title">Fachhochschulreife</div>
+                  <div class="edu-item__title" data-i18n="erf.edu2.title">Fachhochschulreife</div>
                   <div class="edu-item__detail">Abendgymnasium Sophie Scholl, Osnabrück</div>
                 </div>
               </div>
               <div class="edu-item">
-                <div class="edu-item__year">Zertifikat</div>
+                <div class="edu-item__year" data-i18n="erf.edu3.year">Zertifikat</div>
                 <div>
-                  <div class="edu-item__title">IFRS/HGB Rechnungslegung</div>
-                  <div class="edu-item__detail">Internationale und nationale Rechnungslegungsstandards</div>
+                  <div class="edu-item__title" data-i18n="erf.edu3.title">IFRS/HGB Rechnungslegung</div>
+                  <div class="edu-item__detail" data-i18n="erf.edu3.detail">Internationale und nationale Rechnungslegungsstandards</div>
                 </div>
               </div>
             </div>
@@ -1650,56 +1686,56 @@
         <!-- ===== SKILLS ===== -->
         <div class="panel" id="panel-skills">
           <div class="hud-frame hud-frame--glow">
-            <div class="panel__title">SKILLS & TECHNOLOGIEN</div>
-            <div class="panel__subtitle">// Kompetenzprofil — Radar-Analyse</div>
+            <div class="panel__title" data-i18n="skills.title">SKILLS & TECHNOLOGIEN</div>
+            <div class="panel__subtitle" data-i18n="skills.subtitle">// Kompetenzprofil — Radar-Analyse</div>
             <div class="radar-section">
               <div class="radar-container">
                 <canvas id="radarChart" width="680" height="560"></canvas>
               </div>
               <div class="skill-categories">
                 <div class="skill-cat">
-                  <div class="skill-cat__title">Programmierung & Datenanalyse</div>
+                  <div class="skill-cat__title" data-i18n="skills.cat1">Programmierung & Datenanalyse</div>
                   <ul class="skill-cat__list">
                     <li>SQL (T-SQL, Redshift) – VIEWs, CTEs, Window Functions</li>
                     <li>Python – pandas, openpyxl, reportlab, Streamlit</li>
                     <li>Power Query / M Language – ETL-Workflows</li>
-                    <li>VBA – Automatisierte Buchungsprozesse</li>
+                    <li data-i18n="skills.c1i4">VBA – Automatisierte Buchungsprozesse</li>
                   </ul>
                 </div>
                 <div class="skill-cat">
-                  <div class="skill-cat__title">Business Intelligence & Systeme</div>
+                  <div class="skill-cat__title" data-i18n="skills.cat2">Business Intelligence & Systeme</div>
                   <ul class="skill-cat__list">
                     <li>SAP FI/CO – KPI-Dashboards</li>
                     <li>MS Dynamics NAV / Business Central</li>
-                    <li>PowerCloud (Energieabrechnung)</li>
+                    <li data-i18n="skills.c2i3">PowerCloud (Energieabrechnung)</li>
                     <li>Power BI / Tableau</li>
                     <li>OData V4 – OAuth 2.0</li>
                   </ul>
                 </div>
                 <div class="skill-cat">
-                  <div class="skill-cat__title">Web-Development</div>
+                  <div class="skill-cat__title" data-i18n="skills.cat3">Web-Development</div>
                   <ul class="skill-cat__list">
                     <li>TypeScript / JavaScript</li>
                     <li>Vite, Tailwind CSS, Node.js</li>
-                    <li>HTML / CSS – Responsive Design</li>
+                    <li data-i18n="skills.c3i3">HTML / CSS – Responsive Design</li>
                   </ul>
                 </div>
                 <div class="skill-cat">
-                  <div class="skill-cat__title">KI-Tools & Automatisierung</div>
+                  <div class="skill-cat__title" data-i18n="skills.cat4">KI-Tools & Automatisierung</div>
                   <ul class="skill-cat__list">
-                    <li>Claude AI – Projekte, Memory, Computer Use</li>
+                    <li data-i18n="skills.c4i1">Claude AI – Projekte, Memory, Computer Use</li>
                     <li>Claude Code (CLI) – Agentic Coding</li>
                     <li>Anthropic API – Tool Use, Python SDK</li>
-                    <li>MCP – Custom Tools, Filesystem-Zugriff</li>
+                    <li data-i18n="skills.c4i4">MCP – Custom Tools, Filesystem-Zugriff</li>
                   </ul>
                 </div>
                 <div class="skill-cat">
-                  <div class="skill-cat__title">Fachliche Expertise</div>
+                  <div class="skill-cat__title" data-i18n="skills.cat5">Fachliche Expertise</div>
                   <ul class="skill-cat__list">
-                    <li>FP&A, Forecasting, Budgetierung</li>
+                    <li data-i18n="skills.c5i1">FP&A, Forecasting, Budgetierung</li>
                     <li>IFRS/HGB, Unit Economics</li>
-                    <li>Regulatorische Compliance (BNetzA, HZA)</li>
-                    <li>Energiewirtschaftliche Prozesse</li>
+                    <li data-i18n="skills.c5i3">Regulatorische Compliance (BNetzA, HZA)</li>
+                    <li data-i18n="skills.c5i4">Energiewirtschaftliche Prozesse</li>
                   </ul>
                 </div>
               </div>
@@ -1710,14 +1746,14 @@
         <!-- ===== PROJEKTE ===== -->
         <div class="panel" id="panel-projekte">
           <div class="hud-frame hud-frame--glow">
-            <div class="panel__title">PROJEKTREFERENZEN</div>
-            <div class="panel__subtitle">// Case Studies — Datengetriebene Lösungen</div>
+            <div class="panel__title" data-i18n="proj.title">PROJEKTREFERENZEN</div>
+            <div class="panel__subtitle" data-i18n="proj.subtitle">// Case Studies — Datengetriebene Lösungen</div>
             <div class="projects-grid">
               <div class="project-card project-card--wide">
                 <div class="project-card__number">// CASE STUDY 01</div>
-                <div class="project-card__title">NAV-PowerCloud Datenmigration & Reconciliation</div>
-                <p class="project-card__desc">Komplette Datenmigration von Microsoft Dynamics NAV zu PowerCloud für Gas- und Stromsparten. Harmonisierung der Soll/Haben-Logik (NAV) mit Vorzeichen-Logik (PowerCloud), Voucher-Processing, automatische Diskrepanz-Erkennung und Validierung aller Debitorensalden.</p>
-                <div class="project-card__result">10.000+ Datensätze mit 100% Datenintegrität migriert</div>
+                <div class="project-card__title" data-i18n="proj.c1.title">NAV-PowerCloud Datenmigration & Reconciliation</div>
+                <p class="project-card__desc" data-i18n="proj.c1.desc">Komplette Datenmigration von Microsoft Dynamics NAV zu PowerCloud für Gas- und Stromsparten. Harmonisierung der Soll/Haben-Logik (NAV) mit Vorzeichen-Logik (PowerCloud), Voucher-Processing, automatische Diskrepanz-Erkennung und Validierung aller Debitorensalden.</p>
+                <div class="project-card__result" data-i18n="proj.c1.result">10.000+ Datensätze mit 100% Datenintegrität migriert</div>
                 <div class="project-card__tags">
                   <span class="tag">SQL</span>
                   <span class="tag">Power Query</span>
@@ -1727,9 +1763,9 @@
               </div>
               <div class="project-card">
                 <div class="project-card__number">// CASE STUDY 02</div>
-                <div class="project-card__title">BILA Reporting (Gas/Strom)</div>
-                <p class="project-card__desc">Aufbau automatisierter SQL-Views für Bilanzabrechnungsprojekte. VIEW-Erstellung mit komplexen JOINs über Vouchers, Contracts und Items-Tabellen.</p>
-                <div class="project-card__result">Zeitersparnis: 8h → 30min pro Monat</div>
+                <div class="project-card__title" data-i18n="proj.c2.title">BILA Reporting (Gas/Strom)</div>
+                <p class="project-card__desc" data-i18n="proj.c2.desc">Aufbau automatisierter SQL-Views für Bilanzabrechnungsprojekte. VIEW-Erstellung mit komplexen JOINs über Vouchers, Contracts und Items-Tabellen.</p>
+                <div class="project-card__result" data-i18n="proj.c2.result">Zeitersparnis: 8h → 30min pro Monat</div>
                 <div class="project-card__tags">
                   <span class="tag">SQL Views</span>
                   <span class="tag">Power Query</span>
@@ -1738,9 +1774,9 @@
               </div>
               <div class="project-card">
                 <div class="project-card__number">// CASE STUDY 03</div>
-                <div class="project-card__title">HZA-Meldungen Gasabrechnung</div>
-                <p class="project-card__desc">Verarbeitung und Aufbereitung von Verbrauchsdaten für Hauptzollamt. Dynamische Pivot-Tabellen mit jahresübergreifender Analyse.</p>
-                <div class="project-card__result">Jährliche HZA-Meldung vollständig automatisiert</div>
+                <div class="project-card__title" data-i18n="proj.c3.title">HZA-Meldungen Gasabrechnung</div>
+                <p class="project-card__desc" data-i18n="proj.c3.desc">Verarbeitung und Aufbereitung von Verbrauchsdaten für Hauptzollamt. Dynamische Pivot-Tabellen mit jahresübergreifender Analyse.</p>
+                <div class="project-card__result" data-i18n="proj.c3.result">Jährliche HZA-Meldung vollständig automatisiert</div>
                 <div class="project-card__tags">
                   <span class="tag">Power Query M</span>
                   <span class="tag">Excel</span>
@@ -1749,9 +1785,9 @@
               </div>
               <div class="project-card">
                 <div class="project-card__number">// CASE STUDY 04</div>
-                <div class="project-card__title">OData-Integration Business Central</div>
-                <p class="project-card__desc">Anbindung von Business Central über OData V4 an Power Query. OAuth 2.0 Authentifizierung und automatisierter Datenabruf.</p>
-                <div class="project-card__result">Echtzeit-Datenanbindung für Dashboards</div>
+                <div class="project-card__title" data-i18n="proj.c4.title">OData-Integration Business Central</div>
+                <p class="project-card__desc" data-i18n="proj.c4.desc">Anbindung von Business Central über OData V4 an Power Query. OAuth 2.0 Authentifizierung und automatisierter Datenabruf.</p>
+                <div class="project-card__result" data-i18n="proj.c4.result">Echtzeit-Datenanbindung für Dashboards</div>
                 <div class="project-card__tags">
                   <span class="tag">Power Query</span>
                   <span class="tag">OData V4</span>
@@ -1761,9 +1797,9 @@
               </div>
               <div class="project-card">
                 <div class="project-card__number">// CASE STUDY 05</div>
-                <div class="project-card__title">Kostenstellenanalyse Dashboard</div>
-                <p class="project-card__desc">Interaktives Dashboard für OVH-Verteilung mit automatisierter Kostenstellen-Zuordnung und VBA-gesteuerter Worksheet-Verwaltung.</p>
-                <div class="project-card__result">Vollautomatisierte Kostenstellen-Zuordnung</div>
+                <div class="project-card__title" data-i18n="proj.c5.title">Kostenstellenanalyse Dashboard</div>
+                <p class="project-card__desc" data-i18n="proj.c5.desc">Interaktives Dashboard für OVH-Verteilung mit automatisierter Kostenstellen-Zuordnung und VBA-gesteuerter Worksheet-Verwaltung.</p>
+                <div class="project-card__result" data-i18n="proj.c5.result">Vollautomatisierte Kostenstellen-Zuordnung</div>
                 <div class="project-card__tags">
                   <span class="tag">React</span>
                   <span class="tag">Tailwind CSS</span>
@@ -1773,9 +1809,9 @@
               </div>
               <div class="project-card">
                 <div class="project-card__number">// CASE STUDY 06</div>
-                <div class="project-card__title">KPI-Dashboards AWO Landesverband Hamburg e.V.</div>
-                <p class="project-card__desc">SAP-basierte KPI-Dashboards zur Echtzeitverfolgung der Finanzperformance. Management-Reporting für 7 Tochtergesellschaften.</p>
-                <div class="project-card__result">100% Automatisierung der Journalbuchungen</div>
+                <div class="project-card__title" data-i18n="proj.c6.title">KPI-Dashboards AWO Landesverband Hamburg e.V.</div>
+                <p class="project-card__desc" data-i18n="proj.c6.desc">SAP-basierte KPI-Dashboards zur Echtzeitverfolgung der Finanzperformance. Management-Reporting für 7 Tochtergesellschaften.</p>
+                <div class="project-card__result" data-i18n="proj.c6.result">100% Automatisierung der Journalbuchungen</div>
                 <div class="project-card__tags">
                   <span class="tag">SAP FI/CO</span>
                   <span class="tag">Python</span>
@@ -1784,9 +1820,9 @@
               </div>
               <div class="project-card project-card--wide">
                 <div class="project-card__number">// CASE STUDY 07</div>
-                <div class="project-card__title">Familien-Finanz-Dashboard</div>
-                <p class="project-card__desc">Full-Stack Web-App zur privaten Finanzübersicht. Automatischer Import und Kategorisierung von Sparkasse-Kontoumsätzen und PayPal-Transaktionen. Interaktive Visualisierungen mit Einnahmen/Ausgaben-Analyse.</p>
-                <div class="project-card__result">Vollautomatisierte Finanztransparenz für den Haushalt</div>
+                <div class="project-card__title" data-i18n="proj.c7.title">Familien-Finanz-Dashboard</div>
+                <p class="project-card__desc" data-i18n="proj.c7.desc">Full-Stack Web-App zur privaten Finanzübersicht. Automatischer Import und Kategorisierung von Sparkasse-Kontoumsätzen und PayPal-Transaktionen. Interaktive Visualisierungen mit Einnahmen/Ausgaben-Analyse.</p>
+                <div class="project-card__result" data-i18n="proj.c7.result">Vollautomatisierte Finanztransparenz für den Haushalt</div>
                 <div class="project-card__tags">
                   <span class="tag">TypeScript</span>
                   <span class="tag">Vite</span>
@@ -1797,14 +1833,14 @@
               </div>
               <div class="project-card">
                 <div class="project-card__number">// CASE STUDY 08</div>
-                <div class="project-card__title">Automatisierung Zahnarztpraxis</div>
-                <p class="project-card__desc">Individuelle Automatisierungslösung für eine Zahnarztpraxis. Vollautomatische Rechnungserstellung mit verschlüsselten Patientendaten.</p>
-                <div class="project-card__result">Rechnungserstellung von manuell auf vollautomatisch</div>
+                <div class="project-card__title" data-i18n="proj.c8.title">Automatisierung Zahnarztpraxis</div>
+                <p class="project-card__desc" data-i18n="proj.c8.desc">Individuelle Automatisierungslösung für eine Zahnarztpraxis. Vollautomatische Rechnungserstellung mit verschlüsselten Patientendaten.</p>
+                <div class="project-card__result" data-i18n="proj.c8.result">Rechnungserstellung von manuell auf vollautomatisch</div>
                 <div class="project-card__tags">
                   <span class="tag">Python</span>
                   <span class="tag">Claude AI</span>
-                  <span class="tag">Verschlüsselung</span>
-                  <span class="tag">Individualsoftware</span>
+                  <span class="tag" data-i18n="proj.tag.encryption">Verschlüsselung</span>
+                  <span class="tag" data-i18n="proj.tag.custom">Individualsoftware</span>
                 </div>
               </div>
             </div>
@@ -1814,20 +1850,20 @@
         <!-- ===== REPORT PREVIEW ===== -->
         <div class="panel" id="panel-report">
           <div class="hud-frame hud-frame--glow">
-            <div class="panel__title">PERFORMANCE REPORT</div>
-            <div class="panel__subtitle">// Sneak Preview — Interaktives Finanz-Dashboard (Beispieldaten)</div>
-            <p class="panel__text" style="margin-bottom:24px;">Konzipiert für Geschäftsführung, Aufsichtsrat und Gesellschafter — ein Premium-Finanz-Dashboard im "Obsidian Ledger"-Stil. Alle Daten sind fiktive Beispielwerte zur Demonstration.</p>
+            <div class="panel__title" data-i18n="rep.title">PERFORMANCE REPORT</div>
+            <div class="panel__subtitle" data-i18n="rep.subtitle">// Sneak Preview — Interaktives Finanz-Dashboard (Beispieldaten)</div>
+            <p class="panel__text" style="margin-bottom:24px;" data-i18n="rep.intro">Konzipiert für Geschäftsführung, Aufsichtsrat und Gesellschafter — ein Premium-Finanz-Dashboard im "Obsidian Ledger"-Stil. Alle Daten sind fiktive Beispielwerte zur Demonstration.</p>
 
             <div class="report-preview">
               <div class="report-preview__header">
                 <div class="report-preview__logo">MUSTERWERKE PERFORMANCE REPORT</div>
-                <div class="report-preview__badge">Demo — Fiktive Daten</div>
+                <div class="report-preview__badge" data-i18n="rep.badge">Demo — Fiktive Daten</div>
               </div>
 
               <div class="report-kpis">
                 <div class="report-kpi">
                   <div class="report-kpi__value">24,8M</div>
-                  <div class="report-kpi__label">Umsatzerlöse</div>
+                  <div class="report-kpi__label" data-i18n="rep.kpi1">Umsatzerlöse</div>
                   <div class="report-kpi__change report-kpi__change--pos">▲ +3,2%</div>
                 </div>
                 <div class="report-kpi">
@@ -1837,19 +1873,19 @@
                 </div>
                 <div class="report-kpi">
                   <div class="report-kpi__value">7,7%</div>
-                  <div class="report-kpi__label">EBIT-Marge</div>
+                  <div class="report-kpi__label" data-i18n="rep.kpi3">EBIT-Marge</div>
                   <div class="report-kpi__change report-kpi__change--pos">▲ +0,6pp</div>
                 </div>
                 <div class="report-kpi">
                   <div class="report-kpi__value">142</div>
-                  <div class="report-kpi__label">Mitarbeiter (FTE)</div>
+                  <div class="report-kpi__label" data-i18n="rep.kpi4">Mitarbeiter (FTE)</div>
                   <div class="report-kpi__change report-kpi__change--neg">▼ -2,1%</div>
                 </div>
               </div>
 
               <div class="report-charts">
                 <div class="report-chart-box">
-                  <div class="report-chart-box__title">Umsatzentwicklung (Mio. €)</div>
+                  <div class="report-chart-box__title" data-i18n="rep.chart1">Umsatzentwicklung (Mio. €)</div>
                   <div class="report-bar-chart" id="reportBarChart">
                     <div class="report-bar"><div class="report-bar__fill" data-h="55"></div><div class="report-bar__label">2018</div></div>
                     <div class="report-bar"><div class="report-bar__fill" data-h="62"></div><div class="report-bar__label">2019</div></div>
@@ -1861,36 +1897,36 @@
                   </div>
                 </div>
                 <div class="report-chart-box">
-                  <div class="report-chart-box__title">Kostenstruktur</div>
+                  <div class="report-chart-box__title" data-i18n="rep.chart2">Kostenstruktur</div>
                   <div class="report-donut">
                     <canvas id="reportDonut" width="120" height="120"></canvas>
                     <div class="report-donut__legend">
-                      <div class="report-donut__item"><span class="report-donut__dot" style="background:#d4a853"></span>Material 42%</div>
-                      <div class="report-donut__item"><span class="report-donut__dot" style="background:#5ec269"></span>Personal 31%</div>
-                      <div class="report-donut__item"><span class="report-donut__dot" style="background:#6b93d6"></span>Betrieb 18%</div>
-                      <div class="report-donut__item"><span class="report-donut__dot" style="background:#c97f4a"></span>Sonstige 9%</div>
+                      <div class="report-donut__item"><span class="report-donut__dot" style="background:#d4a853"></span><span data-i18n="rep.donut1">Material 42%</span></div>
+                      <div class="report-donut__item"><span class="report-donut__dot" style="background:#5ec269"></span><span data-i18n="rep.donut2">Personal 31%</span></div>
+                      <div class="report-donut__item"><span class="report-donut__dot" style="background:#6b93d6"></span><span data-i18n="rep.donut3">Betrieb 18%</span></div>
+                      <div class="report-donut__item"><span class="report-donut__dot" style="background:#c97f4a"></span><span data-i18n="rep.donut4">Sonstige 9%</span></div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div class="report-preview__watermark">◆ Beispielhafte Darstellung — Keine realen Unternehmensdaten ◆</div>
+              <div class="report-preview__watermark" data-i18n="rep.watermark">◆ Beispielhafte Darstellung — Keine realen Unternehmensdaten ◆</div>
             </div>
 
             <div style="margin-top:24px;">
-              <div class="panel__label">Technologie-Stack</div>
+              <div class="panel__label" data-i18n="rep.stack">Technologie-Stack</div>
               <div class="projects-grid" style="grid-template-columns:1fr 1fr 1fr;">
                 <div class="project-card">
                   <div class="project-card__title" style="font-size:13px;">Frontend</div>
-                  <p class="project-card__desc" style="font-size:13px;">Vanilla HTML/CSS/JS, Apache ECharts 5, Single-File Dashboard</p>
+                  <p class="project-card__desc" style="font-size:13px;" data-i18n="rep.stack1">Vanilla HTML/CSS/JS, Apache ECharts 5, Single-File Dashboard</p>
                 </div>
                 <div class="project-card">
                   <div class="project-card__title" style="font-size:13px;">Design</div>
-                  <p class="project-card__desc" style="font-size:13px;">"Obsidian Ledger" — Premium Dark Theme mit Gold-Akzenten. Vollständig anpassbar an Ihr Corporate Design (Farben, Logo, Typografie).</p>
+                  <p class="project-card__desc" style="font-size:13px;" data-i18n="rep.stack2">"Obsidian Ledger" — Premium Dark Theme mit Gold-Akzenten. Vollständig anpassbar an Ihr Corporate Design (Farben, Logo, Typografie).</p>
                 </div>
                 <div class="project-card">
                   <div class="project-card__title" style="font-size:13px;">Features</div>
-                  <p class="project-card__desc" style="font-size:13px;">Jahresvergleich, KPI-Cards, interaktive Charts, Tab-Navigation, Offline-fähig</p>
+                  <p class="project-card__desc" style="font-size:13px;" data-i18n="rep.stack3">Jahresvergleich, KPI-Cards, interaktive Charts, Tab-Navigation, Offline-fähig</p>
                 </div>
               </div>
             </div>
@@ -1900,49 +1936,49 @@
         <!-- ===== LEISTUNGEN ===== -->
         <div class="panel" id="panel-leistungen">
           <div class="hud-frame hud-frame--glow">
-            <div class="panel__title">LEISTUNGEN</div>
-            <div class="panel__subtitle">// Service-Portfolio — Datengetriebenes Controlling</div>
+            <div class="panel__title" data-i18n="leist.title">LEISTUNGEN</div>
+            <div class="panel__subtitle" data-i18n="leist.subtitle">// Service-Portfolio — Datengetriebenes Controlling</div>
             <div class="services-grid">
               <div class="service-card">
                 <div class="service-card__number">01</div>
                 <div>
-                  <div class="service-card__title">Datenanalyse & Prozessautomatisierung</div>
-                  <p class="service-card__desc">Identifikation von Optimierungspotenzialen und Entwicklung automatisierter Workflows mit Python, SQL und Power Query für wiederkehrende Aufgaben.</p>
+                  <div class="service-card__title" data-i18n="leist.s1.title">Datenanalyse & Prozessautomatisierung</div>
+                  <p class="service-card__desc" data-i18n="leist.s1.desc">Identifikation von Optimierungspotenzialen und Entwicklung automatisierter Workflows mit Python, SQL und Power Query für wiederkehrende Aufgaben.</p>
                 </div>
               </div>
               <div class="service-card">
                 <div class="service-card__number">02</div>
                 <div>
-                  <div class="service-card__title">Systemmigration & Daten-Reconciliation</div>
-                  <p class="service-card__desc">Planung und Durchführung von Datenmigrationen (NAV, PowerCloud, Business Central) mit lückenloser Abstimmung und Validierung.</p>
+                  <div class="service-card__title" data-i18n="leist.s2.title">Systemmigration & Daten-Reconciliation</div>
+                  <p class="service-card__desc" data-i18n="leist.s2.desc">Planung und Durchführung von Datenmigrationen (NAV, PowerCloud, Business Central) mit lückenloser Abstimmung und Validierung.</p>
                 </div>
               </div>
               <div class="service-card">
                 <div class="service-card__number">03</div>
                 <div>
-                  <div class="service-card__title">Automatisierte Reporting-Systeme</div>
-                  <p class="service-card__desc">Aufbau integrierter Berichtslösungen für Management und regulatorische Anforderungen (BNetzA, Hauptzollamt). Nachweisliche Reduktion manueller Aufwände.</p>
+                  <div class="service-card__title" data-i18n="leist.s3.title">Automatisierte Reporting-Systeme</div>
+                  <p class="service-card__desc" data-i18n="leist.s3.desc">Aufbau integrierter Berichtslösungen für Management und regulatorische Anforderungen (BNetzA, Hauptzollamt). Nachweisliche Reduktion manueller Aufwände.</p>
                 </div>
               </div>
               <div class="service-card">
                 <div class="service-card__number">04</div>
                 <div>
-                  <div class="service-card__title">KI-gestützte Controlling-Lösungen</div>
-                  <p class="service-card__desc">Integration von KI-Tools (Claude AI, MCP) in bestehende Controlling-Workflows. Automatisierte Dokumentenerstellung, Code-Generierung und Datenverarbeitung.</p>
+                  <div class="service-card__title" data-i18n="leist.s4.title">KI-gestützte Controlling-Lösungen</div>
+                  <p class="service-card__desc" data-i18n="leist.s4.desc">Integration von KI-Tools (Claude AI, MCP) in bestehende Controlling-Workflows. Automatisierte Dokumentenerstellung, Code-Generierung und Datenverarbeitung.</p>
                 </div>
               </div>
               <div class="service-card">
                 <div class="service-card__number">05</div>
                 <div>
-                  <div class="service-card__title">Individuelle Praxis-Automatisierung</div>
-                  <p class="service-card__desc">Maßgeschneiderte Automatisierungslösungen für Arzt- und Zahnarztpraxen. Anbindung an bestehende Praxissoftware, automatisierte Rechnungserstellung mit verschlüsselter Datenverarbeitung.</p>
+                  <div class="service-card__title" data-i18n="leist.s5.title">Individuelle Praxis-Automatisierung</div>
+                  <p class="service-card__desc" data-i18n="leist.s5.desc">Maßgeschneiderte Automatisierungslösungen für Arzt- und Zahnarztpraxen. Anbindung an bestehende Praxissoftware, automatisierte Rechnungserstellung mit verschlüsselter Datenverarbeitung.</p>
                 </div>
               </div>
               <div class="service-card">
                 <div class="service-card__number">06</div>
                 <div>
-                  <div class="service-card__title">Schulung & Wissenstransfer</div>
-                  <p class="service-card__desc">Praxisnahe Schulungen in Power Query, SQL für Controller, Python-Automatisierung und KI-Tools – damit Ihr Team eigenständig weiterarbeiten kann.</p>
+                  <div class="service-card__title" data-i18n="leist.s6.title">Schulung & Wissenstransfer</div>
+                  <p class="service-card__desc" data-i18n="leist.s6.desc">Praxisnahe Schulungen in Power Query, SQL für Controller, Python-Automatisierung und KI-Tools – damit Ihr Team eigenständig weiterarbeiten kann.</p>
                 </div>
               </div>
             </div>
@@ -1952,8 +1988,8 @@
         <!-- ===== KI-UPDATES ===== -->
         <div class="panel" id="panel-ki-updates">
           <div class="hud-frame hud-frame--glow">
-            <div class="panel__title">KI-UPDATES</div>
-            <div class="panel__subtitle">// Wöchentliche Einordnung — Künstliche Intelligenz</div>
+            <div class="panel__title" data-i18n="ki.title">KI-UPDATES</div>
+            <div class="panel__subtitle" data-i18n="ki.subtitle">// Wöchentliche Einordnung — Künstliche Intelligenz</div>
             <div class="ki-updates-grid">
               <!-- Featured: Neuester Report -->
               <a href="ki-updates/KI-Update_KW25_2026.html" target="_blank" class="ki-update-card ki-update-card--featured">
@@ -1968,7 +2004,7 @@
               </a>
 
               <!-- Archiv -->
-              <div class="ki-updates__archive-label">— Archiv —</div>
+              <div class="ki-updates__archive-label" data-i18n="ki.archive">— Archiv —</div>
               <div class="ki-updates__archive-grid">
                 <a href="ki-updates/KI-Update_KW24_2026.html" target="_blank" class="ki-update-card ki-update-card--archive">
                 <div class="ki-update-card__meta">
@@ -2020,45 +2056,45 @@
               </a>
                 <a href="ki-updates/KI-Update_KW16_2026.html" target="_blank" class="ki-update-card ki-update-card--archive">
                 <div class="ki-update-card__meta">
-                  <span class="ki-update-card__kw">KW 16 / 2026</span>
-                  <span class="ki-update-card__date">13.–19. April</span>                </div>
-                <div class="ki-update-card__title">Der Generalist ist durch.Was jetzt kommt, sieht man vielleicht nie.</div>                <span class="ki-update-card__cta">REPORT LESEN →</span>
+                  <span class="ki-update-card__kw" data-i18n="ki.kw16">KW 16 / 2026</span>
+                  <span class="ki-update-card__date" data-i18n="ki.date16">13.–19. April</span>                </div>
+                <div class="ki-update-card__title" data-i18n="ki.t16">Der Generalist ist durch.Was jetzt kommt, sieht man vielleicht nie.</div>                <span class="ki-update-card__cta" data-i18n="ki.readmore">REPORT LESEN →</span>
               </a>
                 <a href="ki-updates/KI-Update_KW15_2026.html" target="_blank" class="ki-update-card ki-update-card--archive">
                 <div class="ki-update-card__meta">
-                  <span class="ki-update-card__kw">KW 15 / 2026</span>
-                  <span class="ki-update-card__date">5.–11. April</span>                </div>
-                <div class="ki-update-card__title">Offenheit war gestern.Kontrolle ist das neue Geschäftsmodell.</div>                <span class="ki-update-card__cta">REPORT LESEN →</span>
+                  <span class="ki-update-card__kw" data-i18n="ki.kw15a">KW 15 / 2026</span>
+                  <span class="ki-update-card__date" data-i18n="ki.date15a">5.–11. April</span>                </div>
+                <div class="ki-update-card__title" data-i18n="ki.t15a">Offenheit war gestern.Kontrolle ist das neue Geschäftsmodell.</div>                <span class="ki-update-card__cta" data-i18n="ki.readmore">REPORT LESEN →</span>
               </a>
                 <a href="ki-updates/KI-Update_KW15_2026.html" target="_blank" class="ki-update-card ki-update-card--archive">
                 <div class="ki-update-card__meta">
-                  <span class="ki-update-card__kw">KW 15 / 2026</span>
-                  <span class="ki-update-card__date">05.–11. April</span>                </div>
-                <div class="ki-update-card__title">Offenheit war gestern. Kontrolle ist das neue Geschäftsmodell.</div>                <span class="ki-update-card__cta">REPORT LESEN →</span>
+                  <span class="ki-update-card__kw" data-i18n="ki.kw15b">KW 15 / 2026</span>
+                  <span class="ki-update-card__date" data-i18n="ki.date15b">05.–11. April</span>                </div>
+                <div class="ki-update-card__title" data-i18n="ki.t15b">Offenheit war gestern. Kontrolle ist das neue Geschäftsmodell.</div>                <span class="ki-update-card__cta" data-i18n="ki.readmore">REPORT LESEN →</span>
               </a>
                 <a href="ki-updates/KI-Update_KW13_2026.html" target="_blank" class="ki-update-card ki-update-card--archive">
                   <div class="ki-update-card__meta">
-                    <span class="ki-update-card__kw">KW 13 / 2026</span>
-                    <span class="ki-update-card__date">22.–28. März</span>
+                    <span class="ki-update-card__kw" data-i18n="ki.kw13">KW 13 / 2026</span>
+                    <span class="ki-update-card__date" data-i18n="ki.date13">22.–28. März</span>
                   </div>
-                  <div class="ki-update-card__title">Zu vorsichtig fürs Pentagon. Zu gefährlich für die Öffentlichkeit.</div>
-                  <span class="ki-update-card__cta">REPORT LESEN →</span>
+                  <div class="ki-update-card__title" data-i18n="ki.t13">Zu vorsichtig fürs Pentagon. Zu gefährlich für die Öffentlichkeit.</div>
+                  <span class="ki-update-card__cta" data-i18n="ki.readmore">REPORT LESEN →</span>
                 </a>
                 <a href="ki-updates/KI-Update_KW12_2026.html" target="_blank" class="ki-update-card ki-update-card--archive">
                   <div class="ki-update-card__meta">
-                    <span class="ki-update-card__kw">KW 12 / 2026</span>
-                    <span class="ki-update-card__date">14.–20. März</span>
+                    <span class="ki-update-card__kw" data-i18n="ki.kw12">KW 12 / 2026</span>
+                    <span class="ki-update-card__date" data-i18n="ki.date12">14.–20. März</span>
                   </div>
-                  <div class="ki-update-card__title">Wer Haltung zeigt, wird bestraft. Wer keine zeigt, wird finanziert.</div>
-                  <span class="ki-update-card__cta">REPORT LESEN →</span>
+                  <div class="ki-update-card__title" data-i18n="ki.t12">Wer Haltung zeigt, wird bestraft. Wer keine zeigt, wird finanziert.</div>
+                  <span class="ki-update-card__cta" data-i18n="ki.readmore">REPORT LESEN →</span>
                 </a>
                 <a href="ki-updates/KI-Update_KW11_2026.html" target="_blank" class="ki-update-card ki-update-card--archive">
                   <div class="ki-update-card__meta">
-                    <span class="ki-update-card__kw">KW 11 / 2026</span>
-                    <span class="ki-update-card__date">08.–14. März</span>
+                    <span class="ki-update-card__kw" data-i18n="ki.kw11">KW 11 / 2026</span>
+                    <span class="ki-update-card__date" data-i18n="ki.date11">08.–14. März</span>
                   </div>
-                  <div class="ki-update-card__title">KI-Update KW 11 — Die Woche im Überblick</div>
-                  <span class="ki-update-card__cta">REPORT LESEN →</span>
+                  <div class="ki-update-card__title" data-i18n="ki.t11">KI-Update KW 11 — Die Woche im Überblick</div>
+                  <span class="ki-update-card__cta" data-i18n="ki.readmore">REPORT LESEN →</span>
                 </a>
               </div>
             </div>
@@ -2068,23 +2104,23 @@
         <!-- ===== KONTAKT ===== -->
         <div class="panel" id="panel-kontakt">
           <div class="hud-frame hud-frame--glow">
-            <div class="panel__title">KONTAKT</div>
-            <div class="panel__subtitle">// Kommunikationskanal — Nachricht senden</div>
+            <div class="panel__title" data-i18n="kon.title">KONTAKT</div>
+            <div class="panel__subtitle" data-i18n="kon.subtitle">// Kommunikationskanal — Nachricht senden</div>
             <div class="contact-grid">
               <div class="contact-info">
-                <p>Sie haben ein Projekt, bei dem datengetriebenes Controlling gefragt ist? Oder suchen Sie Unterstützung bei einer Systemmigration oder KI-gestützter Automatisierung? Lassen Sie uns darüber sprechen.</p>
+                <p data-i18n="kon.intro">Sie haben ein Projekt, bei dem datengetriebenes Controlling gefragt ist? Oder suchen Sie Unterstützung bei einer Systemmigration oder KI-gestützter Automatisierung? Lassen Sie uns darüber sprechen.</p>
                 <div class="contact-detail">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                  <span>Hamburg, Deutschland</span>
+                  <span data-i18n="kon.location">Hamburg, Deutschland</span>
                 </div>
                 <div class="contact-detail">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                  <span>Über das Kontaktformular</span>
+                  <span data-i18n="kon.viaform">Über das Kontaktformular</span>
                 </div>
                 <div class="contact-langs">
-                  <div class="contact-langs__title">Sprachen</div>
-                  <p>Deutsch – Muttersprache</p>
-                  <p>Englisch – Verhandlungssicher</p>
+                  <div class="contact-langs__title" data-i18n="kon.langs">Sprachen</div>
+                  <p data-i18n="kon.lang1">Deutsch – Muttersprache</p>
+                  <p data-i18n="kon.lang2">Englisch – Verhandlungssicher</p>
                 </div>
               </div>
               <div>
@@ -2094,47 +2130,47 @@
                   <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
                   <div class="form-row form-row--half">
                     <div class="form-group">
-                      <label for="name">Name *</label>
-                      <input type="text" id="name" name="name" required placeholder="Ihr Name">
+                      <label for="name" data-i18n="form.name">Name *</label>
+                      <input type="text" id="name" name="name" required placeholder="Ihr Name" data-i18n-attr="placeholder:form.name.ph">
                     </div>
                     <div class="form-group">
-                      <label for="email">E-Mail *</label>
-                      <input type="email" id="email" name="email" required placeholder="ihre@email.de">
+                      <label for="email" data-i18n="form.email">E-Mail *</label>
+                      <input type="email" id="email" name="email" required placeholder="ihre@email.de" data-i18n-attr="placeholder:form.email.ph">
                     </div>
                   </div>
                   <div class="form-row form-row--half">
                     <div class="form-group">
-                      <label for="company">Unternehmen</label>
-                      <input type="text" id="company" name="company" placeholder="Optional">
+                      <label for="company" data-i18n="form.company">Unternehmen</label>
+                      <input type="text" id="company" name="company" placeholder="Optional" data-i18n-attr="placeholder:form.company.ph">
                     </div>
                     <div class="form-group">
-                      <label for="kategorie">Betreff *</label>
+                      <label for="kategorie" data-i18n="form.subject">Betreff *</label>
                       <select id="kategorie" name="kategorie" required>
-                        <option value="" disabled selected>Bitte wählen</option>
-                        <option value="Beratungsanfrage">Beratungsanfrage</option>
-                        <option value="Projektanfrage">Projektanfrage</option>
-                        <option value="Schulung">Schulung</option>
-                        <option value="Jobangebot">Jobangebot</option>
-                        <option value="Sonstiges">Sonstiges</option>
+                        <option value="" disabled selected data-i18n="form.opt0">Bitte wählen</option>
+                        <option value="Beratungsanfrage" data-i18n="form.opt1">Beratungsanfrage</option>
+                        <option value="Projektanfrage" data-i18n="form.opt2">Projektanfrage</option>
+                        <option value="Schulung" data-i18n="form.opt3">Schulung</option>
+                        <option value="Jobangebot" data-i18n="form.opt4">Jobangebot</option>
+                        <option value="Sonstiges" data-i18n="form.opt5">Sonstiges</option>
                       </select>
                     </div>
                   </div>
                   <div class="form-row">
                     <div class="form-group">
-                      <label for="message">Nachricht *</label>
-                      <textarea id="message" name="message" required placeholder="Beschreiben Sie Ihr Anliegen..."></textarea>
+                      <label for="message" data-i18n="form.message">Nachricht *</label>
+                      <textarea id="message" name="message" required placeholder="Beschreiben Sie Ihr Anliegen..." data-i18n-attr="placeholder:form.message.ph"></textarea>
                     </div>
                   </div>
                   <div class="form-checkbox">
                     <input type="checkbox" id="privacy" name="privacy" required>
-                    <label for="privacy">Ich habe die <a href="#" onclick="openModal('datenschutz');return false;">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zu. *</label>
+                    <label for="privacy" data-i18n-html="form.privacy">Ich habe die <a href="#" onclick="openModal('datenschutz');return false;">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zu. *</label>
                   </div>
-                  <button type="submit" class="btn-submit">NACHRICHT SENDEN</button>
+                  <button type="submit" class="btn-submit" data-i18n="form.send">NACHRICHT SENDEN</button>
                 </form>
                 <div class="form-success" id="formSuccess">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                  <h3>ÜBERTRAGUNG ERFOLGREICH</h3>
-                  <p>Ihre Nachricht wurde gesendet. Ich melde mich zeitnah bei Ihnen.</p>
+                  <h3 data-i18n="form.success.title">ÜBERTRAGUNG ERFOLGREICH</h3>
+                  <p data-i18n="form.success.text">Ihre Nachricht wurde gesendet. Ich melde mich zeitnah bei Ihnen.</p>
                 </div>
               </div>
             </div>
@@ -2148,23 +2184,23 @@
       <div class="hud-stats__group">
         <div class="stat-item">
           <div class="stat-item__value" data-counter="100" data-suffix="%">100%</div>
-          <div class="stat-item__label">Daten-<br>integrität</div>
+          <div class="stat-item__label" data-i18n-html="foot.stat1">Daten-<br>integrität</div>
         </div>
         <div class="stat-item__divider"></div>
         <div class="stat-item">
           <div class="stat-item__value">8h→30m</div>
-          <div class="stat-item__label">Reporting<br>optimiert</div>
+          <div class="stat-item__label" data-i18n-html="foot.stat2">Reporting<br>optimiert</div>
         </div>
         <div class="stat-item__divider"></div>
         <div class="stat-item">
           <div class="stat-item__value">10.000+</div>
-          <div class="stat-item__label">Datensätze<br>migriert</div>
+          <div class="stat-item__label" data-i18n-html="foot.stat3">Datensätze<br>migriert</div>
         </div>
       </div>
       <div style="display:flex;align-items:center;gap:16px;">
         <div class="hud-stats__copy">
-          <a href="#" onclick="openModal('impressum');return false;">Impressum</a> ·
-          <a href="#" onclick="openModal('datenschutz');return false;">Datenschutz</a>
+          <a href="#" onclick="openModal('impressum');return false;" data-i18n="foot.impressum">Impressum</a> ·
+          <a href="#" onclick="openModal('datenschutz');return false;" data-i18n="foot.privacy">Datenschutz</a>
         </div>
         <div class="hud-stats__copy">© 2026 TW</div>
       </div>
@@ -2174,58 +2210,58 @@
   <!-- Impressum Modal -->
   <div class="modal-overlay" id="impressumModal">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="impressumTitle">
-      <button class="modal__close" onclick="closeModal('impressum')" aria-label="Schließen">
+      <button class="modal__close" onclick="closeModal('impressum')" aria-label="Schließen" data-i18n-attr="aria-label:a11y.close">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
-      <h2 id="impressumTitle">IMPRESSUM</h2>
-      <h3>Angaben gemäß § 5 TMG</h3>
-      <p>Thomas Wodny<br>Financial Analyst & Senior Controller<br>Hamburg, Deutschland</p>
-      <h3>Kontakt</h3>
-      <p>E-Mail: Wodny33@googlemail.com</p>
-      <h3>Haftungsausschluss</h3>
-      <p>Die Inhalte dieser Seite wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann jedoch keine Gewähr übernommen werden.</p>
-      <h3>Urheberrecht</h3>
-      <p>Die durch den Seitenbetreiber erstellten Inhalte und Werke auf dieser Seite unterliegen dem deutschen Urheberrecht.</p>
+      <h2 id="impressumTitle" data-i18n="imp.title">IMPRESSUM</h2>
+      <h3 data-i18n="imp.h1">Angaben gemäß § 5 TMG</h3>
+      <p data-i18n-html="imp.p1">Thomas Wodny<br>Financial Analyst & Senior Controller<br>Hamburg, Deutschland</p>
+      <h3 data-i18n="imp.h2">Kontakt</h3>
+      <p data-i18n="imp.p2">E-Mail: Wodny33@googlemail.com</p>
+      <h3 data-i18n="imp.h3">Haftungsausschluss</h3>
+      <p data-i18n="imp.p3">Die Inhalte dieser Seite wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann jedoch keine Gewähr übernommen werden.</p>
+      <h3 data-i18n="imp.h4">Urheberrecht</h3>
+      <p data-i18n="imp.p4">Die durch den Seitenbetreiber erstellten Inhalte und Werke auf dieser Seite unterliegen dem deutschen Urheberrecht.</p>
     </div>
   </div>
 
   <!-- Datenschutz Modal -->
   <div class="modal-overlay" id="datenschutzModal">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="datenschutzTitle">
-      <button class="modal__close" onclick="closeModal('datenschutz')" aria-label="Schließen">
+      <button class="modal__close" onclick="closeModal('datenschutz')" aria-label="Schließen" data-i18n-attr="aria-label:a11y.close">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
-      <h2 id="datenschutzTitle">DATENSCHUTZERKLÄRUNG</h2>
-      <h3>1. Verantwortlicher</h3>
-      <p>Thomas Wodny<br>Hamburg, Deutschland<br>E-Mail: Wodny33@googlemail.com</p>
-      <h3>2. Erhebung und Speicherung personenbezogener Daten</h3>
-      <p>Beim Besuch dieser Website werden automatisch Informationen durch den Browser übermittelt und in Server-Logfiles gespeichert (Browsertyp, Betriebssystem, Referrer-URL, IP-Adresse, Zeitpunkt des Zugriffs). Diese Daten sind nicht bestimmten Personen zuordenbar.</p>
-      <h3>3. Kontaktformular</h3>
-      <p>Bei Nutzung des Kontaktformulars werden die von Ihnen eingegebenen Daten zum Zweck der Bearbeitung Ihrer Anfrage gespeichert. Eine Weitergabe an Dritte erfolgt nicht.</p>
-      <h3>4. Cookies</h3>
-      <p>Diese Website verwendet technisch notwendige Cookies (z.B. Cookie-Consent-Status). Es werden keine Tracking-Cookies eingesetzt.</p>
-      <h3>5. Reichweitenmessung (GoatCounter)</h3>
-      <p>Zur statistischen Auswertung der Besucherzahlen wird der datenschutzfreundliche Dienst GoatCounter (Martin Tournoij, Egmond aan Zee, Niederlande) eingesetzt. GoatCounter setzt keine Cookies, erstellt keine personenbezogenen Profile und speichert keine IP-Adressen. Aus Browser-Informationen (Referrer, User-Agent, Bildschirmgröße) wird ein anonymer, tageweise rotierender Hash gebildet, um wiederkehrende Besuche grob zu erkennen; eine Rückverfolgung auf einzelne Personen ist nicht möglich. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer reichweitenbezogenen Auswertung der Website). Weitere Informationen: <a href="https://www.goatcounter.com/help/privacy" target="_blank" rel="noopener">goatcounter.com/help/privacy</a>.</p>
-      <h3>6. Ihre Rechte</h3>
+      <h2 id="datenschutzTitle" data-i18n="ds.title">DATENSCHUTZERKLÄRUNG</h2>
+      <h3 data-i18n="ds.h1">1. Verantwortlicher</h3>
+      <p data-i18n-html="ds.p1">Thomas Wodny<br>Hamburg, Deutschland<br>E-Mail: Wodny33@googlemail.com</p>
+      <h3 data-i18n="ds.h2">2. Erhebung und Speicherung personenbezogener Daten</h3>
+      <p data-i18n="ds.p2">Beim Besuch dieser Website werden automatisch Informationen durch den Browser übermittelt und in Server-Logfiles gespeichert (Browsertyp, Betriebssystem, Referrer-URL, IP-Adresse, Zeitpunkt des Zugriffs). Diese Daten sind nicht bestimmten Personen zuordenbar.</p>
+      <h3 data-i18n="ds.h3">3. Kontaktformular</h3>
+      <p data-i18n="ds.p3">Bei Nutzung des Kontaktformulars werden die von Ihnen eingegebenen Daten zum Zweck der Bearbeitung Ihrer Anfrage gespeichert. Eine Weitergabe an Dritte erfolgt nicht.</p>
+      <h3 data-i18n="ds.h4">4. Cookies</h3>
+      <p data-i18n="ds.p4">Diese Website verwendet technisch notwendige Cookies (z.B. Cookie-Consent-Status). Es werden keine Tracking-Cookies eingesetzt.</p>
+      <h3 data-i18n="ds.h5">5. Reichweitenmessung (GoatCounter)</h3>
+      <p data-i18n-html="ds.p5">Zur statistischen Auswertung der Besucherzahlen wird der datenschutzfreundliche Dienst GoatCounter (Martin Tournoij, Egmond aan Zee, Niederlande) eingesetzt. GoatCounter setzt keine Cookies, erstellt keine personenbezogenen Profile und speichert keine IP-Adressen. Aus Browser-Informationen (Referrer, User-Agent, Bildschirmgröße) wird ein anonymer, tageweise rotierender Hash gebildet, um wiederkehrende Besuche grob zu erkennen; eine Rückverfolgung auf einzelne Personen ist nicht möglich. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer reichweitenbezogenen Auswertung der Website). Weitere Informationen: <a href="https://www.goatcounter.com/help/privacy" target="_blank" rel="noopener">goatcounter.com/help/privacy</a>.</p>
+      <h3 data-i18n="ds.h6">6. Ihre Rechte</h3>
       <ul>
-        <li>Recht auf Auskunft (Art. 15 DSGVO)</li>
-        <li>Recht auf Berichtigung (Art. 16 DSGVO)</li>
-        <li>Recht auf Löschung (Art. 17 DSGVO)</li>
-        <li>Recht auf Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
-        <li>Recht auf Datenübertragbarkeit (Art. 20 DSGVO)</li>
-        <li>Recht auf Widerspruch (Art. 21 DSGVO)</li>
+        <li data-i18n="ds.r1">Recht auf Auskunft (Art. 15 DSGVO)</li>
+        <li data-i18n="ds.r2">Recht auf Berichtigung (Art. 16 DSGVO)</li>
+        <li data-i18n="ds.r3">Recht auf Löschung (Art. 17 DSGVO)</li>
+        <li data-i18n="ds.r4">Recht auf Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
+        <li data-i18n="ds.r5">Recht auf Datenübertragbarkeit (Art. 20 DSGVO)</li>
+        <li data-i18n="ds.r6">Recht auf Widerspruch (Art. 21 DSGVO)</li>
       </ul>
-      <h3>7. Aktualität</h3>
-      <p>Diese Datenschutzerklärung ist aktuell gültig. Stand: April 2026.</p>
+      <h3 data-i18n="ds.h7">7. Aktualität</h3>
+      <p data-i18n="ds.p7">Diese Datenschutzerklärung ist aktuell gültig. Stand: April 2026.</p>
     </div>
   </div>
 
   <!-- Cookie Banner -->
   <div class="cookie-banner" id="cookieBanner">
-    <p>Diese Website nutzt technisch notwendige Cookies.</p>
+    <p data-i18n="cookie.text">Diese Website nutzt technisch notwendige Cookies.</p>
     <div class="cookie-banner__btns">
-      <button class="cookie-btn cookie-btn--accept" onclick="handleCookies(true)">OK</button>
-      <button class="cookie-btn cookie-btn--decline" onclick="handleCookies(false)">ABLEHNEN</button>
+      <button class="cookie-btn cookie-btn--accept" onclick="handleCookies(true)" data-i18n="cookie.ok">OK</button>
+      <button class="cookie-btn cookie-btn--decline" onclick="handleCookies(false)" data-i18n="cookie.decline">ABLEHNEN</button>
     </div>
   </div>
 
@@ -2274,12 +2310,16 @@
     (function() {
       var el = document.getElementById('typingTarget');
       if (!el) return;
-      var texts = ['Financial Analyst & Senior Controller', 'Data-Driven Controlling', 'SQL • Python • Power Query • KI'];
+      var TYPING = {
+        de: ['Financial Analyst & Senior Controller', 'Datengetriebenes Controlling', 'SQL • Python • Power Query • KI'],
+        en: ['Financial Analyst & Senior Controller', 'Data-Driven Controlling', 'SQL • Python • Power Query • AI']
+      };
+      function texts() { return TYPING[window.__lang] || TYPING.de; }
       var textIdx = 0, charIdx = 0, deleting = false;
       var typeSpeed = 65, deleteSpeed = 35, pauseEnd = 2200, pauseStart = 600;
 
       function type() {
-        var current = texts[textIdx];
+        var current = texts()[textIdx % texts().length];
         if (!deleting) {
           el.textContent = current.substring(0, charIdx + 1);
           charIdx++;
@@ -2293,7 +2333,7 @@
           charIdx--;
           if (charIdx === 0) {
             deleting = false;
-            textIdx = (textIdx + 1) % texts.length;
+            textIdx = (textIdx + 1) % texts().length;
             setTimeout(type, pauseStart);
             return;
           }
@@ -2373,7 +2413,7 @@
       var cx = w / 2, cy = h / 2;
       var maxR = Math.min(cx, cy) - 100;
 
-      var labels = ['Power Query M', 'SQL', 'Claude AI / KI', 'SAP FI/CO', 'Python', 'VBA', 'TypeScript/JS', 'HTML/CSS'];
+      var labels = ['Power Query M', 'SQL', 'Claude AI', 'SAP FI/CO', 'Python', 'VBA', 'TypeScript/JS', 'HTML/CSS'];
       var values = [0.95, 0.85, 0.90, 0.70, 0.65, 0.65, 0.60, 0.60];
       var n = labels.length;
       var angleStep = (Math.PI * 2) / n;
@@ -2615,7 +2655,7 @@
       if (valid) {
         var btn = form.querySelector('button[type="submit"]');
         btn.disabled = true;
-        btn.textContent = 'ÜBERTRAGUNG...';
+        btn.textContent = tJS('sending');
         var formData = new FormData(form);
         fetch(form.action, {
           method: 'POST',
@@ -2629,14 +2669,14 @@
             document.getElementById('formSuccess').classList.add('visible');
           } else {
             btn.disabled = false;
-            btn.textContent = 'NACHRICHT SENDEN';
-            alert('Fehler beim Senden. Bitte versuchen Sie es später erneut.');
+            btn.textContent = tJS('send');
+            alert(tJS('error'));
           }
         })
         .catch(function() {
           btn.disabled = false;
-          btn.textContent = 'NACHRICHT SENDEN';
-          alert('Fehler beim Senden. Bitte versuchen Sie es später erneut.');
+          btn.textContent = tJS('send');
+          alert(tJS('error'));
         });
       }
     });
@@ -2755,6 +2795,288 @@
         switchPanel(panels[key - 1]);
       }
     });
+  </script>
+
+  <!-- ========== I18N / LANGUAGE SWITCH ========== -->
+  <script>
+  (function () {
+    var EN = {
+      'a11y.menu': 'Open menu',
+      'a11y.close': 'Close',
+      'header.status': 'SYSTEM ONLINE',
+      'nav.profil': 'Profile',
+      'nav.erfahrung': 'Experience',
+      'nav.skills': 'Skills',
+      'nav.projekte': 'Projects',
+      'nav.report': 'Report',
+      'nav.leistungen': 'Services',
+      'nav.ki-updates': 'AI Updates',
+      'nav.kontakt': 'Contact',
+
+      'profil.title': 'TACTICAL PROFILE',
+      'profil.subtitle': '// Financial Analyst & Senior Controller — Hamburg, DE',
+      'profil.p1': 'Highly analytical Financial Analyst and Senior Controller with extensive experience in FP&A, financial modelling and data automation. A proven track record of leveraging SQL, Python and Power BI to optimise reporting processes and strategic decision-making.',
+      'profil.p2': 'As Senior Controller at Stadtwerke Ahrensburg, I am responsible for financial controlling of the electricity and energy-services (EDL) divisions. My focus: connecting traditional finance with modern business intelligence to improve data quality and operational efficiency.',
+      'profil.p3': 'I see myself as a bridge-builder between finance and IT — developing technical solutions for business challenges, powered by AI-assisted workflows with Claude AI, Python and SQL.',
+      'profil.sport1': 'Before my controlling career, I was a professional basketball player (Pro A / Pro B).',
+      'profil.sport2': 'Four years as a national-league coach in the WNBL — German Champion 2014.',
+      'profil.sport3': 'Discipline, strategic thinking and team leadership still shape the way I work today.',
+      'profil.stats': 'Operational Stats',
+      'profil.stat1': 'Data integrity during migration',
+      'profil.stat2': 'Reporting effort reduced',
+      'profil.stat3': 'Customer records migrated',
+      'profil.stat4': 'Subsidiaries supported',
+      'profil.refs': 'References',
+      'profil.ref1': 'Exceptional commitment and an outstanding ability to grasp complex matters',
+      'profil.ref2': 'Solves all tasks and challenges in an excellent manner',
+      'profil.ref3': 'Consistently very good work results with the utmost reliability',
+      'profil.ref4': 'Able to think and act in pragmatic, strategic and forward-looking terms',
+      'profil.refsource': 'Employer reference',
+
+      'erf.title': 'PROFESSIONAL EXPERIENCE',
+      'erf.subtitle': '// Career path — Controlling & Finance',
+      'erf.job1.date': 'OCT 2024 — PRESENT',
+      'erf.job1.role': 'Senior Controller – Energy & Utilities',
+      'erf.job1.li1': 'Migration of more than 10,000 customer records between NAV and PowerCloud systems with 100% data integrity',
+      'erf.job1.li2': 'Automation of regulatory reporting: reduced from 8 hours to 30 minutes per month',
+      'erf.job1.li3': 'Development of SQL-based forecasting models for gas consumption patterns',
+      'erf.job1.li4': 'Implementation of OData integration for real-time data connectivity',
+      'erf.job2.date': 'APR 2023 — SEP 2024',
+      'erf.job2.role': 'Investment Controller',
+      'erf.job2.li1': 'Management reporting for the regional association and 7 subsidiaries',
+      'erf.job2.li2': 'Automation of complex posting processes with Python and VBA — 100% automation of budget-controlled journal entries',
+      'erf.job2.li3': 'Design and maintenance of SAP-based KPI dashboards',
+      'erf.job3.date': 'MAY 2021 — MAR 2023',
+      'erf.job3.role': 'Management Team – Coordination & Controlling',
+      'erf.job3.li1': 'Led strategic planning initiatives for over 120 individual projects with 150 employees',
+      'erf.job3.li2': 'Carried out comprehensive budget-vs-actual comparisons and variance analyses',
+      'erf.job3.li3': 'Process and weak-point analysis with optimisation of management processes',
+      'erf.edu': 'Education',
+      'erf.edu1.detail': 'University of Kassel — focus: Finance, Accounting, Controlling & Taxation (part-time)',
+      'erf.edu2.title': 'University of Applied Sciences entrance qualification',
+      'erf.edu3.year': 'Certificate',
+      'erf.edu3.title': 'IFRS/HGB Accounting',
+      'erf.edu3.detail': 'International and national accounting standards',
+
+      'skills.title': 'SKILLS & TECHNOLOGIES',
+      'skills.subtitle': '// Competency profile — radar analysis',
+      'skills.cat1': 'Programming & Data Analysis',
+      'skills.c1i4': 'VBA – Automated posting processes',
+      'skills.cat2': 'Business Intelligence & Systems',
+      'skills.c2i3': 'PowerCloud (energy billing)',
+      'skills.cat3': 'Web Development',
+      'skills.c3i3': 'HTML / CSS – Responsive Design',
+      'skills.cat4': 'AI Tools & Automation',
+      'skills.c4i1': 'Claude AI – Projects, Memory, Computer Use',
+      'skills.c4i4': 'MCP – Custom Tools, Filesystem Access',
+      'skills.cat5': 'Domain Expertise',
+      'skills.c5i1': 'FP&A, Forecasting, Budgeting',
+      'skills.c5i3': 'Regulatory Compliance (BNetzA, Customs)',
+      'skills.c5i4': 'Energy-industry processes',
+
+      'proj.title': 'PROJECT REFERENCES',
+      'proj.subtitle': '// Case Studies — Data-Driven Solutions',
+      'proj.c1.title': 'NAV-PowerCloud Data Migration & Reconciliation',
+      'proj.c1.desc': 'Complete data migration from Microsoft Dynamics NAV to PowerCloud for the gas and electricity divisions. Harmonisation of debit/credit logic (NAV) with sign-based logic (PowerCloud), voucher processing, automatic discrepancy detection and validation of all customer balances.',
+      'proj.c1.result': '10,000+ records migrated with 100% data integrity',
+      'proj.c2.title': 'BILA Reporting (Gas/Electricity)',
+      'proj.c2.desc': 'Built automated SQL views for balancing-settlement projects. VIEW creation with complex JOINs across vouchers, contracts and items tables.',
+      'proj.c2.result': 'Time saved: 8h → 30min per month',
+      'proj.c3.title': 'Customs (HZA) Gas-Billing Reports',
+      'proj.c3.desc': 'Processing and preparation of consumption data for the Main Customs Office. Dynamic pivot tables with multi-year analysis.',
+      'proj.c3.result': 'Annual customs report fully automated',
+      'proj.c4.title': 'OData Integration Business Central',
+      'proj.c4.desc': 'Connected Business Central to Power Query via OData V4. OAuth 2.0 authentication and automated data retrieval.',
+      'proj.c4.result': 'Real-time data connection for dashboards',
+      'proj.c5.title': 'Cost-Centre Analysis Dashboard',
+      'proj.c5.desc': 'Interactive dashboard for overhead allocation with automated cost-centre assignment and VBA-driven worksheet management.',
+      'proj.c5.result': 'Fully automated cost-centre allocation',
+      'proj.c6.title': 'KPI Dashboards AWO Landesverband Hamburg e.V.',
+      'proj.c6.desc': 'SAP-based KPI dashboards for real-time tracking of financial performance. Management reporting for 7 subsidiaries.',
+      'proj.c6.result': '100% automation of journal entries',
+      'proj.c7.title': 'Family Finance Dashboard',
+      'proj.c7.desc': 'Full-stack web app for a private financial overview. Automatic import and categorisation of Sparkasse account transactions and PayPal payments. Interactive visualisations with income/expense analysis.',
+      'proj.c7.result': 'Fully automated financial transparency for the household',
+      'proj.c8.title': 'Dental-Practice Automation',
+      'proj.c8.desc': 'Custom automation solution for a dental practice. Fully automated invoicing with encrypted patient data.',
+      'proj.c8.result': 'Invoicing moved from manual to fully automated',
+      'proj.tag.encryption': 'Encryption',
+      'proj.tag.custom': 'Custom software',
+
+      'rep.title': 'PERFORMANCE REPORT',
+      'rep.subtitle': '// Sneak preview — interactive financial dashboard (sample data)',
+      'rep.intro': 'Designed for management, supervisory boards and shareholders — a premium financial dashboard in the "Obsidian Ledger" style. All figures are fictitious sample values for demonstration.',
+      'rep.badge': 'Demo — Fictitious Data',
+      'rep.kpi1': 'Revenue',
+      'rep.kpi3': 'EBIT margin',
+      'rep.kpi4': 'Employees (FTE)',
+      'rep.chart1': 'Revenue development (€m)',
+      'rep.chart2': 'Cost structure',
+      'rep.donut1': 'Materials 42%',
+      'rep.donut2': 'Personnel 31%',
+      'rep.donut3': 'Operations 18%',
+      'rep.donut4': 'Other 9%',
+      'rep.watermark': '◆ Illustrative example — no real company data ◆',
+      'rep.stack': 'Technology Stack',
+      'rep.stack1': 'Vanilla HTML/CSS/JS, Apache ECharts 5, single-file dashboard',
+      'rep.stack2': '"Obsidian Ledger" — premium dark theme with gold accents. Fully adaptable to your corporate design (colours, logo, typography).',
+      'rep.stack3': 'Year-on-year comparison, KPI cards, interactive charts, tab navigation, offline-ready',
+
+      'leist.title': 'SERVICES',
+      'leist.subtitle': '// Service portfolio — Data-Driven Controlling',
+      'leist.s1.title': 'Data Analysis & Process Automation',
+      'leist.s1.desc': 'Identifying optimisation potential and developing automated workflows with Python, SQL and Power Query for recurring tasks.',
+      'leist.s2.title': 'System Migration & Data Reconciliation',
+      'leist.s2.desc': 'Planning and executing data migrations (NAV, PowerCloud, Business Central) with seamless reconciliation and validation.',
+      'leist.s3.title': 'Automated Reporting Systems',
+      'leist.s3.desc': 'Building integrated reporting solutions for management and regulatory requirements (BNetzA, customs authorities). Demonstrable reduction of manual effort.',
+      'leist.s4.title': 'AI-Assisted Controlling Solutions',
+      'leist.s4.desc': 'Integrating AI tools (Claude AI, MCP) into existing controlling workflows. Automated document generation, code generation and data processing.',
+      'leist.s5.title': 'Custom Practice Automation',
+      'leist.s5.desc': 'Tailored automation solutions for medical and dental practices. Integration with existing practice software, automated invoicing with encrypted data processing.',
+      'leist.s6.title': 'Training & Knowledge Transfer',
+      'leist.s6.desc': 'Hands-on training in Power Query, SQL for controllers, Python automation and AI tools — so your team can keep working independently.',
+
+      'ki.title': 'AI UPDATES',
+      'ki.subtitle': '// Weekly briefing — Artificial Intelligence',
+      'ki.readmore': 'READ REPORT →',
+      'ki.archive': '— Archive —',
+
+      'kon.title': 'CONTACT',
+      'kon.subtitle': '// Communication channel — send a message',
+      'kon.intro': 'Do you have a project that calls for data-driven controlling? Or are you looking for support with a system migration or AI-assisted automation? Let’s talk.',
+      'kon.location': 'Hamburg, Germany',
+      'kon.viaform': 'Via the contact form',
+      'kon.langs': 'Languages',
+      'kon.lang1': 'German – native',
+      'kon.lang2': 'English – fluent (business proficient)',
+
+      'form.name': 'Name *',
+      'form.name.ph': 'Your name',
+      'form.email': 'Email *',
+      'form.email.ph': 'your@email.com',
+      'form.company': 'Company',
+      'form.company.ph': 'Optional',
+      'form.subject': 'Subject *',
+      'form.opt0': 'Please choose',
+      'form.opt1': 'Consulting enquiry',
+      'form.opt2': 'Project enquiry',
+      'form.opt3': 'Training',
+      'form.opt4': 'Job offer',
+      'form.opt5': 'Other',
+      'form.message': 'Message *',
+      'form.message.ph': 'Describe your request...',
+      'form.privacy': 'I have read the <a href="#" onclick="openModal(\'datenschutz\');return false;">Privacy Policy</a> and consent to the processing of my data. *',
+      'form.send': 'SEND MESSAGE',
+      'form.success.title': 'TRANSMISSION SUCCESSFUL',
+      'form.success.text': 'Your message has been sent. I will get back to you shortly.',
+
+      'foot.stat1': 'Data<br>integrity',
+      'foot.stat2': 'Reporting<br>optimised',
+      'foot.stat3': 'Records<br>migrated',
+      'foot.impressum': 'Legal Notice',
+      'foot.privacy': 'Privacy',
+
+      'imp.title': 'LEGAL NOTICE',
+      'imp.h1': 'Information pursuant to § 5 TMG',
+      'imp.p1': 'Thomas Wodny<br>Financial Analyst & Senior Controller<br>Hamburg, Germany',
+      'imp.h2': 'Contact',
+      'imp.p2': 'Email: Wodny33@googlemail.com',
+      'imp.h3': 'Disclaimer',
+      'imp.p3': 'The contents of this site were created with the greatest care. However, no guarantee can be given for the accuracy, completeness or timeliness of the content.',
+      'imp.h4': 'Copyright',
+      'imp.p4': 'The content and works on this site created by the operator are subject to German copyright law.',
+
+      'ds.title': 'PRIVACY POLICY',
+      'ds.h1': '1. Controller',
+      'ds.p1': 'Thomas Wodny<br>Hamburg, Germany<br>Email: Wodny33@googlemail.com',
+      'ds.h2': '2. Collection and storage of personal data',
+      'ds.p2': 'When you visit this website, information is automatically transmitted by your browser and stored in server log files (browser type, operating system, referrer URL, IP address, time of access). This data cannot be attributed to specific individuals.',
+      'ds.h3': '3. Contact form',
+      'ds.p3': 'When you use the contact form, the data you enter is stored for the purpose of processing your enquiry. It is not passed on to third parties.',
+      'ds.h4': '4. Cookies',
+      'ds.p4': 'This website uses technically necessary cookies (e.g. cookie-consent status). No tracking cookies are used.',
+      'ds.h5': '5. Reach measurement (GoatCounter)',
+      'ds.p5': 'For statistical analysis of visitor numbers, the privacy-friendly service GoatCounter (Martin Tournoij, Egmond aan Zee, Netherlands) is used. GoatCounter sets no cookies, creates no personal profiles and stores no IP addresses. From browser information (referrer, user agent, screen size) an anonymous, daily-rotating hash is generated to roughly recognise returning visits; tracing back to individual persons is not possible. The legal basis is Art. 6(1)(f) GDPR (legitimate interest in a reach-based analysis of the website). Further information: <a href="https://www.goatcounter.com/help/privacy" target="_blank" rel="noopener">goatcounter.com/help/privacy</a>.',
+      'ds.h6': '6. Your rights',
+      'ds.r1': 'Right of access (Art. 15 GDPR)',
+      'ds.r2': 'Right to rectification (Art. 16 GDPR)',
+      'ds.r3': 'Right to erasure (Art. 17 GDPR)',
+      'ds.r4': 'Right to restriction of processing (Art. 18 GDPR)',
+      'ds.r5': 'Right to data portability (Art. 20 GDPR)',
+      'ds.r6': 'Right to object (Art. 21 GDPR)',
+      'ds.h7': '7. Validity',
+      'ds.p7': 'This privacy policy is currently valid. As of: April 2026.',
+
+      'cookie.text': 'This website uses technically necessary cookies.',
+      'cookie.ok': 'OK',
+      'cookie.decline': 'DECLINE'
+    };
+
+    // JS-only strings (button states, alerts)
+    var JS_STR = {
+      de: { sending: 'ÜBERTRAGUNG...', send: 'NACHRICHT SENDEN', error: 'Fehler beim Senden. Bitte versuchen Sie es später erneut.' },
+      en: { sending: 'TRANSMITTING...', send: 'SEND MESSAGE', error: 'Sending failed. Please try again later.' }
+    };
+    window.tJS = function (k) { return (JS_STR[window.__lang] || JS_STR.de)[k]; };
+
+    // Snapshot the German originals already in the DOM (so 'de' needs no dictionary)
+    var DE = {}, DE_HTML = {}, DE_ATTR = {};
+    function parsePairs(spec) {
+      return spec.split(';').map(function (p) {
+        var idx = p.indexOf(':');
+        return { attr: p.slice(0, idx).trim(), key: p.slice(idx + 1).trim() };
+      });
+    }
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var k = el.getAttribute('data-i18n');
+      if (!(k in DE)) DE[k] = el.textContent;
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
+      var k = el.getAttribute('data-i18n-html');
+      if (!(k in DE_HTML)) DE_HTML[k] = el.innerHTML;
+    });
+    document.querySelectorAll('[data-i18n-attr]').forEach(function (el) {
+      parsePairs(el.getAttribute('data-i18n-attr')).forEach(function (p) {
+        if (!(p.key in DE_ATTR)) DE_ATTR[p.key] = el.getAttribute(p.attr);
+      });
+    });
+
+    window.setLang = function (lang) {
+      if (lang !== 'en') lang = 'de';
+      window.__lang = lang;
+      document.documentElement.lang = lang;
+      var en = (lang === 'en');
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        var k = el.getAttribute('data-i18n');
+        el.textContent = en ? (EN[k] != null ? EN[k] : DE[k]) : DE[k];
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
+        var k = el.getAttribute('data-i18n-html');
+        el.innerHTML = en ? (EN[k] != null ? EN[k] : DE_HTML[k]) : DE_HTML[k];
+      });
+      document.querySelectorAll('[data-i18n-attr]').forEach(function (el) {
+        parsePairs(el.getAttribute('data-i18n-attr')).forEach(function (p) {
+          el.setAttribute(p.attr, en ? (EN[p.key] != null ? EN[p.key] : DE_ATTR[p.key]) : DE_ATTR[p.key]);
+        });
+      });
+      // Generic KI-Update card chrome (headlines stay German, they link to German reports)
+      document.querySelectorAll('.ki-update-card__cta').forEach(function (el) {
+        el.textContent = en ? 'READ REPORT →' : 'REPORT LESEN →';
+      });
+      document.querySelectorAll('.ki-update-card__badge').forEach(function (el) {
+        el.textContent = en ? 'Latest' : 'Aktuell';
+      });
+      document.querySelectorAll('.lang-toggle__btn').forEach(function (b) {
+        b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+      });
+      try { localStorage.setItem('lang', lang); } catch (e) {}
+    };
+
+    var saved;
+    try { saved = localStorage.getItem('lang'); } catch (e) {}
+    setLang(saved === 'en' ? 'en' : 'de');
+  })();
   </script>
 </body>
 </html>
