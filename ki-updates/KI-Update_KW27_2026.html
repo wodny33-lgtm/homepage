@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KI-Update KW 27 — Drei Modelle, zwei Kündigungen (Modern SaaS · Dark)</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100' height='100' rx='12' fill='%231C1917'/%3E%3Cpath d='M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z' fill='%23B07D1E' opacity='0.12'/%3E%3Cpath d='M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z' fill='none' stroke='%23B07D1E' stroke-width='3'/%3E%3Ctext x='50' y='54' text-anchor='middle' dominant-baseline='central' font-family='Georgia,serif' font-weight='700' font-size='36' fill='%23B07D1E'%3ETW%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500;1,9..144,900&family=Hanken+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --base: #0b0d14;
+    --ink: #f2f0ea;
+    --ink-soft: #a6adbe;
+    --ink-faint: #6b7283;
+    --gold: #f0a92e;
+    --gold-bright: #ffc35a;
+    --gold-deep: #d98a16;
+    --glass: rgba(255,255,255,0.045);
+    --glass-strong: rgba(255,255,255,0.075);
+    --glass-edge: rgba(255,255,255,0.12);
+    --glass-line: rgba(255,255,255,0.08);
+    --emerald: #34d399;
+    --violet: #a78bfa;
+    --cyan: #38bdf8;
+    --rose: #fb7185;
+    --blue: #6090f8;
+    --shadow: 0 2px 6px rgba(0,0,0,0.4), 0 16px 40px -12px rgba(0,0,0,0.6);
+    --shadow-sm: 0 2px 12px -4px rgba(0,0,0,0.5);
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Hanken Grotesk', -apple-system, sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--ink);
+    background: var(--base);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ---------- Gradient-Mesh-Hintergrund (dunkel, leuchtend) ---------- */
+  .mesh {
+    position: fixed;
+    inset: -20%;
+    z-index: -2;
+    background:
+      radial-gradient(38% 34% at 16% 10%, rgba(240,169,46,0.30), transparent 70%),
+      radial-gradient(36% 38% at 86% 6%, rgba(251,113,133,0.22), transparent 70%),
+      radial-gradient(44% 44% at 92% 70%, rgba(56,189,248,0.26), transparent 72%),
+      radial-gradient(48% 48% at 6% 90%, rgba(52,211,153,0.20), transparent 72%),
+      radial-gradient(60% 60% at 50% 50%, rgba(120,90,200,0.12), transparent 65%);
+    filter: saturate(1.15);
+    animation: drift 28s ease-in-out infinite alternate;
+  }
+  @keyframes drift {
+    0%   { transform: translate3d(0,0,0) scale(1); }
+    50%  { transform: translate3d(-2%, 1.5%, 0) scale(1.07); }
+    100% { transform: translate3d(2%, -1.5%, 0) scale(1.04); }
+  }
+
+  /* Grain-Overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.6;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- Glas-Grundbaustein ---------- */
+  .glass {
+    background: var(--glass);
+    backdrop-filter: blur(22px) saturate(1.4);
+    -webkit-backdrop-filter: blur(22px) saturate(1.4);
+    border: 1px solid var(--glass-edge);
+    box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+
+  /* ---------- Top-Bar ---------- */
+  .back-bar {
+    position: sticky;
+    top: 0.75rem;
+    z-index: 50;
+    width: min(960px, calc(100% - 2rem));
+    margin: 0.75rem auto 0;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1rem;
+    border-radius: 999px;
+    background: rgba(18,20,28,0.6);
+    backdrop-filter: blur(18px) saturate(1.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    border: 1px solid var(--glass-edge);
+    box-shadow: var(--shadow-sm);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+  }
+  .back-bar:hover { transform: translateY(-1px); box-shadow: var(--shadow); color: var(--gold-bright); }
+  .back-bar__logo { width: 24px; height: 24px; border-radius: 7px; flex-shrink: 0; }
+  .back-bar__arrow { font-size: 0.9rem; }
+  .back-bar__site { color: var(--ink); font-weight: 600; }
+  .back-bar__spacer { flex: 1; }
+  .back-bar__pill {
+    color: var(--gold-bright);
+    background: rgba(240,169,46,0.16);
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.66rem;
+  }
+
+  .wrap { width: min(960px, calc(100% - 2rem)); margin: 0 auto; }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 4.5rem 0 2.5rem; text-align: center; }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-bright);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  .hero-badge .spark {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--gold-bright);
+    box-shadow: 0 0 0 4px rgba(240,169,46,0.18), 0 0 12px rgba(255,195,90,0.6);
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-size: clamp(2.4rem, 6vw, 4.3rem);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    max-width: 15ch;
+    margin: 0 auto 1.6rem;
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) 0.08s forwards;
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 900;
+    background: linear-gradient(105deg, var(--gold-bright), var(--gold-deep));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    max-width: 54ch;
+    margin: 0 auto 2.2rem;
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) 0.16s forwards;
+  }
+  .hero-meta {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) 0.24s forwards;
+  }
+  .hero-meta span {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--ink-soft);
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    background: var(--glass);
+    border: 1px solid var(--glass-edge);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  /* ---------- Kennzahlen ---------- */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1rem 0 3.5rem;
+  }
+  .stat {
+    border-radius: 22px;
+    padding: 1.6rem 1.5rem;
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) forwards;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  }
+  .stat:nth-child(1){ animation-delay: 0.30s; }
+  .stat:nth-child(2){ animation-delay: 0.38s; }
+  .stat:nth-child(3){ animation-delay: 0.46s; }
+  .stat:hover { transform: translateY(-4px); box-shadow: var(--shadow); background: var(--glass-strong); }
+  .stat-value {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2rem, 4vw, 2.7rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .stat-1 .stat-value { background: linear-gradient(120deg,#ffc35a,#d98a16); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .stat-2 .stat-value { background: linear-gradient(120deg,#fb7185,#e11d48); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .stat-3 .stat-value { background: linear-gradient(120deg,#38bdf8,#2563eb); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .stat-label { margin-top: 0.7rem; font-size: 0.85rem; line-height: 1.5; color: var(--ink-soft); }
+
+  /* ---------- Lede ---------- */
+  .lede {
+    border-radius: 24px;
+    padding: 2rem 2.2rem;
+    margin-bottom: 3.5rem;
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    position: relative;
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) 0.5s forwards;
+  }
+  .lede::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 1.6rem; bottom: 1.6rem;
+    width: 4px;
+    border-radius: 4px;
+    background: linear-gradient(var(--gold-bright), var(--gold-deep));
+  }
+  .lede strong { color: var(--ink); font-weight: 700; }
+
+  /* ---------- Sektionen ---------- */
+  .section { margin-bottom: 2.6rem; }
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 1rem;
+    padding-left: 0.25rem;
+  }
+  .dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; box-shadow: 0 0 12px currentColor; }
+  .section-name {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .section-rule { flex: 1; height: 1px; background: linear-gradient(90deg, var(--glass-line), transparent); }
+
+  .card {
+    border-radius: 22px;
+    padding: 1.5rem 1.7rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); background: var(--glass-strong); border-color: rgba(255,255,255,0.18); }
+  .card + .card { margin-top: 0.85rem; }
+  .card-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.2rem;
+    line-height: 1.35;
+    color: var(--ink);
+    margin-bottom: 0.7rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  .card-body { color: var(--ink-soft); font-size: 0.96rem; }
+  .card-body strong { color: var(--ink); font-weight: 600; }
+
+  .chip {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+  }
+  .chip--new   { color:#c4b5fd; background:rgba(167,139,250,0.16); border-color:rgba(167,139,250,0.3); }
+  .chip--down  { color:#fda4af; background:rgba(251,113,133,0.14); border-color:rgba(251,113,133,0.3); }
+  .chip--up    { color:#6ee7b7; background:rgba(52,211,153,0.16); border-color:rgba(52,211,153,0.3); }
+  .chip--alert { color:var(--gold-bright); background:rgba(240,169,46,0.16); border-color:rgba(240,169,46,0.36); }
+  .chip--neutral{ color:var(--ink-soft); background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.14); }
+
+  /* ---------- Closer ---------- */
+  .closer {
+    margin-top: 3.5rem;
+    border-radius: 28px;
+    padding: 2.8rem;
+    position: relative;
+    overflow: hidden;
+    background:
+      linear-gradient(135deg, rgba(240,169,46,0.18), rgba(56,189,248,0.14)),
+      rgba(255,255,255,0.05);
+    border: 1px solid var(--glass-edge);
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    box-shadow: var(--shadow);
+  }
+  .closer-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-bright);
+    margin-bottom: 1rem;
+  }
+  .closer p {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.4rem, 3vw, 1.8rem);
+    line-height: 1.4;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .closer p + p {
+    margin-top: 1.1rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--ink-soft);
+    letter-spacing: 0;
+  }
+  .closer p + p strong { color: var(--ink); font-weight: 700; }
+
+  /* ---------- Footer ---------- */
+  .footer-cta-wrap { text-align: center; padding: 3rem 0 1.5rem; }
+  .footer-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.9rem 1.6rem;
+    border-radius: 999px;
+    background: linear-gradient(120deg, var(--gold-bright), var(--gold-deep));
+    color: #1a1206;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    box-shadow: var(--shadow), 0 0 24px -6px rgba(255,195,90,0.5);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .footer-cta:hover { transform: translateY(-2px); box-shadow: var(--shadow), 0 0 32px -4px rgba(255,195,90,0.7); }
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 1.5rem 0 4rem;
+    border-top: 1px solid var(--glass-line);
+    font-size: 0.82rem;
+    color: var(--ink-faint);
+  }
+  .footer a { color: var(--ink-soft); text-decoration: none; font-weight: 600; }
+  .footer a:hover { color: var(--gold-bright); }
+  .footer-tags { font-family: var(--font-mono); font-size: 0.72rem; }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mesh { animation: none; }
+    [style*="animation"], .hero-badge, .hero h1, .hero-sub, .hero-meta, .stat, .lede { animation: none !important; opacity: 1 !important; transform: none !important; }
+  }
+  @media (max-width: 720px) {
+    .stats { grid-template-columns: 1fr; }
+    .hero { padding: 3rem 0 2rem; }
+    .closer { padding: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+<div class="mesh" aria-hidden="true"></div>
+
+<a class="back-bar" href="https://thomas-wodny.de/#panel-ki-updates">
+  <svg class="back-bar__logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect width="100" height="100" rx="12" fill="#1C1917"/>
+    <path d="M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z" fill="#B07D1E" opacity="0.12"/>
+    <path d="M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z" fill="none" stroke="#B07D1E" stroke-width="3"/>
+    <text x="50" y="54" text-anchor="middle" dominant-baseline="central" font-family="Georgia,serif" font-weight="700" font-size="36" fill="#B07D1E">TW</text>
+  </svg>
+  <span class="back-bar__arrow">&#8592;</span>
+  <span class="back-bar__site">thomas-wodny.de</span>
+  <span class="back-bar__spacer"></span>
+  <span class="back-bar__pill">KW 27 · 2026</span>
+</a>
+
+<header class="hero wrap">
+  <div class="hero-badge glass"><span class="spark"></span>KI-Wochenbericht · Künstliche Intelligenz</div>
+  <h1>Drei neue Modelle. Zwei <em>Kündigungen.</em></h1>
+  <p class="hero-sub">In sieben Tagen kamen gleich drei Spitzenmodell-Familien heraus — die folgenreichste Nachricht waren trotzdem zwei Personalwechsel. Und ein Muster verfestigt sich: Die stärksten Modelle kommen nicht mehr frei auf den Markt, sondern durch ein Gate.</p>
+  <div class="hero-meta">
+    <span>28. Juni – 5. Juli 2026</span>
+    <span>5 Hersteller</span>
+    <span>11 Meldungen</span>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- Kennzahlen -->
+  <section class="stats">
+    <div class="stat stat-1 glass">
+      <div class="stat-value">85,2&thinsp;%</div>
+      <div class="stat-label">Claude Sonnet 5 auf SWE-Bench Verified — bei 1 Mio. Token Kontext</div>
+    </div>
+    <div class="stat stat-2 glass">
+      <div class="stat-value">~20</div>
+      <div class="stat-label">Partner bekommen GPT-5.6 zuerst — freigegeben nach Rücksprache mit der US-Regierung</div>
+    </div>
+    <div class="stat stat-3 glass">
+      <div class="stat-value">2</div>
+      <div class="stat-label">Schwergewichte verlassen Google an einem Tag: Shazeer &amp; Nobelpreisträger Jumper</div>
+    </div>
+  </section>
+
+  <!-- Lede -->
+  <p class="lede glass">
+    <strong>Die Bewegung dieser Woche fand nicht im Benchmark statt, sondern im Zugang.</strong>
+    Anthropic senkt den Sonnet-5-Preis befristet, OpenAI liefert sein Flaggschiff zunächst nur an rund 20 Partner und die US-Regierung. Frontier-KI wird zur regulierten Ressource — und das Talent wandert quer durch die Branche.
+  </p>
+
+  <!-- Anthropic -->
+  <section class="section">
+    <div class="section-head">
+      <span class="dot" style="background:var(--gold-bright); color:var(--gold-bright)"></span>
+      <span class="section-name">Anthropic</span>
+      <span class="section-rule"></span>
+    </div>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--new">Launch</span> Claude Sonnet 5 — neues Standardmodell in Claude Code (30. Juni)</h3>
+      <p class="card-body">Sonnet 5 kommt mit <strong>1 Mio. Token Kontext</strong> und Context-Compaction. Auf <strong>SWE-Bench Verified</strong> erreicht es <strong>85,2 %</strong>, dazu 80,4 % auf Terminal-Bench 2.1 und 81,2 % auf OSWorld-Verified. Anthropic positioniert es als agentischstes Sonnet-Modell, das die Lücke zu Opus 4.8 bei Reasoning, Tool-Nutzung und Computer-Use schließt — bei deutlich niedrigerem Preis.</p>
+    </article>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--down">Pricing</span> Halber Preis — aber nur bis Ende August</h3>
+      <p class="card-body">Bis zum <strong>31. August</strong> kostet Sonnet 5 nur <strong>2 $ / 10 $</strong> pro Mio. Token (In/Out), danach steigt der Preis auf <strong>3 $ / 15 $</strong>. Kein Long-Context-Aufschlag. Wer jetzt kalkuliert, sollte den September-Preis von Anfang an einplanen.</p>
+    </article>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--new">Produkt</span> Claude Science + Rückkehr von Fable 5 &amp; Mythos 5</h3>
+      <p class="card-body"><strong>Claude Science</strong>, eine AI-Workbench für Forscher und die Pharma-Industrie, startet in Beta für Pro-, Max-, Team- und Enterprise-Nutzer. Parallel wird der Zugang zu <strong>Fable 5 und Mythos 5</strong> wiederhergestellt, nachdem das US Department of Commerce die Exportkontrollen aufgehoben hat. Claude ist zudem GA auf Microsoft Azure AI Foundry.</p>
+    </article>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--up">Talent</span> Nobelpreisträger John Jumper wechselt zu Anthropic</h3>
+      <p class="card-body">Der <strong>AlphaFold-Erfinder und Chemie-Nobelpreisträger 2024</strong> verlässt Google DeepMind und schließt sich Anthropic an — ein Signal, wohin sich das Spitzen-Forschungstalent gerade bewegt.</p>
+    </article>
+  </section>
+
+  <!-- OpenAI -->
+  <section class="section">
+    <div class="section-head">
+      <span class="dot" style="background:var(--emerald); color:var(--emerald)"></span>
+      <span class="section-name">OpenAI</span>
+      <span class="section-rule"></span>
+    </div>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--new">Preview</span> GPT-5.6 Sol, Terra &amp; Luna — neue Familie, neues Naming</h3>
+      <p class="card-body">OpenAI startet eine Preview der GPT-5.6-Reihe mit neuem Schema: Die Zahl steht für die Generation, der Name für das Fähigkeits-Tier. <strong>Sol</strong> ist das Flaggschiff (Coding, Science, Security), <strong>Terra</strong> das Volumen-Tier, <strong>Luna</strong> das schnelle, günstige Modell. Preise pro Mio. Token: Sol <strong>5 $ / 30 $</strong>, Terra 2,50 $ / 15 $, Luna 1 $ / 6 $.</p>
+    </article>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--alert">Zugang</span> Erst nur 20 Partner — freigegeben mit der US-Regierung</h3>
+      <p class="card-body">Während der Preview läuft GPT-5.6 nur über API und Codex für <strong>rund 20 ausgewählte Organisationen</strong>, nachdem OpenAI Modelle und Release-Pläne mit der US-Regierung geteilt hat. Breite Verfügbarkeit „in den kommenden Wochen". Zugleich wurde <strong>GPT-4.5</strong> zum 26. Juni aus ChatGPT entfernt (Bestandschats laufen mit GPT-5.5 weiter).</p>
+    </article>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--down">Talent</span> Transformer-Miterfinder Noam Shazeer geht zu OpenAI</h3>
+      <p class="card-body">Shazeer, Mitautor von „Attention Is All You Need" und Gemini-Co-Lead, verlässt Google. Zusammen mit dem Jumper-Abgang verliert Google an einem Tag zwei Namen, die man nicht einfach nachbesetzt.</p>
+    </article>
+  </section>
+
+  <!-- Google -->
+  <section class="section">
+    <div class="section-head">
+      <span class="dot" style="background:var(--violet); color:var(--violet)"></span>
+      <span class="section-name">Google · DeepMind</span>
+      <span class="section-rule"></span>
+    </div>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--neutral">Verzögerung</span> Gemini 3.5 Pro rutscht in den Juli</h3>
+      <p class="card-body">Der Launch verschiebt sich; das Modell bleibt bis dahin in einer limitierten <strong>Vertex-AI-Enterprise-Preview</strong>. Grund laut Google: Nacharbeit bei <strong>Token-Effizienz, Coding-Leistung und Multi-Step-Reasoning</strong>, die noch nicht auf Flaggschiff-Niveau waren. Zum Ausgleich holt DeepMind über einen Lizenzdeal (80–90 Mio. $) mehr als 20 Contextual-AI-Forscher an Bord.</p>
+    </article>
+  </section>
+
+  <!-- xAI -->
+  <section class="section">
+    <div class="section-head">
+      <span class="dot" style="background:var(--cyan); color:var(--cyan)"></span>
+      <span class="section-name">xAI · Grok</span>
+      <span class="section-rule"></span>
+    </div>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--new">API</span> Speech-to-Text wird GA — 25 Sprachen (3. Juli)</h3>
+      <p class="card-body">xAIs <strong>Speech-to-Text API</strong> ist allgemein verfügbar: Transkription in <strong>25 Sprachen</strong>, im Batch- und Streaming-Modus. <strong>Grok 5</strong> bleibt weiter aus; xAI konzentriert sich auf Support-Features wie Grok Build CLI, Grok Voice und Grok Imagine Video 1.5.</p>
+    </article>
+  </section>
+
+  <!-- Meta -->
+  <section class="section">
+    <div class="section-head">
+      <span class="dot" style="background:var(--blue); color:var(--blue)"></span>
+      <span class="section-name">Meta</span>
+      <span class="section-rule"></span>
+    </div>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--down">Einsatz</span> Llama entscheidet, was wahr ist</h3>
+      <p class="card-body">In Metas neuer Prediction-Market-App <strong>„Arena"</strong> fällt Llama in Nahezu-Echtzeit binäre Ja/Nein-Urteile zu Wahlen, Sport und Geopolitik. Zugleich verschiebt Meta sein nächstes Flaggschiff und steuert weiter Richtung <strong>Closed Source</strong> — für Entwickler mit offenen Gewichten schließt sich die Tür weiter.</p>
+    </article>
+  </section>
+
+  <!-- Closer -->
+  <div class="closer">
+    <div class="closer-kicker">Einordnung · Controller-Perspektive</div>
+    <p>Die stärksten Modelle kommen nicht mehr einfach auf den Markt. Sie kommen durch ein Gate.</p>
+    <p>OpenAI liefert sein bestes Modell zuerst an rund 20 Partner und die US-Regierung, Anthropic stellt Fable und Mythos erst nach behördlicher Export-Freigabe wieder her. Für die Planung heißt das: Nicht der höchste Score entscheidet, sondern wer überhaupt Zugriff bekommt — und der Sonnet-5-Preis zeigt, dass <strong>„günstig" oft nur ein befristetes Einführungsangebot</strong> ist. Wer jetzt kalkuliert, markiert den <strong>31. August</strong> im Kalender.</p>
+  </div>
+
+</main>
+
+<div class="wrap">
+  <div class="footer-cta-wrap">
+    <a class="footer-cta" href="https://thomas-wodny.de/#panel-ki-updates">&#8592; Alle KI-Updates ansehen</a>
+  </div>
+  <footer class="footer">
+    <div><a href="https://thomas-wodny.de/">Thomas Wodny</a> · Financial Analyst &amp; Senior Controller</div>
+    <div class="footer-tags">#KI #AI #LLM #Anthropic #OpenAI</div>
+  </footer>
+</div>
+
+</body>
+</html>
