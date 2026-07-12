@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KI-Update KW 28 · 2026 — Zwei Spitzenmodelle in 48 Stunden</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100' height='100' rx='12' fill='%231C1917'/%3E%3Cpath d='M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z' fill='%23B07D1E' opacity='0.12'/%3E%3Cpath d='M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z' fill='none' stroke='%23B07D1E' stroke-width='3'/%3E%3Ctext x='50' y='54' text-anchor='middle' dominant-baseline='central' font-family='Georgia,serif' font-weight='700' font-size='36' fill='%23B07D1E'%3ETW%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500;1,9..144,900&family=Hanken+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --base: #0b0d14;
+    --ink: #f2f0ea;
+    --ink-soft: #a6adbe;
+    --ink-faint: #6b7283;
+    --gold: #f0a92e;
+    --gold-bright: #ffc35a;
+    --gold-deep: #d98a16;
+    --glass: rgba(255,255,255,0.045);
+    --glass-strong: rgba(255,255,255,0.075);
+    --glass-edge: rgba(255,255,255,0.12);
+    --glass-line: rgba(255,255,255,0.08);
+    --emerald: #34d399;
+    --violet: #a78bfa;
+    --cyan: #38bdf8;
+    --rose: #fb7185;
+    --blue: #6090f8;
+    --shadow: 0 2px 6px rgba(0,0,0,0.4), 0 16px 40px -12px rgba(0,0,0,0.6);
+    --shadow-sm: 0 2px 12px -4px rgba(0,0,0,0.5);
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Hanken Grotesk', -apple-system, sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--ink);
+    background: var(--base);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ---------- Gradient-Mesh-Hintergrund (dunkel, leuchtend) ---------- */
+  .mesh {
+    position: fixed;
+    inset: -20%;
+    z-index: -2;
+    background:
+      radial-gradient(38% 34% at 16% 10%, rgba(240,169,46,0.30), transparent 70%),
+      radial-gradient(36% 38% at 86% 6%, rgba(251,113,133,0.22), transparent 70%),
+      radial-gradient(44% 44% at 92% 70%, rgba(56,189,248,0.26), transparent 72%),
+      radial-gradient(48% 48% at 6% 90%, rgba(52,211,153,0.20), transparent 72%),
+      radial-gradient(60% 60% at 50% 50%, rgba(120,90,200,0.12), transparent 65%);
+    filter: saturate(1.15);
+    animation: drift 28s ease-in-out infinite alternate;
+  }
+  @keyframes drift {
+    0%   { transform: translate3d(0,0,0) scale(1); }
+    50%  { transform: translate3d(-2%, 1.5%, 0) scale(1.07); }
+    100% { transform: translate3d(2%, -1.5%, 0) scale(1.04); }
+  }
+
+  /* Grain-Overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.6;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- Glas-Grundbaustein ---------- */
+  .glass {
+    background: var(--glass);
+    backdrop-filter: blur(22px) saturate(1.4);
+    -webkit-backdrop-filter: blur(22px) saturate(1.4);
+    border: 1px solid var(--glass-edge);
+    box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+
+  /* ---------- Top-Bar ---------- */
+  .back-bar {
+    position: sticky;
+    top: 0.75rem;
+    z-index: 50;
+    width: min(960px, calc(100% - 2rem));
+    margin: 0.75rem auto 0;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1rem;
+    border-radius: 999px;
+    background: rgba(18,20,28,0.6);
+    backdrop-filter: blur(18px) saturate(1.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    border: 1px solid var(--glass-edge);
+    box-shadow: var(--shadow-sm);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+  }
+  .back-bar:hover { transform: translateY(-1px); box-shadow: var(--shadow); color: var(--gold-bright); }
+  .back-bar__logo { width: 24px; height: 24px; border-radius: 7px; flex-shrink: 0; }
+  .back-bar__arrow { font-size: 0.9rem; }
+  .back-bar__site { color: var(--ink); font-weight: 600; }
+  .back-bar__spacer { flex: 1; }
+  .back-bar__pill {
+    color: var(--gold-bright);
+    background: rgba(240,169,46,0.16);
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.66rem;
+  }
+
+  .wrap { width: min(960px, calc(100% - 2rem)); margin: 0 auto; }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 4.5rem 0 2.5rem; text-align: center; }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-bright);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  .hero-badge .spark {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--gold-bright);
+    box-shadow: 0 0 0 4px rgba(240,169,46,0.18), 0 0 12px rgba(255,195,90,0.6);
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-size: clamp(2.4rem, 6vw, 4.3rem);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    max-width: 15ch;
+    margin: 0 auto 1.6rem;
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) 0.08s forwards;
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 900;
+    background: linear-gradient(105deg, var(--gold-bright), var(--gold-deep));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    max-width: 54ch;
+    margin: 0 auto 2.2rem;
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) 0.16s forwards;
+  }
+  .hero-meta {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) 0.24s forwards;
+  }
+  .hero-meta span {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--ink-soft);
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    background: var(--glass);
+    border: 1px solid var(--glass-edge);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  /* ---------- Kennzahlen ---------- */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1rem 0 3.5rem;
+  }
+  .stat {
+    border-radius: 22px;
+    padding: 1.6rem 1.5rem;
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) forwards;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  }
+  .stat:nth-child(1){ animation-delay: 0.30s; }
+  .stat:nth-child(2){ animation-delay: 0.38s; }
+  .stat:nth-child(3){ animation-delay: 0.46s; }
+  .stat:hover { transform: translateY(-4px); box-shadow: var(--shadow); background: var(--glass-strong); }
+  .stat-value {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2rem, 4vw, 2.7rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .stat-1 .stat-value { background: linear-gradient(120deg,#ffc35a,#d98a16); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .stat-2 .stat-value { background: linear-gradient(120deg,#fb7185,#e11d48); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .stat-3 .stat-value { background: linear-gradient(120deg,#38bdf8,#2563eb); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .stat-label { margin-top: 0.7rem; font-size: 0.85rem; line-height: 1.5; color: var(--ink-soft); }
+
+  /* ---------- Lede ---------- */
+  .lede {
+    border-radius: 24px;
+    padding: 2rem 2.2rem;
+    margin-bottom: 3.5rem;
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    position: relative;
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) 0.5s forwards;
+  }
+  .lede::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 1.6rem; bottom: 1.6rem;
+    width: 4px;
+    border-radius: 4px;
+    background: linear-gradient(var(--gold-bright), var(--gold-deep));
+  }
+  .lede strong { color: var(--ink); font-weight: 700; }
+
+  /* ---------- Sektionen ---------- */
+  .section { margin-bottom: 2.6rem; }
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 1rem;
+    padding-left: 0.25rem;
+  }
+  .dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; box-shadow: 0 0 12px currentColor; }
+  .section-name {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .section-rule { flex: 1; height: 1px; background: linear-gradient(90deg, var(--glass-line), transparent); }
+
+  .card {
+    border-radius: 22px;
+    padding: 1.5rem 1.7rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); background: var(--glass-strong); border-color: rgba(255,255,255,0.18); }
+  .card + .card { margin-top: 0.85rem; }
+  .card-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.2rem;
+    line-height: 1.35;
+    color: var(--ink);
+    margin-bottom: 0.7rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  .card-body { color: var(--ink-soft); font-size: 0.96rem; }
+  .card-body strong { color: var(--ink); font-weight: 600; }
+
+  .chip {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+  }
+  .chip--new   { color:#c4b5fd; background:rgba(167,139,250,0.16); border-color:rgba(167,139,250,0.3); }
+  .chip--down  { color:#fda4af; background:rgba(251,113,133,0.14); border-color:rgba(251,113,133,0.3); }
+  .chip--up    { color:#6ee7b7; background:rgba(52,211,153,0.16); border-color:rgba(52,211,153,0.3); }
+  .chip--alert { color:var(--gold-bright); background:rgba(240,169,46,0.16); border-color:rgba(240,169,46,0.36); }
+  .chip--neutral{ color:var(--ink-soft); background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.14); }
+
+  /* ---------- Closer ---------- */
+  .closer {
+    margin-top: 3.5rem;
+    border-radius: 28px;
+    padding: 2.8rem;
+    position: relative;
+    overflow: hidden;
+    background:
+      linear-gradient(135deg, rgba(240,169,46,0.18), rgba(56,189,248,0.14)),
+      rgba(255,255,255,0.05);
+    border: 1px solid var(--glass-edge);
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    box-shadow: var(--shadow);
+  }
+  .closer-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-bright);
+    margin-bottom: 1rem;
+  }
+  .closer p {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.4rem, 3vw, 1.8rem);
+    line-height: 1.4;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .closer p + p {
+    margin-top: 1.1rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--ink-soft);
+    letter-spacing: 0;
+  }
+  .closer p + p strong { color: var(--ink); font-weight: 700; }
+
+  /* ---------- Footer ---------- */
+  .footer-cta-wrap { text-align: center; padding: 3rem 0 1.5rem; }
+  .footer-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.9rem 1.6rem;
+    border-radius: 999px;
+    background: linear-gradient(120deg, var(--gold-bright), var(--gold-deep));
+    color: #1a1206;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    box-shadow: var(--shadow), 0 0 24px -6px rgba(255,195,90,0.5);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .footer-cta:hover { transform: translateY(-2px); box-shadow: var(--shadow), 0 0 32px -4px rgba(255,195,90,0.7); }
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 1.5rem 0 4rem;
+    border-top: 1px solid var(--glass-line);
+    font-size: 0.82rem;
+    color: var(--ink-faint);
+  }
+  .footer a { color: var(--ink-soft); text-decoration: none; font-weight: 600; }
+  .footer a:hover { color: var(--gold-bright); }
+  .footer-tags { font-family: var(--font-mono); font-size: 0.72rem; }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mesh { animation: none; }
+    [style*="animation"], .hero-badge, .hero h1, .hero-sub, .hero-meta, .stat, .lede { animation: none !important; opacity: 1 !important; transform: none !important; }
+  }
+  @media (max-width: 720px) {
+    .stats { grid-template-columns: 1fr; }
+    .hero { padding: 3rem 0 2rem; }
+    .closer { padding: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+<div class="mesh" aria-hidden="true"></div>
+
+<a class="back-bar" href="https://thomas-wodny.de/#panel-ki-updates">
+  <svg class="back-bar__logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect width="100" height="100" rx="12" fill="#1C1917"/>
+    <path d="M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z" fill="#B07D1E" opacity="0.12"/>
+    <path d="M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z" fill="none" stroke="#B07D1E" stroke-width="3"/>
+    <text x="50" y="54" text-anchor="middle" dominant-baseline="central" font-family="Georgia,serif" font-weight="700" font-size="36" fill="#B07D1E">TW</text>
+  </svg>
+  <span class="back-bar__arrow">&#8592;</span>
+  <span class="back-bar__site">thomas-wodny.de</span>
+  <span class="back-bar__spacer"></span>
+  <span class="back-bar__pill">KW 28 · 2026</span>
+</a>
+
+<header class="hero wrap">
+  <div class="hero-badge glass"><span class="spark"></span>KI-Wochenbericht · Künstliche Intelligenz</div>
+  <h1>Zwei Spitzenmodelle in <em>48 Stunden.</em></h1>
+  <p class="hero-sub">Grok 4.5 und GPT-5.6 landeten fast zeitgleich — doch der eigentliche Wettlauf dreht sich nicht mehr um den Benchmark, sondern um Token-Effizienz. Anthropic konterte ganz ohne neues Modell.</p>
+  <div class="hero-meta">
+    <span>6.–12. Juli 2026</span>
+    <span>6 Hersteller</span>
+    <span>8 Meldungen</span>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- Kennzahlen -->
+  <section class="stats">
+    <div class="stat stat-1 glass">
+      <div class="stat-value">53,6</div>
+      <div class="stat-label">GPT-5.6 Sol auf Agents' Last Exam — 13,1 Punkte vor Claude Fable 5</div>
+    </div>
+    <div class="stat stat-2 glass">
+      <div class="stat-value">4,2&times;</div>
+      <div class="stat-label">weniger Output-Token pro Coding-Task: Grok 4.5 (15.954) vs. Opus 4.8 (67.020)</div>
+    </div>
+    <div class="stat stat-3 glass">
+      <div class="stat-value">1&thinsp;/&thinsp;16</div>
+      <div class="stat-label">der Kosten — laut OpenAI schlagen Terra &amp; Luna Fable 5 zu einem Sechzehntel</div>
+    </div>
+  </section>
+
+  <!-- Lede -->
+  <p class="lede glass">
+    <strong>Der Benchmark ist nicht mehr die ganze Geschichte.</strong>
+    In 48 Stunden schickten xAI und OpenAI zwei neue Frontier-Modelle ins Rennen — und beide werben mit derselben Botschaft: nicht nur klüger, sondern günstiger pro erledigter Aufgabe. Der Preis pro Token ist zur halben Wahrheit geworden.
+  </p>
+
+  <!-- OpenAI -->
+  <section class="section">
+    <div class="section-head">
+      <span class="dot" style="background:var(--emerald); color:var(--emerald)"></span>
+      <span class="section-name">OpenAI</span>
+      <span class="section-rule"></span>
+    </div>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--new">Launch</span> GPT-5.6-Familie: Sol, Terra, Luna — 9. Juli</h3>
+      <p class="card-body">OpenAI bringt drei Varianten in die allgemeine Verfügbarkeit: <strong>Sol</strong> (stärkste), <strong>Terra</strong> (Alltag) und <strong>Luna</strong> (schnell/günstig). Preise pro Mio. Token (In/Out): <strong>Luna 1 $/6 $</strong>, <strong>Terra 2,50 $/15 $</strong>, <strong>Sol 5 $/30 $</strong>. Auf <strong>Agents' Last Exam</strong> (55 Berufsfelder) setzt Sol mit <strong>53,6</strong> die neue Bestmarke — 13,1 Punkte vor Claude Fable 5. Laut OpenAI schlagen Terra und Luna Fable 5 zu rund einem Sechzehntel der Kosten.</p>
+    </article>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--down">Gegenpol</span> Auf SWE-Bench Pro liegt Fable 5 klar vorn</h3>
+      <p class="card-body">Nicht überall führt OpenAI: Auf <strong>SWE-Bench Pro</strong> erreicht Claude Fable 5 <strong>80 %</strong>, GPT-5.6 Sol nur <strong>64,6 %</strong>. OpenAIs Antwort ist keine bessere Zahl, sondern eine Benchmark-Kritik — geschätzt <strong>~30 % der SWE-Bench-Pro-Aufgaben seien „kaputt"</strong>. Wer Modelle einkauft, sollte Benchmarks künftig genauso hinterfragen wie die Modelle selbst.</p>
+    </article>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--new">Produkte</span> ChatGPT Work &amp; GPT-Live</h3>
+      <p class="card-body"><strong>ChatGPT Work</strong> (auf GPT-5.6) zieht Kontext aus Team-Tools zusammen und macht aus Notizen fertige Arbeitsergebnisse. Bereits am 8. Juli startete <strong>GPT-Live</strong>: eine neue Sprachmodell-Generation mit <strong>Full-Duplex</strong> — hört und spricht gleichzeitig, ersetzt die bisherige ChatGPT-Voice.</p>
+    </article>
+  </section>
+
+  <!-- xAI -->
+  <section class="section">
+    <div class="section-head">
+      <span class="dot" style="background:var(--cyan); color:var(--cyan)"></span>
+      <span class="section-name">xAI · Grok</span>
+      <span class="section-rule"></span>
+    </div>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--new">Launch</span> Grok 4.5 — „Opus-Klasse", aber sparsamer (8. Juli)</h3>
+      <p class="card-body">xAIs neues Flaggschiff (1,5-Bio.-Parameter-Basis V9, zusammen mit Cursor trainiert) kostet <strong>2 $ In / 6 $ Out</strong> pro Mio. Token. Der eigentliche Verkaufsvorteil ist die Effizienz: Auf SWE-Bench Pro löst Grok 4.5 Aufgaben mit im Schnitt <strong>15.954 Output-Token</strong> — Opus 4.8 braucht <strong>67.020</strong>, Faktor 4,2. Musks Einordnung: grob Opus-4.7-Niveau, aber deutlich schneller.</p>
+    </article>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--neutral">Benchmarks</span> Gemischtes Bild statt klarem Sieg</h3>
+      <p class="card-body">Grok 4.5 schlägt Opus 4.8 auf <strong>DeepSWE 1.0</strong> und <strong>Terminal-Bench 2.1</strong>, verliert aber auf <strong>DeepSWE 1.1</strong> und <strong>SWE-Bench Pro</strong>. Kein Modell dominiert — die Wahl hängt zunehmend vom konkreten Task und den Kosten pro Lösung ab, nicht von einer einzelnen Rangliste.</p>
+    </article>
+  </section>
+
+  <!-- Anthropic -->
+  <section class="section">
+    <div class="section-head">
+      <span class="dot" style="background:var(--gold-bright); color:var(--gold-bright)"></span>
+      <span class="section-name">Anthropic</span>
+      <span class="section-rule"></span>
+    </div>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--new">Feature</span> Reflect — ein Dashboard, das zum Weniger-Nutzen anstupst (9. Juli)</h3>
+      <p class="card-body">Statt neuem Modell zeigt <strong>Reflect</strong>, wie viel Zeit man mit Claude verbringt — Themen, aktivster Tag, Peak-Stunde, Zeiträume 1/3/6/12 Monate. Verfügbar auf <strong>Free, Pro, Max</strong> bei aktiviertem Memory. Datenschutz: ignoriert Incognito-Chats, zieht keine Ursprungsdateien, klammert Health-Integrationen aus.</p>
+    </article>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--down">Kritik</span> „Quietly selling you on AI"</h3>
+      <p class="card-body">TechCrunch liest Reflect gegen den Strich: Ein Tool, das einem vor Augen führt, wie unverzichtbar Claude im Alltag geworden ist, erhöht den psychologischen Wechsel-Aufwand. Ein Selbstkontroll-Feature wird so zum <strong>Lock-in-Mechanismus</strong>. Parallel zieht <strong>Claude Cowork in die Cloud</strong> — geräteübergreifend, läuft auch offline weiter.</p>
+    </article>
+  </section>
+
+  <!-- Google -->
+  <section class="section">
+    <div class="section-head">
+      <span class="dot" style="background:var(--violet); color:var(--violet)"></span>
+      <span class="section-name">Google · DeepMind</span>
+      <span class="section-rule"></span>
+    </div>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--down">Verschoben</span> Gemini 3.5 Pro erst am 17. Juli — wegen Token-Verbrauch</h3>
+      <p class="card-body">Google verschiebt Gemini 3.5 Pro und baut die Architektur komplett neu — statt auf 2.5-Pro-Basis. Der genannte Grund passt zum Thema der Woche: Enterprise-Tester klagten über <strong>übermäßigen Token-Verbrauch</strong> bei langen agentischen Aufgaben. Geplant sind ein 2-Mio.-Token-Kontext und ein „Deep Think Reasoning Layer" als Konter gegen GPT-5.6 und Fable 5.</p>
+    </article>
+  </section>
+
+  <!-- Meta -->
+  <section class="section">
+    <div class="section-head">
+      <span class="dot" style="background:var(--blue); color:var(--blue)"></span>
+      <span class="section-name">Meta</span>
+      <span class="section-rule"></span>
+    </div>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--new">Produkt</span> Arena — Llama entscheidet, was wahr ist</h3>
+      <p class="card-body">Metas Prediction-Market-App <strong>Arena</strong> lässt Llama Fragen generieren, personalisierte Märkte empfehlen und <strong>Märkte in Nahe-Echtzeit selbst auflösen</strong>. Das ist ein bewusster Bruch mit Kalshi und Polymarket, die auf Human-Dispute-Windows und Oracle-Netze setzen — und ein Vertrauensvorschuss an ein Modell, das über Fakten urteilt.</p>
+    </article>
+  </section>
+
+  <!-- Mistral -->
+  <section class="section">
+    <div class="section-head">
+      <span class="dot" style="background:var(--rose); color:var(--rose)"></span>
+      <span class="section-name">Mistral</span>
+      <span class="section-rule"></span>
+    </div>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--new">Neu</span> Robostral Navigate — Einstieg in die Robotik</h3>
+      <p class="card-body">Mistral betritt das Robotik-Feld — bewusst minimalistisch: <strong>eine RGB-Kamera, kein LiDAR</strong>, ausgelegt auf Massen-Deployment. Damit tritt der französische Anbieter gegen DeepMind und NVIDIA an und setzt wie so oft auf den günstigeren, schlankeren Ansatz.</p>
+    </article>
+  </section>
+
+  <!-- Closer -->
+  <div class="closer">
+    <div class="closer-kicker">Einordnung · Controller-Perspektive</div>
+    <p>Der Preis pro Token auf der Website ist nur die halbe Kostenwahrheit.</p>
+    <p>Die andere Hälfte ist, wie viele Token ein Modell pro Aufgabe verbrennt. Grok löst eine Coding-Aufgabe mit rund 16.000 Output-Token, wo Opus etwa 67.000 braucht — bei 6 $ je Mio. Output ein <strong>4×-Kostenhebel, der auf keiner Preisseite steht</strong>. Dass sogar Google seine Gemini-3.5-Verschiebung mit „zu hohem Token-Verbrauch" begründet, zeigt: Wer KI-Kosten steuert, misst künftig Token-pro-Task, nicht Preis-pro-Token.</p>
+  </div>
+
+</main>
+
+<div class="wrap">
+  <div class="footer-cta-wrap">
+    <a class="footer-cta" href="https://thomas-wodny.de/#panel-ki-updates">&#8592; Alle KI-Updates ansehen</a>
+  </div>
+  <footer class="footer">
+    <div><a href="https://thomas-wodny.de/">Thomas Wodny</a> · Financial Analyst &amp; Senior Controller</div>
+    <div class="footer-tags">#KI #AI #LLM #OpenAI #Controlling</div>
+  </footer>
+</div>
+
+</body>
+</html>
