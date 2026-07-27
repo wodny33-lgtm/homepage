@@ -91,12 +91,21 @@
       background: var(--bg-primary);
       overflow: hidden;
       height: 100vh;
+      height: 100dvh;
     }
     img { max-width: 100%; display: block; }
     a { color: var(--cyan); text-decoration: none; transition: color var(--transition); }
     a:hover { color: #fff; text-shadow: 0 0 8px var(--cyan-glow); }
     button { font-family: inherit; cursor: pointer; border: none; background: none; }
     ul, ol { list-style: none; }
+    :focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: var(--bg-secondary); }
     ::-webkit-scrollbar-thumb { background: var(--cyan-dim); border-radius: 2px; }
@@ -124,6 +133,7 @@
       display: grid;
       grid-template-rows: auto 1fr auto;
       height: 100vh;
+      height: 100dvh;
       position: relative;
       z-index: 1;
     }
@@ -213,7 +223,7 @@
     }
     .hud-header__links a {
       color: var(--text-secondary);
-      transition: all var(--transition);
+      transition: color var(--transition), filter var(--transition);
       display: flex;
       align-items: center;
     }
@@ -264,7 +274,7 @@
       text-transform: uppercase;
       color: var(--text-secondary);
       cursor: pointer;
-      transition: all var(--transition);
+      transition: color var(--transition), background var(--transition), text-shadow var(--transition);
       position: relative;
       border: none;
       background: none;
@@ -425,7 +435,7 @@
       background: var(--bg-panel);
       padding: 20px;
       text-align: center;
-      transition: all var(--transition);
+      transition: border-color var(--transition), box-shadow var(--transition);
       position: relative;
       overflow: hidden;
     }
@@ -583,7 +593,7 @@
       border: 1px solid var(--border);
       background: var(--bg-panel);
       padding: 16px 20px;
-      transition: all var(--transition);
+      transition: border-color var(--transition);
     }
     .skill-cat:hover {
       border-color: var(--cyan-border);
@@ -624,7 +634,7 @@
       border: 1px solid var(--border);
       background: var(--bg-panel);
       padding: 24px;
-      transition: all var(--transition);
+      transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
       position: relative;
       overflow: hidden;
     }
@@ -707,7 +717,7 @@
       padding: 24px;
       display: flex;
       gap: 16px;
-      transition: all var(--transition);
+      transition: border-color var(--transition), box-shadow var(--transition);
     }
     .service-card:hover {
       border-color: var(--cyan-border);
@@ -735,6 +745,133 @@
       color: var(--text-primary);
       font-weight: 500;
       line-height: 1.6;
+    }
+
+    /* ========== PREISE ========== */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+    .price-card {
+      border: 1px solid var(--border);
+      background: var(--bg-panel);
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+      position: relative;
+    }
+    .price-card:hover {
+      border-color: var(--cyan-border);
+      box-shadow: var(--shadow-glow);
+      transform: translateY(-2px);
+    }
+    .price-card--featured {
+      border-color: var(--cyan-border);
+      background: linear-gradient(135deg, var(--bg-panel), rgba(255, 190, 46, 0.05));
+      box-shadow: var(--shadow-glow);
+    }
+    .price-card__badge {
+      position: absolute;
+      top: -1px;
+      right: 16px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--bg-primary);
+      background: var(--cyan);
+      padding: 3px 10px;
+    }
+    .price-card__name {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .price-card__target {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.04em;
+      margin-bottom: 18px;
+    }
+    .price-card__price {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 26px;
+      color: var(--cyan);
+      text-shadow: 0 0 10px var(--cyan-glow);
+      line-height: 1.1;
+    }
+    .price-card__unit {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 4px;
+      margin-bottom: 18px;
+    }
+    .price-card__features {
+      font-size: 15px;
+      color: var(--text-primary);
+      font-weight: 500;
+      line-height: 1.8;
+      margin-bottom: 22px;
+      flex: 1;
+    }
+    .price-card__features li {
+      padding-left: 16px;
+      position: relative;
+      margin-bottom: 6px;
+    }
+    .price-card__features li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--cyan-dim);
+    }
+    .price-card__cta {
+      display: block;
+      width: 100%;
+      padding: 11px 20px;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: center;
+      color: var(--cyan);
+      background: var(--cyan-bg);
+      border: 1px solid var(--cyan-border);
+      transition: background var(--transition), color var(--transition), box-shadow var(--transition);
+    }
+    .price-card__cta:hover {
+      background: var(--cyan);
+      color: var(--bg-primary);
+      box-shadow: 0 0 16px var(--cyan-glow);
+    }
+    .price-card--featured .price-card__cta {
+      background: var(--cyan);
+      color: var(--bg-primary);
+    }
+    .price-card--featured .price-card__cta:hover {
+      background: #fff;
+    }
+    .pricing-note {
+      margin-top: 20px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.04em;
+      text-align: center;
     }
 
     /* ========== REPORT PREVIEW ========== */
@@ -913,7 +1050,7 @@
       border-left: 3px solid var(--cyan);
       background: var(--bg-panel);
       padding: 20px 24px;
-      transition: all var(--transition);
+      transition: box-shadow var(--transition);
     }
     .testimonial-card:hover {
       box-shadow: var(--shadow-glow);
@@ -949,7 +1086,7 @@
       border: 1px solid var(--border);
       background: var(--bg-panel);
       padding: 24px;
-      transition: all var(--transition);
+      transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
       position: relative;
       overflow: hidden;
     }
@@ -1123,8 +1260,7 @@
       color: var(--text-primary);
       font-family: var(--font-body);
       font-size: 15px;
-      transition: all var(--transition);
-      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
     }
     .hud-form input:focus,
     .hud-form select:focus,
@@ -1178,13 +1314,18 @@
       background: var(--cyan);
       border: none;
       cursor: pointer;
-      transition: all var(--transition);
+      transition: background var(--transition), box-shadow var(--transition);
       position: relative;
       overflow: hidden;
     }
     .btn-submit:hover {
       background: #fff;
       box-shadow: 0 0 20px var(--cyan-glow);
+    }
+    .form-error {
+      color: var(--warning);
+      font-size: 14px;
+      margin-bottom: 12px;
     }
     .form-success {
       display: none;
@@ -1367,7 +1508,7 @@
       font-weight: 600;
       letter-spacing: 0.06em;
       cursor: pointer;
-      transition: all var(--transition);
+      transition: background var(--transition), border-color var(--transition), color var(--transition);
     }
     .cookie-btn--accept {
       background: var(--cyan);
@@ -1398,7 +1539,7 @@
       width: 100%;
       height: 2px;
       background: var(--text-primary);
-      transition: all 0.3s;
+      transition: transform 0.3s, opacity 0.3s;
     }
     .mobile-nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .mobile-nav-toggle.active span:nth-child(2) { opacity: 0; }
@@ -1425,6 +1566,7 @@
       .projects-grid,
       .services-grid,
       .testimonials-grid,
+      .pricing-grid,
       .ki-updates__archive-grid,
       .contact-grid {
         grid-template-columns: 1fr;
@@ -1544,13 +1686,18 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
           <span data-i18n="nav.leistungen">Leistungen</span>
         </button>
-        <button class="hud-nav__item" data-panel="ki-updates" onclick="switchPanel('ki-updates')">
+        <button class="hud-nav__item" data-panel="preise" onclick="switchPanel('preise')">
           <span class="hud-nav__number">07</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span data-i18n="nav.preise">Preise</span>
+        </button>
+        <button class="hud-nav__item" data-panel="ki-updates" onclick="switchPanel('ki-updates')">
+          <span class="hud-nav__number">08</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
           <span data-i18n="nav.ki-updates">KI-Updates</span>
         </button>
         <button class="hud-nav__item" data-panel="kontakt" onclick="switchPanel('kontakt')">
-          <span class="hud-nav__number">08</span>
+          <span class="hud-nav__number">09</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           <span data-i18n="nav.kontakt">Kontakt</span>
         </button>
@@ -1690,7 +1837,7 @@
             <div class="panel__subtitle" data-i18n="skills.subtitle">// Kompetenzprofil — Radar-Analyse</div>
             <div class="radar-section">
               <div class="radar-container">
-                <canvas id="radarChart" width="680" height="560"></canvas>
+                <canvas id="radarChart" width="680" height="560" role="img" aria-label="Radar-Diagramm der Kompetenzen: Power Query M 95%, SQL 85%, Claude AI 90%, SAP FI/CO 70%, Python 65%, VBA 65%, TypeScript/JS 60%, HTML/CSS 60%"></canvas>
               </div>
               <div class="skill-categories">
                 <div class="skill-cat">
@@ -1985,6 +2132,60 @@
           </div>
         </div>
 
+        <!-- ===== PREISE ===== -->
+        <div class="panel" id="panel-preise">
+          <div class="hud-frame hud-frame--glow">
+            <div class="panel__title" data-i18n="preis.title">PREISE</div>
+            <div class="panel__subtitle" data-i18n="preis.subtitle">// Transparente Konditionen — Pakete & Richtwerte</div>
+            <div class="pricing-grid">
+              <div class="price-card">
+                <div class="price-card__name" data-i18n="preis.p1.name">Analyse & Beratung</div>
+                <div class="price-card__target" data-i18n="preis.p1.target">// Für den schnellen Einstieg</div>
+                <div class="price-card__price">110&nbsp;€</div>
+                <div class="price-card__unit" data-i18n="preis.p1.unit">pro Stunde</div>
+                <ul class="price-card__features">
+                  <li data-i18n="preis.p1.f1">Prozess- und Datenanalyse Ihrer Controlling-Workflows</li>
+                  <li data-i18n="preis.p1.f2">Identifikation von Automatisierungspotenzialen</li>
+                  <li data-i18n="preis.p1.f3">Tool-Beratung: Power Query, SQL, Python, KI</li>
+                  <li data-i18n="preis.p1.f4">Konkrete Handlungsempfehlungen als Kurzbericht</li>
+                  <li data-i18n="preis.p1.f5">Abrechnung im 15-Minuten-Takt</li>
+                </ul>
+                <a href="#kontakt" class="price-card__cta" onclick="switchPanel('kontakt');return false;" data-i18n="preis.cta">ANFRAGE SENDEN</a>
+              </div>
+              <div class="price-card price-card--featured">
+                <div class="price-card__badge" data-i18n="preis.badge">Beliebt</div>
+                <div class="price-card__name" data-i18n="preis.p2.name">Automatisierungs-Projekt</div>
+                <div class="price-card__target" data-i18n="preis.p2.target">// Reporting, Migration, Dashboards</div>
+                <div class="price-card__price" data-i18n="preis.p2.price">ab 2.500&nbsp;€</div>
+                <div class="price-card__unit" data-i18n="preis.p2.unit">Festpreis nach Aufwandsschätzung</div>
+                <ul class="price-card__features">
+                  <li data-i18n="preis.p2.f1">Automatisierte Reporting-Systeme (z.&nbsp;B. 8h → 30min)</li>
+                  <li data-i18n="preis.p2.f2">Datenmigration mit Reconciliation und Validierung</li>
+                  <li data-i18n="preis.p2.f3">Interaktive Dashboards und KPI-Systeme</li>
+                  <li data-i18n="preis.p2.f4">Vollständige Dokumentation und Übergabe</li>
+                  <li data-i18n="preis.p2.f5">4 Wochen Support nach Go-Live inklusive</li>
+                </ul>
+                <a href="#kontakt" class="price-card__cta" onclick="switchPanel('kontakt');return false;" data-i18n="preis.cta2">PROJEKT ANFRAGEN</a>
+              </div>
+              <div class="price-card">
+                <div class="price-card__name" data-i18n="preis.p3.name">Schulung & Workshop</div>
+                <div class="price-card__target" data-i18n="preis.p3.target">// Wissen ins Team bringen</div>
+                <div class="price-card__price" data-i18n="preis.p3.price">ab 950&nbsp;€</div>
+                <div class="price-card__unit" data-i18n="preis.p3.unit">pro Schulungstag</div>
+                <ul class="price-card__features">
+                  <li data-i18n="preis.p3.f1">Power Query, SQL für Controller, Python-Automatisierung</li>
+                  <li data-i18n="preis.p3.f2">KI-Tools im Controlling (Claude AI, MCP)</li>
+                  <li data-i18n="preis.p3.f3">Praxisnah — mit Ihren eigenen Daten und Prozessen</li>
+                  <li data-i18n="preis.p3.f4">Bis 8 Teilnehmer, remote oder vor Ort</li>
+                  <li data-i18n="preis.p3.f5">Schulungsunterlagen und Übungen inklusive</li>
+                </ul>
+                <a href="#kontakt" class="price-card__cta" onclick="switchPanel('kontakt');return false;" data-i18n="preis.cta3">TERMIN ANFRAGEN</a>
+              </div>
+            </div>
+            <p class="pricing-note" data-i18n="preis.note">Alle Preise zzgl. USt. — Richtwerte, das finale Angebot erstelle ich nach einem kostenlosen Erstgespräch.</p>
+          </div>
+        </div>
+
         <!-- ===== KI-UPDATES ===== -->
         <div class="panel" id="panel-ki-updates">
           <div class="hud-frame hud-frame--glow">
@@ -2029,12 +2230,6 @@
                   <span class="ki-update-card__kw">KW 27 / 2026</span>
                   <span class="ki-update-card__date">KW 27</span>                </div>
                 <div class="ki-update-card__title">Drei neue Modelle. Zwei Kündigungen.</div>                <span class="ki-update-card__cta">REPORT LESEN →</span>
-              </a>
-                <a href="ki-updates/KI-Update_KW26_2026.html" target="_blank" class="ki-update-card ki-update-card--archive">
-                <div class="ki-update-card__meta">
-                  <span class="ki-update-card__kw">KW 26 / 2026</span>
-                  <span class="ki-update-card__date">22.–28. Juni</span>                </div>
-                <div class="ki-update-card__title">Das beste Modell — und Washington entscheidet, wer ran darf.</div>                <span class="ki-update-card__cta">REPORT LESEN →</span>
               </a>
                 <a href="ki-updates/KI-Update_KW26_2026.html" target="_blank" class="ki-update-card ki-update-card--archive">
                 <div class="ki-update-card__meta">
@@ -2108,12 +2303,6 @@
                   <span class="ki-update-card__date" data-i18n="ki.date15a">5.–11. April</span>                </div>
                 <div class="ki-update-card__title" data-i18n="ki.t15a">Offenheit war gestern.Kontrolle ist das neue Geschäftsmodell.</div>                <span class="ki-update-card__cta" data-i18n="ki.readmore">REPORT LESEN →</span>
               </a>
-                <a href="ki-updates/KI-Update_KW15_2026.html" target="_blank" class="ki-update-card ki-update-card--archive">
-                <div class="ki-update-card__meta">
-                  <span class="ki-update-card__kw" data-i18n="ki.kw15b">KW 15 / 2026</span>
-                  <span class="ki-update-card__date" data-i18n="ki.date15b">05.–11. April</span>                </div>
-                <div class="ki-update-card__title" data-i18n="ki.t15b">Offenheit war gestern. Kontrolle ist das neue Geschäftsmodell.</div>                <span class="ki-update-card__cta" data-i18n="ki.readmore">REPORT LESEN →</span>
-              </a>
                 <a href="ki-updates/KI-Update_KW13_2026.html" target="_blank" class="ki-update-card ki-update-card--archive">
                   <div class="ki-update-card__meta">
                     <span class="ki-update-card__kw" data-i18n="ki.kw13">KW 13 / 2026</span>
@@ -2173,17 +2362,17 @@
                   <div class="form-row form-row--half">
                     <div class="form-group">
                       <label for="name" data-i18n="form.name">Name *</label>
-                      <input type="text" id="name" name="name" required placeholder="Ihr Name" data-i18n-attr="placeholder:form.name.ph">
+                      <input type="text" id="name" name="name" required autocomplete="name" placeholder="Ihr Name" data-i18n-attr="placeholder:form.name.ph">
                     </div>
                     <div class="form-group">
                       <label for="email" data-i18n="form.email">E-Mail *</label>
-                      <input type="email" id="email" name="email" required placeholder="ihre@email.de" data-i18n-attr="placeholder:form.email.ph">
+                      <input type="email" id="email" name="email" required autocomplete="email" spellcheck="false" placeholder="ihre@email.de" data-i18n-attr="placeholder:form.email.ph">
                     </div>
                   </div>
                   <div class="form-row form-row--half">
                     <div class="form-group">
                       <label for="company" data-i18n="form.company">Unternehmen</label>
-                      <input type="text" id="company" name="company" placeholder="Optional" data-i18n-attr="placeholder:form.company.ph">
+                      <input type="text" id="company" name="company" autocomplete="organization" placeholder="Optional" data-i18n-attr="placeholder:form.company.ph">
                     </div>
                     <div class="form-group">
                       <label for="kategorie" data-i18n="form.subject">Betreff *</label>
@@ -2200,16 +2389,17 @@
                   <div class="form-row">
                     <div class="form-group">
                       <label for="message" data-i18n="form.message">Nachricht *</label>
-                      <textarea id="message" name="message" required placeholder="Beschreiben Sie Ihr Anliegen..." data-i18n-attr="placeholder:form.message.ph"></textarea>
+                      <textarea id="message" name="message" required placeholder="Beschreiben Sie Ihr Anliegen…" data-i18n-attr="placeholder:form.message.ph"></textarea>
                     </div>
                   </div>
                   <div class="form-checkbox">
                     <input type="checkbox" id="privacy" name="privacy" required>
                     <label for="privacy" data-i18n-html="form.privacy">Ich habe die <a href="#" onclick="openModal('datenschutz');return false;">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zu. *</label>
                   </div>
+                  <p class="form-error" id="formError" role="alert" hidden></p>
                   <button type="submit" class="btn-submit" data-i18n="form.send">NACHRICHT SENDEN</button>
                 </form>
-                <div class="form-success" id="formSuccess">
+                <div class="form-success" id="formSuccess" role="status">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                   <h3 data-i18n="form.success.title">ÜBERTRAGUNG ERFOLGREICH</h3>
                   <p data-i18n="form.success.text">Ihre Nachricht wurde gesendet. Ich melde mich zeitnah bei Ihnen.</p>
@@ -2308,6 +2498,9 @@
   </div>
 
   <script>
+    /* Reduzierte Bewegung systemweit respektieren */
+    var REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     /* ========== PANEL SWITCHING ========== */
     function switchPanel(name) {
       // Update nav
@@ -2340,6 +2533,10 @@
       if (name === 'profil') {
         triggerCounters();
       }
+      // URL spiegelt den aktiven Bereich
+      if (history.replaceState) {
+        history.replaceState(null, '', '#' + name);
+      }
     }
 
     /* ========== MOBILE NAV ========== */
@@ -2351,7 +2548,7 @@
     /* ========== TYPING ANIMATION ========== */
     (function() {
       var el = document.getElementById('typingTarget');
-      if (!el) return;
+      if (!el || REDUCED_MOTION) return;
       var TYPING = {
         de: ['Financial Analyst & Senior Controller', 'Datengetriebenes Controlling', 'SQL • Python • Power Query • KI'],
         en: ['Financial Analyst & Senior Controller', 'Data-Driven Controlling', 'SQL • Python • Power Query • AI']
@@ -2404,6 +2601,10 @@
       var target = parseInt(el.getAttribute('data-counter'));
       var suffix = el.getAttribute('data-suffix') || '';
       var useDot = el.getAttribute('data-format') === 'dot';
+      if (REDUCED_MOTION) {
+        el.textContent = (useDot ? target.toLocaleString('de-DE') : target) + suffix;
+        return;
+      }
       var duration = 1800;
       var start = performance.now();
       function update(now) {
@@ -2421,6 +2622,10 @@
     }
 
     function animateTimeCounter(el) {
+      if (REDUCED_MOTION) {
+        el.textContent = '8h → 30min';
+        return;
+      }
       var duration = 1800;
       var start = performance.now();
       function update(now) {
@@ -2482,7 +2687,7 @@
       }
 
       // Animate
-      var animDuration = 1200;
+      var animDuration = REDUCED_MOTION ? 1 : 1200;
       var animStart = performance.now();
       var animDone = false;
 
@@ -2679,11 +2884,15 @@
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
       var form = this;
+      var errEl = document.getElementById('formError');
+      errEl.hidden = true;
       var valid = true;
+      var firstInvalid = null;
       var required = form.querySelectorAll('[required]');
       required.forEach(function(field) {
         if (!field.value || (field.type === 'checkbox' && !field.checked)) {
           field.style.borderColor = '#ff6b35';
+          if (!firstInvalid) firstInvalid = field;
           valid = false;
         } else {
           field.style.borderColor = '';
@@ -2692,8 +2901,10 @@
       var emailField = form.querySelector('#email');
       if (emailField.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value)) {
         emailField.style.borderColor = '#ff6b35';
+        if (!firstInvalid) firstInvalid = emailField;
         valid = false;
       }
+      if (!valid && firstInvalid) firstInvalid.focus();
       if (valid) {
         var btn = form.querySelector('button[type="submit"]');
         btn.disabled = true;
@@ -2712,13 +2923,15 @@
           } else {
             btn.disabled = false;
             btn.textContent = tJS('send');
-            alert(tJS('error'));
+            errEl.textContent = tJS('error');
+            errEl.hidden = false;
           }
         })
         .catch(function() {
           btn.disabled = false;
           btn.textContent = tJS('send');
-          alert(tJS('error'));
+          errEl.textContent = tJS('error');
+          errEl.hidden = false;
         });
       }
     });
@@ -2796,7 +3009,7 @@
       ];
 
       var animStart = performance.now();
-      var animDur = 1000;
+      var animDur = REDUCED_MOTION ? 1 : 1000;
 
       function drawDonut() {
         var now = performance.now();
@@ -2831,12 +3044,21 @@
 
     /* ========== KEYBOARD NAV ========== */
     document.addEventListener('keydown', function(e) {
-      var panels = ['profil', 'erfahrung', 'skills', 'projekte', 'report', 'leistungen', 'ki-updates', 'kontakt'];
+      if (e.target.matches('input, textarea, select') || e.ctrlKey || e.altKey || e.metaKey) return;
+      var panels = ['profil', 'erfahrung', 'skills', 'projekte', 'report', 'leistungen', 'preise', 'ki-updates', 'kontakt'];
       var key = parseInt(e.key);
       if (key >= 1 && key <= panels.length) {
         switchPanel(panels[key - 1]);
       }
     });
+
+    /* ========== DEEP LINKS (URL-Hash) ========== */
+    (function() {
+      var hash = location.hash.replace('#', '');
+      if (hash && document.getElementById('panel-' + hash)) {
+        switchPanel(hash);
+      }
+    })();
   </script>
 
   <!-- ========== I18N / LANGUAGE SWITCH ========== -->
@@ -2852,6 +3074,7 @@
       'nav.projekte': 'Projects',
       'nav.report': 'Report',
       'nav.leistungen': 'Services',
+      'nav.preise': 'Pricing',
       'nav.ki-updates': 'AI Updates',
       'nav.kontakt': 'Contact',
 
@@ -2979,6 +3202,40 @@
       'leist.s6.title': 'Training & Knowledge Transfer',
       'leist.s6.desc': 'Hands-on training in Power Query, SQL for controllers, Python automation and AI tools — so your team can keep working independently.',
 
+      'preis.title': 'PRICING',
+      'preis.subtitle': '// Transparent terms — packages & guide prices',
+      'preis.badge': 'Popular',
+      'preis.cta': 'SEND ENQUIRY',
+      'preis.cta2': 'REQUEST PROJECT',
+      'preis.cta3': 'REQUEST DATE',
+      'preis.p1.name': 'Analysis & Consulting',
+      'preis.p1.target': '// For a quick start',
+      'preis.p1.unit': 'per hour',
+      'preis.p1.f1': 'Process and data analysis of your controlling workflows',
+      'preis.p1.f2': 'Identification of automation potential',
+      'preis.p1.f3': 'Tool consulting: Power Query, SQL, Python, AI',
+      'preis.p1.f4': 'Concrete recommendations as a short report',
+      'preis.p1.f5': 'Billed in 15-minute increments',
+      'preis.p2.name': 'Automation Project',
+      'preis.p2.target': '// Reporting, migration, dashboards',
+      'preis.p2.price': 'from €2,500',
+      'preis.p2.unit': 'Fixed price after effort estimate',
+      'preis.p2.f1': 'Automated reporting systems (e.g. 8h → 30min)',
+      'preis.p2.f2': 'Data migration with reconciliation and validation',
+      'preis.p2.f3': 'Interactive dashboards and KPI systems',
+      'preis.p2.f4': 'Complete documentation and handover',
+      'preis.p2.f5': '4 weeks of post-go-live support included',
+      'preis.p3.name': 'Training & Workshop',
+      'preis.p3.target': '// Bring the knowledge into your team',
+      'preis.p3.price': 'from €950',
+      'preis.p3.unit': 'per training day',
+      'preis.p3.f1': 'Power Query, SQL for controllers, Python automation',
+      'preis.p3.f2': 'AI tools in controlling (Claude AI, MCP)',
+      'preis.p3.f3': 'Hands-on — with your own data and processes',
+      'preis.p3.f4': 'Up to 8 participants, remote or on-site',
+      'preis.p3.f5': 'Training materials and exercises included',
+      'preis.note': 'All prices plus VAT — guide prices; I prepare the final quote after a free initial consultation.',
+
       'ki.title': 'AI UPDATES',
       'ki.subtitle': '// Weekly briefing — Artificial Intelligence',
       'ki.readmore': 'READ REPORT →',
@@ -3007,7 +3264,7 @@
       'form.opt4': 'Job offer',
       'form.opt5': 'Other',
       'form.message': 'Message *',
-      'form.message.ph': 'Describe your request...',
+      'form.message.ph': 'Describe your request…',
       'form.privacy': 'I have read the <a href="#" onclick="openModal(\'datenschutz\');return false;">Privacy Policy</a> and consent to the processing of my data. *',
       'form.send': 'SEND MESSAGE',
       'form.success.title': 'TRANSMISSION SUCCESSFUL',
@@ -3057,8 +3314,8 @@
 
     // JS-only strings (button states, alerts)
     var JS_STR = {
-      de: { sending: 'ÜBERTRAGUNG...', send: 'NACHRICHT SENDEN', error: 'Fehler beim Senden. Bitte versuchen Sie es später erneut.' },
-      en: { sending: 'TRANSMITTING...', send: 'SEND MESSAGE', error: 'Sending failed. Please try again later.' }
+      de: { sending: 'ÜBERTRAGUNG…', send: 'NACHRICHT SENDEN', error: 'Fehler beim Senden. Bitte versuchen Sie es später erneut.' },
+      en: { sending: 'TRANSMITTING…', send: 'SEND MESSAGE', error: 'Sending failed. Please try again later.' }
     };
     window.tJS = function (k) { return (JS_STR[window.__lang] || JS_STR.de)[k]; };
 
