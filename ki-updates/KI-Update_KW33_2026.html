@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KI-Update KW 33 · 2026 - Astra, Muse Glimmer &amp; der Preis-Rückzieher</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100' height='100' rx='12' fill='%231C1917'/%3E%3Cpath d='M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z' fill='%23B07D1E' opacity='0.12'/%3E%3Cpath d='M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z' fill='none' stroke='%23B07D1E' stroke-width='3'/%3E%3Ctext x='50' y='54' text-anchor='middle' dominant-baseline='central' font-family='Georgia,serif' font-weight='700' font-size='36' fill='%23B07D1E'%3ETW%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500;1,9..144,900&family=Hanken+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --base: #0b0d14;
+    --ink: #f2f0ea;
+    --ink-soft: #a6adbe;
+    --ink-faint: #6b7283;
+    --gold: #f0a92e;
+    --gold-bright: #ffc35a;
+    --gold-deep: #d98a16;
+    --glass: rgba(255,255,255,0.045);
+    --glass-strong: rgba(255,255,255,0.075);
+    --glass-edge: rgba(255,255,255,0.12);
+    --glass-line: rgba(255,255,255,0.08);
+    --emerald: #34d399;
+    --violet: #a78bfa;
+    --cyan: #38bdf8;
+    --rose: #fb7185;
+    --blue: #6090f8;
+    --shadow: 0 2px 6px rgba(0,0,0,0.4), 0 16px 40px -12px rgba(0,0,0,0.6);
+    --shadow-sm: 0 2px 12px -4px rgba(0,0,0,0.5);
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Hanken Grotesk', -apple-system, sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--ink);
+    background: var(--base);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ---------- Gradient-Mesh-Hintergrund (dunkel, leuchtend) ---------- */
+  .mesh {
+    position: fixed;
+    inset: -20%;
+    z-index: -2;
+    background:
+      radial-gradient(38% 34% at 16% 10%, rgba(240,169,46,0.30), transparent 70%),
+      radial-gradient(36% 38% at 86% 6%, rgba(251,113,133,0.22), transparent 70%),
+      radial-gradient(44% 44% at 92% 70%, rgba(56,189,248,0.26), transparent 72%),
+      radial-gradient(48% 48% at 6% 90%, rgba(52,211,153,0.20), transparent 72%),
+      radial-gradient(60% 60% at 50% 50%, rgba(120,90,200,0.12), transparent 65%);
+    filter: saturate(1.15);
+    animation: drift 28s ease-in-out infinite alternate;
+  }
+  @keyframes drift {
+    0%   { transform: translate3d(0,0,0) scale(1); }
+    50%  { transform: translate3d(-2%, 1.5%, 0) scale(1.07); }
+    100% { transform: translate3d(2%, -1.5%, 0) scale(1.04); }
+  }
+
+  /* Grain-Overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.6;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- Glas-Grundbaustein ---------- */
+  .glass {
+    background: var(--glass);
+    backdrop-filter: blur(22px) saturate(1.4);
+    -webkit-backdrop-filter: blur(22px) saturate(1.4);
+    border: 1px solid var(--glass-edge);
+    box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+
+  /* ---------- Top-Bar ---------- */
+  .back-bar {
+    position: sticky;
+    top: 0.75rem;
+    z-index: 50;
+    width: min(960px, calc(100% - 2rem));
+    margin: 0.75rem auto 0;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1rem;
+    border-radius: 999px;
+    background: rgba(18,20,28,0.6);
+    backdrop-filter: blur(18px) saturate(1.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    border: 1px solid var(--glass-edge);
+    box-shadow: var(--shadow-sm);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+  }
+  .back-bar:hover { transform: translateY(-1px); box-shadow: var(--shadow); color: var(--gold-bright); }
+  .back-bar__logo { width: 24px; height: 24px; border-radius: 7px; flex-shrink: 0; }
+  .back-bar__arrow { font-size: 0.9rem; }
+  .back-bar__site { color: var(--ink); font-weight: 600; }
+  .back-bar__spacer { flex: 1; }
+  .back-bar__pill {
+    color: var(--gold-bright);
+    background: rgba(240,169,46,0.16);
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.66rem;
+  }
+
+  .wrap { width: min(960px, calc(100% - 2rem)); margin: 0 auto; }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 4.5rem 0 2.5rem; text-align: center; }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-bright);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  .hero-badge .spark {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--gold-bright);
+    box-shadow: 0 0 0 4px rgba(240,169,46,0.18), 0 0 12px rgba(255,195,90,0.6);
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-size: clamp(2.4rem, 6vw, 4.3rem);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    max-width: 14ch;
+    margin: 0 auto 1.6rem;
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) 0.08s forwards;
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 900;
+    background: linear-gradient(105deg, var(--gold-bright), var(--gold-deep));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    max-width: 52ch;
+    margin: 0 auto 2.2rem;
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) 0.16s forwards;
+  }
+  .hero-meta {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) 0.24s forwards;
+  }
+  .hero-meta span {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--ink-soft);
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    background: var(--glass);
+    border: 1px solid var(--glass-edge);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  /* ---------- Kennzahlen ---------- */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1rem 0 3.5rem;
+  }
+  .stat {
+    border-radius: 22px;
+    padding: 1.6rem 1.5rem;
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) forwards;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  }
+  .stat:nth-child(1){ animation-delay: 0.30s; }
+  .stat:nth-child(2){ animation-delay: 0.38s; }
+  .stat:nth-child(3){ animation-delay: 0.46s; }
+  .stat:hover { transform: translateY(-4px); box-shadow: var(--shadow); background: var(--glass-strong); }
+  .stat-value {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2rem, 4vw, 2.7rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .stat-1 .stat-value { background: linear-gradient(120deg,#ffc35a,#d98a16); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .stat-2 .stat-value { background: linear-gradient(120deg,#fb7185,#e11d48); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .stat-3 .stat-value { background: linear-gradient(120deg,#38bdf8,#2563eb); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .stat-label { margin-top: 0.7rem; font-size: 0.85rem; line-height: 1.5; color: var(--ink-soft); }
+
+  /* ---------- Lede ---------- */
+  .lede {
+    border-radius: 24px;
+    padding: 2rem 2.2rem;
+    margin-bottom: 3.5rem;
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    position: relative;
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) 0.5s forwards;
+  }
+  .lede::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 1.6rem; bottom: 1.6rem;
+    width: 4px;
+    border-radius: 4px;
+    background: linear-gradient(var(--gold-bright), var(--gold-deep));
+  }
+  .lede strong { color: var(--ink); font-weight: 700; }
+
+  /* ---------- Sektionen ---------- */
+  .section { margin-bottom: 2.6rem; }
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 1rem;
+    padding-left: 0.25rem;
+  }
+  .dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; box-shadow: 0 0 12px currentColor; }
+  .section-name {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .section-rule { flex: 1; height: 1px; background: linear-gradient(90deg, var(--glass-line), transparent); }
+
+  .card {
+    border-radius: 22px;
+    padding: 1.5rem 1.7rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); background: var(--glass-strong); border-color: rgba(255,255,255,0.18); }
+  .card + .card { margin-top: 0.85rem; }
+  .card-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.2rem;
+    line-height: 1.35;
+    color: var(--ink);
+    margin-bottom: 0.7rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  .card-body { color: var(--ink-soft); font-size: 0.96rem; }
+  .card-body strong { color: var(--ink); font-weight: 600; }
+
+  .chip {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+  }
+  .chip--new   { color:#c4b5fd; background:rgba(167,139,250,0.16); border-color:rgba(167,139,250,0.3); }
+  .chip--down  { color:#fda4af; background:rgba(251,113,133,0.14); border-color:rgba(251,113,133,0.3); }
+  .chip--up    { color:#6ee7b7; background:rgba(52,211,153,0.16); border-color:rgba(52,211,153,0.3); }
+  .chip--alert { color:var(--gold-bright); background:rgba(240,169,46,0.16); border-color:rgba(240,169,46,0.36); }
+  .chip--neutral{ color:var(--ink-soft); background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.14); }
+
+  /* ---------- Closer ---------- */
+  .closer {
+    margin-top: 3.5rem;
+    border-radius: 28px;
+    padding: 2.8rem;
+    position: relative;
+    overflow: hidden;
+    background:
+      linear-gradient(135deg, rgba(240,169,46,0.18), rgba(56,189,248,0.14)),
+      rgba(255,255,255,0.05);
+    border: 1px solid var(--glass-edge);
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    box-shadow: var(--shadow);
+  }
+  .closer-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-bright);
+    margin-bottom: 1rem;
+  }
+  .closer p {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.4rem, 3vw, 1.8rem);
+    line-height: 1.4;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .closer p + p {
+    margin-top: 1.1rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--ink-soft);
+    letter-spacing: 0;
+  }
+  .closer p + p strong { color: var(--ink); font-weight: 700; }
+
+  /* ---------- Footer ---------- */
+  .footer-cta-wrap { text-align: center; padding: 3rem 0 1.5rem; }
+  .footer-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.9rem 1.6rem;
+    border-radius: 999px;
+    background: linear-gradient(120deg, var(--gold-bright), var(--gold-deep));
+    color: #1a1206;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    box-shadow: var(--shadow), 0 0 24px -6px rgba(255,195,90,0.5);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .footer-cta:hover { transform: translateY(-2px); box-shadow: var(--shadow), 0 0 32px -4px rgba(255,195,90,0.7); }
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 1.5rem 0 4rem;
+    border-top: 1px solid var(--glass-line);
+    font-size: 0.82rem;
+    color: var(--ink-faint);
+  }
+  .footer a { color: var(--ink-soft); text-decoration: none; font-weight: 600; }
+  .footer a:hover { color: var(--gold-bright); }
+  .footer-tags { font-family: var(--font-mono); font-size: 0.72rem; }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mesh { animation: none; }
+    [style*="animation"], .hero-badge, .hero h1, .hero-sub, .hero-meta, .stat, .lede { animation: none !important; opacity: 1 !important; transform: none !important; }
+  }
+  @media (max-width: 720px) {
+    .stats { grid-template-columns: 1fr; }
+    .hero { padding: 3rem 0 2rem; }
+    .closer { padding: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+<div class="mesh" aria-hidden="true"></div>
+
+<a class="back-bar" href="https://thomas-wodny.de/#panel-ki-updates">
+  <svg class="back-bar__logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect width="100" height="100" rx="12" fill="#1C1917"/>
+    <path d="M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z" fill="#B07D1E" opacity="0.12"/>
+    <path d="M50,8 L88,22 L88,50 Q88,78 50,92 Q12,78 12,50 L12,22 Z" fill="none" stroke="#B07D1E" stroke-width="3"/>
+    <text x="50" y="54" text-anchor="middle" dominant-baseline="central" font-family="Georgia,serif" font-weight="700" font-size="36" fill="#B07D1E">TW</text>
+  </svg>
+  <span class="back-bar__arrow">&#8592;</span>
+  <span class="back-bar__site">thomas-wodny.de</span>
+  <span class="back-bar__spacer"></span>
+  <span class="back-bar__pill">KW 33 · 2026</span>
+</a>
+
+<header class="hero wrap">
+  <div class="hero-badge glass"><span class="spark"></span>KI-Wochenbericht · Künstliche Intelligenz</div>
+  <h1>Eine Maschine löst Mathe, an der wir <em>jahrzehntelang scheiterten.</em></h1>
+  <p class="hero-sub">OpenAIs unveröffentlichtes Modell Astra knackt zehn offene Probleme für rund 2.000 Dollar Rechenzeit. Meta drückt derweil ein Agenten-Modell auf eine einzige Grafikkarte, und Anthropic kassiert die eigene Preiserhöhung wieder ein.</p>
+  <div class="hero-meta">
+    <span>5.–12. August 2026</span>
+    <span>5 Hersteller</span>
+    <span>10 Meldungen</span>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- Kennzahlen -->
+  <section class="stats">
+    <div class="stat stat-1 glass">
+      <div class="stat-value">~2.000&nbsp;$</div>
+      <div class="stat-label">Rechenzeit - so viel kostete Astra das Lösen von zehn offenen Mathe-Problemen</div>
+    </div>
+    <div class="stat stat-2 glass">
+      <div class="stat-value">30&nbsp;Mrd.</div>
+      <div class="stat-label">Parameter - Metas Muse Glimmer läuft auf einer einzigen 24-GB-Consumer-GPU</div>
+    </div>
+    <div class="stat stat-3 glass">
+      <div class="stat-value">2&thinsp;/&thinsp;10&nbsp;$</div>
+      <div class="stat-label">pro Mio. Token bleibt - Anthropic streicht die geplante Erhöhung auf 3 / 15 $</div>
+    </div>
+  </section>
+
+  <!-- Lede -->
+  <p class="lede glass">
+    <strong>Die Schere zwischen Spitze und Breite öffnet sich - in beide Richtungen zugleich.</strong>
+    OpenAI treibt die Forschungsfront so weit, dass eine Maschine jahrzehntealte Mathematik knackt. Meta stellt gleichzeitig ein brauchbares Agenten-Modell frei zum Download auf einen einzelnen Rechner. Und Anthropic macht seinen Kampfpreis dauerhaft. Nutzen pro Euro steigt an beiden Enden.
+  </p>
+
+  <!-- OpenAI -->
+  <section class="section">
+    <div class="section-head">
+      <span class="dot" style="background:var(--emerald); color:var(--emerald)"></span>
+      <span class="section-name">OpenAI · Astra</span>
+      <span class="section-rule"></span>
+    </div>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--new">Forschung</span> Astra löst zehn offene Mathe-Probleme - 1. August</h3>
+      <p class="card-body">OpenAI veröffentlicht zehn Fortschritte aus Mathematik und theoretischer Informatik, erzeugt vom noch <strong>unveröffentlichten Modell Astra</strong>. Jedes Problem war <strong>seit mindestens zehn Jahren ungelöst</strong> - darunter die Konstruktion einer nicht-sofischen Gruppe, eine Frage, die Michail Gromow 1999 aufwarf. Alle Beweise sind in <strong>Lean 4</strong> formalisiert und maschinell nachprüfbar (auf GitHub, Apache 2.0, „sorry"-Count = 0).</p>
+    </article>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--alert">Einordnung</span> 2.000 Dollar Rechenzeit - aber kein Peer Review</h3>
+      <p class="card-body">Die Tokens für alle zehn Lösungen hätten zu Sols API-Preisen <strong>rund 2.000 Dollar</strong> gekostet. Ein Preis-Leistungs-Verhältnis, das mit menschlicher Spitzenforschung nicht vergleichbar ist. <strong>Aber:</strong> keine Peer Review, kein Release-Datum, keine Preise. Menschliche Forscher haben die Argumente nachträglich zu Papern ausgearbeitet.</p>
+    </article>
+  </section>
+
+  <!-- Meta -->
+  <section class="section">
+    <div class="section-head">
+      <span class="dot" style="background:var(--blue); color:var(--blue)"></span>
+      <span class="section-name">Meta · Muse Glimmer</span>
+      <span class="section-rule"></span>
+    </div>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--new">Open Weight</span> 30B-Agenten-Modell für den eigenen Rechner - 10. August</h3>
+      <p class="card-body">Meta Superintelligence Labs veröffentlicht <strong>Muse Glimmer</strong>: ein agentenfähiges Modell mit <strong>30 Mrd. Parametern</strong> unter <strong>Apache-2.0-Lizenz</strong>, frei auf Hugging Face. Durch 4-Bit-Quantisierung passt es unter 20 GB und läuft auf einer <strong>einzigen Consumer-GPU</strong> (24 GB, z.B. RTX 5090 oder MacBook M4-/M5-Max). Speculative Decoding beschleunigt 1,5- bis 3,1-fach.</p>
+    </article>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--up">Lokal</span> Tool-Nutzung, Coding, Multimodal - ohne Cloud</h3>
+      <p class="card-body">Gebaut für End-to-End-Agentic-Tasks (SWE-Bench, DeepSearch QA): zuverlässige Tool-Nutzung, Fehlerdiagnose und -recovery, multimodal (Text + Bild), <strong>100+ Sprachen</strong>. Kein Token verlässt den Rechner. Zuckerberg fordert niedrigere US-Hürden für Open-Weight-KI und kündigt <strong>„noch größere Modelle"</strong> an.</p>
+    </article>
+  </section>
+
+  <!-- Anthropic -->
+  <section class="section">
+    <div class="section-head">
+      <span class="dot" style="background:var(--gold-bright); color:var(--gold-bright)"></span>
+      <span class="section-name">Anthropic</span>
+      <span class="section-rule"></span>
+    </div>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--up">Pricing</span> Sonnet-5-Kampfpreis wird dauerhaft - 11. August</h3>
+      <p class="card-body">Anthropic macht den Einführungspreis von <strong>Claude Sonnet 5</strong> dauerhaft: <strong>2 $ Input / 10 $ Output</strong> je Mio. Token. Die zum <strong>1. September</strong> geplante Erhöhung auf 3 $ / 15 $ (+50 % Input) ist damit gestrichen - genau die Anhebung, die vergangene Woche noch angekündigt war. Selten macht ein Anbieter eine Preiserhöhung wieder rückgängig.</p>
+    </article>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--new">Voice</span> Voice Mode jetzt auf Opus und Sonnet</h3>
+      <p class="card-body">Der Voice Mode läuft neuerdings auf <strong>Opus, Sonnet und Haiku</strong> (vorher nur Haiku) und erreicht verbundene Tools wie <strong>Gmail und Slack</strong>. Sprachsteuerung trifft damit auf die stärkeren Modelle.</p>
+    </article>
+  </section>
+
+  <!-- Google -->
+  <section class="section">
+    <div class="section-head">
+      <span class="dot" style="background:var(--violet); color:var(--violet)"></span>
+      <span class="section-name">Google · DeepMind</span>
+      <span class="section-rule"></span>
+    </div>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--down">Umbau</span> Hassabis wird Chairman - Gemini 3.5 Pro Monate hinter Plan</h3>
+      <p class="card-body">Demis Hassabis zieht sich aus dem Tagesgeschäft zurück (<strong>Chairman DeepMind + Chief Scientist Alphabet</strong>); <strong>Koray Kavukcuoglu</strong> übernimmt operativ, AI-Studio- und Gemini-API-Teams wandern in DeepMind. Berichtet: <strong>Gemini 3.5 Pro Monate hinter Plan</strong>, Rückschläge bei den Flash-Modellen. Der Fokus schwenkt auf <strong>Gemini 4</strong>.</p>
+    </article>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--new">Robotik</span> Gemini Robotics ER 2</h3>
+      <p class="card-body">Neues Embodied-Reasoning-Modell mit <strong>Video-Verständnis</strong>, Multi-Step-Orchestrierung und Multi-Roboter-Kollaboration. Die Modelle verlassen weiter den Chat.</p>
+    </article>
+  </section>
+
+  <!-- xAI -->
+  <section class="section">
+    <div class="section-head">
+      <span class="dot" style="background:var(--cyan); color:var(--cyan)"></span>
+      <span class="section-name">xAI · Grok</span>
+      <span class="section-rule"></span>
+    </div>
+    <article class="card glass">
+      <h3 class="card-title"><span class="chip chip--neutral">Takt</span> Grok Bot Beta, Voice 2.0 und Grok 4.6 in Sicht</h3>
+      <p class="card-body">Am <strong>5. August</strong> ging <code>grok-voice-think-fast-2.0</code> (Speech-to-Speech) live, am <strong>11. August</strong> startete die Public Beta von <strong>Grok Bot</strong>. <strong>Grok 4.6</strong> ist laut Musk „nächste Woche" fällig - Grok 4.5 kam erst im Juli (500K-Kontext, ~2 $/6 $ je Mio. Token). Der Update-Takt bei xAI bleibt hoch.</p>
+    </article>
+  </section>
+
+  <!-- Closer -->
+  <div class="closer">
+    <div class="closer-kicker">Einordnung · Controller-Perspektive</div>
+    <p>Zwei Bewegungen in dieselbe Richtung, von entgegengesetzten Enden: die Spitze wird teurer erforscht, der Alltag wird günstiger nutzbar.</p>
+    <p>OpenAI schiebt mit Astra die Forschungsfront so weit nach vorn, dass eine Maschine jahrzehntealte Mathematik knackt - für den Gegenwert eines Gebrauchtwagens an Rechenzeit. Meta drückt gleichzeitig ein brauchbares Agenten-Modell auf eine einzige Grafikkarte, ohne Cloud, ohne laufende Token-Rechnung. Und Anthropic nimmt die eigene Preiserhöhung zurück, bevor sie greift. Für die Kostenseite heißt das: lokale Modelle machen aus variablen Cloud-Kosten planbare Fixkosten. Wer KI budgetiert, sollte <strong>„läuft es auch auf eigener Hardware?"</strong> inzwischen als ernste Frage behandeln.</p>
+  </div>
+
+</main>
+
+<div class="wrap">
+  <div class="footer-cta-wrap">
+    <a class="footer-cta" href="https://thomas-wodny.de/#panel-ki-updates">&#8592; Alle KI-Updates ansehen</a>
+  </div>
+  <footer class="footer">
+    <div><a href="https://thomas-wodny.de/">Thomas Wodny</a> · Financial Analyst &amp; Senior Controller</div>
+    <div class="footer-tags">#KI #AI #LLM #OpenAI #Anthropic</div>
+  </footer>
+</div>
+
+</body>
+</html>
