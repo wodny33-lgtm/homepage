@@ -2397,9 +2397,11 @@
                 </div>
               </div>
               <div>
-                <form id="contactForm" class="hud-form" action="https://formsubmit.co/ajax/wodny33@googlemail.com" method="POST" novalidate>
+                <form id="contactForm" class="hud-form" action="https://formsubmit.co/wodny33@googlemail.com" method="POST" novalidate>
                   <input type="hidden" name="_subject" value="Neue Anfrage von thomas-wodny.de">
                   <input type="hidden" name="_template" value="table">
+                  <input type="hidden" name="_captcha" value="true">
+                  <input type="hidden" name="_next" value="https://thomas-wodny.de/danke.html">
                   <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
                   <div class="form-row form-row--half">
                     <div class="form-group">
@@ -2924,7 +2926,6 @@
 
     /* ========== CONTACT FORM ========== */
     document.getElementById('contactForm').addEventListener('submit', function(e) {
-      e.preventDefault();
       var form = this;
       var errEl = document.getElementById('formError');
       errEl.hidden = true;
@@ -2946,36 +2947,16 @@
         if (!firstInvalid) firstInvalid = emailField;
         valid = false;
       }
-      if (!valid && firstInvalid) firstInvalid.focus();
-      if (valid) {
-        var btn = form.querySelector('button[type="submit"]');
-        btn.disabled = true;
-        btn.textContent = tJS('sending');
-        var formData = new FormData(form);
-        fetch(form.action, {
-          method: 'POST',
-          headers: { 'Accept': 'application/json' },
-          body: formData
-        })
-        .then(function(response) { return response.json(); })
-        .then(function(data) {
-          if (data.success) {
-            form.style.display = 'none';
-            document.getElementById('formSuccess').classList.add('visible');
-          } else {
-            btn.disabled = false;
-            btn.textContent = tJS('send');
-            errEl.textContent = tJS('error');
-            errEl.hidden = false;
-          }
-        })
-        .catch(function() {
-          btn.disabled = false;
-          btn.textContent = tJS('send');
-          errEl.textContent = tJS('error');
-          errEl.hidden = false;
-        });
+      if (!valid) {
+        e.preventDefault();
+        if (firstInvalid) firstInvalid.focus();
+        return;
       }
+      /* Gueltig: nativ an FormSubmit senden. Dort folgt die Captcha-Pruefung,
+         danach leitet _next auf danke.html zurueck. */
+      var btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.textContent = tJS('sending');
     });
 
     /* ========== COOKIES ========== */
