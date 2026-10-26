@@ -132,6 +132,7 @@
     .hud-layout {
       display: grid;
       grid-template-rows: auto 1fr auto;
+      grid-template-columns: minmax(0, 1fr);
       height: 100vh;
       height: 100dvh;
       position: relative;
@@ -186,6 +187,11 @@
       text-shadow: 0 0 10px var(--cyan-glow);
     }
     .hud-header__title {
+      white-space: nowrap;
+      overflow: hidden;
+      min-height: 1.4em;
+      line-height: 1.4;
+      max-width: 100%;
       font-family: var(--font-mono);
       font-size: 12px;
       color: var(--cyan);
@@ -1025,6 +1031,24 @@
       text-transform: uppercase;
       border-top: 1px solid #1e2230;
     }
+    .report-stack { grid-template-columns: 1fr 1fr 1fr; }
+    @media (max-width: 900px) {
+      .report-stack { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .report-kpis { grid-template-columns: repeat(2, 1fr); }
+      .report-charts { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .report-preview__header { flex-direction: column; align-items: flex-start; gap: 8px; padding: 14px 16px; }
+      .report-preview__logo { font-size: 11px; letter-spacing: 0.05em; }
+      .report-kpis { gap: 10px; padding: 16px; }
+      .report-kpi { padding: 12px 8px; }
+      .report-kpi__value { font-size: 18px; }
+      .report-charts { padding: 0 16px 16px; }
+      .report-donut { flex-wrap: wrap; gap: 12px; }
+      .report-preview__watermark { letter-spacing: 0.04em; line-height: 1.5; }
+    }
     .report-preview__blur {
       position: relative;
     }
@@ -1546,7 +1570,7 @@
     .mobile-nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
     @media (max-width: 900px) {
-      .hud-main { grid-template-columns: 1fr; }
+      .hud-main { grid-template-columns: minmax(0, 1fr); }
       .hud-nav {
         display: none;
         position: fixed;
@@ -1581,6 +1605,15 @@
       .highlights-grid { grid-template-columns: 1fr; }
       .hud-form .form-row--half { grid-template-columns: 1fr; }
       .hud-header__status { display: none; }
+      .hud-stats { flex-wrap: wrap; gap: 8px 16px; padding: 10px 16px; }
+      .hud-stats__group { flex-wrap: wrap; gap: 8px 20px; }
+      .hud-header { padding: 10px 12px; gap: 8px; }
+      .hud-header__left { gap: 10px; min-width: 0; flex: 1; }
+      .hud-header__portrait { width: 40px; height: 40px; flex-shrink: 0; }
+      .hud-header__info { min-width: 0; }
+      .hud-header__name { font-size: 14px; letter-spacing: 0.04em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .hud-header__right { gap: 10px; flex-shrink: 0; }
+      .hud-header__title { font-size: 10px; letter-spacing: 0.02em; text-overflow: ellipsis; }
     }
 
     /* ========== LANGUAGE TOGGLE ========== */
@@ -2499,7 +2532,7 @@
 
             <div style="margin-top:24px;">
               <div class="panel__label" data-i18n="rep.stack">Technologie-Stack</div>
-              <div class="projects-grid" style="grid-template-columns:1fr 1fr 1fr;">
+              <div class="projects-grid report-stack">
                 <div class="project-card">
                   <div class="project-card__title" style="font-size:13px;">Frontend</div>
                   <p class="project-card__desc" style="font-size:13px;" data-i18n="rep.stack1">Vanilla HTML/CSS/JS, Apache ECharts 5, Single-File Dashboard</p>
